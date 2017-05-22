@@ -1,0 +1,181 @@
+.ListeSports{
+	list-style-type: none;
+	float:left;
+	padding:10px;
+}
+.Categorie{
+	font-size:140%;
+}
+.ListeSports li{
+	margin-top:5px;
+}
+.popup-sports{
+	position: relative;
+	background: #FFF;
+	padding: 40px;
+	width: auto;
+	max-width: 700px;
+	margin: 20px auto;
+	text-align: left;
+	border-radius:15px;
+}
+.open-popup-sports{
+	margin:15px;
+}
+.popup-title{
+	margin:0px;
+}
+.LienSport{
+	cursor:pointer;
+}
+.divSport{
+	display:none;
+	width:100%;
+	margin-top:14px;
+	font-size:150%;
+	background: rgba(0,0,255,0.05);
+    padding: 5;
+    border-radius: 5px;
+}
+.btnpop{
+	width:100%;
+	min-width:200px;
+	height:70px;
+	font-size:150%;
+	border-radius:5px;
+}
+.btnpoplien{
+	width:100%;
+	min-width:200px;
+	height:70px;
+	font-size:90%;
+	border-radius:5px;
+}
+.btnpopretour{
+	width:100px;
+	height:33px;
+	float:right;
+}
+.Horizontal{
+	height:1px;
+	background-color:black;
+	width:100%;
+	margin-top:5px;
+}
+.imgjoueur{
+	width:240px;
+	height:265px;
+	border-top: 4px solid gray;
+	border-left: 4px solid black;
+	border-radius: 4px;
+    box-shadow: 3px 3px 2px #888888;
+	transition: opacity 300ms;
+	cursor: pointer;
+}
+.divjoueur{
+	width:240px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:4px;
+	color:white;
+	background-color:#CE003A;
+	border-top:2px solid black;
+	border-left:4px solid black;
+	border-radius: 4px;
+    box-shadow: 3px 3px 2px #888888;
+	font-size:120%;
+}
+.divposnum{
+	width:240px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:-4px;
+	color:white;
+	font-size:120%;
+}
+.divnumjoueur{
+	width:47px;
+	margin-left:auto;
+	margin-right:auto;
+	display:inline-block;
+	background-color:#c18b8b;
+	border-top:2px solid black;
+	border-left:4px solid black;
+	border-radius: 4px;
+    box-shadow: 3px 3px 2px #888888;
+}
+.divposjoueur{
+	width:188px;
+	margin-left:auto;
+	margin-right:auto;
+	display:inline-block;
+	background-color:#2D4DA7;
+	border-top:2px solid black;
+	border-left:4px solid black;
+	border-radius: 4px;
+    box-shadow: 3px 3px 2px #888888;
+}
+.imgjoueur:hover{
+	opacity:0.6;
+}
+.filtreListe{
+	list-style-type: none;
+    padding: 0;
+	padding-left:10px;
+	margin: 0;
+    overflow: hidden;
+}
+.filtreListe li{
+	float: left;
+}
+.filtreListe li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	vertical-align: middle;
+	font-size: 130%;
+	transition: background-color 500ms, color 500ms;
+}
+.filtreListe li a:hover {
+    background-color:#203879;
+	color:red;
+}
+
+
+
+
+.small{
+	display:none;
+}
+.large{
+	display:block;
+}
+
+@media (max-width:870px){
+	.large {
+		display: none;
+	}
+	.small {
+		display: block;
+	}
+	.image_profile{
+		width:60px;
+	}
+	.img_profile{
+		width:100%;
+		height:100%;
+	}
+}
+
+.btnR {
+	width:25%;
+}
+.btn-gr{
+	width:100%;
+}
+
+.btnrecherche{
+	width:100%;
+}

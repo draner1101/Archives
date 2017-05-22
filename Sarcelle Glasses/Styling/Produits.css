@@ -1,0 +1,120 @@
+.image-produits {
+    width: 45%;
+    float: left;
+    clear: right;
+}
+
+.image-produits img {
+    width: 100%;
+}
+
+.image-principale {
+    margin-bottom: 20px;
+}
+
+.info-produits {
+    width: 55%;
+    padding: 50px;
+    padding-left: 70px;
+    padding-top: 0px;
+    float: right;
+}
+
+.nom-produit {
+    font-family: 'Francois one', sans-serif;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.select-style {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 30px;
+    border: 1px solid teal;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #fff;
+    background: #fff url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+}
+
+.select-style select {
+    font-size: 16px;
+    font-family: 'Francois one', sans-serif;
+    padding: 10px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+.prix {
+    font-family: 'Francois one', sans-serif;
+    font-size: 36px;
+}
+
+.Francois {
+    font-family: 'Francois one', sans-serif;
+    font-size: 18px;
+}
+
+.description {
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.7em;
+}
+
+.retour a:hover {
+    text-decoration: none;
+}
+
+footer {
+    margin-top: 60px;
+}
+
+.tag {
+    border-radius: 4px;
+    background-color: white;
+    border: solid 1px lightgray;
+    color: darkgray;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 10px 2px;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.tag:hover {
+    background-color: teal;
+    color: white;
+}
+
+.produits h2 {
+    margin: 20px;
+    font-size: 42px;
+    font-family: 'Francois one', sans-serif;
+}
+
+.image-secondaire {
+    width: 100px !important;
+    height: 100px !important;
+    display: inline-block;
+    margin-right: 5px;
+}

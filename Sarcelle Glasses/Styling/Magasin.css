@@ -1,0 +1,123 @@
+.titre-magasin {
+    margin-top: 20px;
+    margin-bottom: 20px ;
+    font-size: 32px ;
+}
+
+.produits {
+    text-align: center;
+}
+
+.produit-item {
+    display: inline-block;
+    width: 250px;
+    clear: right;
+    background-color: whitesmoke !important;
+    border: none;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin: 5px;
+    margin-bottom: 20px;
+}
+
+.produit-item img {
+
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: center;
+    width: 200px;
+    height: auto;
+
+}
+  tr {
+        border-bottom: 1px solid #ccc;
+    }
+ 
+ div.panier{
+     border: 3px solid darkslategray;
+     border-radius: 5px;
+     padding: 20px;
+ }
+
+
+img.panier {
+    width: 100px;
+    height: auto;
+}
+
+
+.produit-item:hover {
+    text-decoration: none;
+}
+
+.titre-produit {
+    font-family: 'Francois one', sans-serif;
+    color: gray;
+    margin: 0;
+}
+
+.produit-prix {
+    font-family: 'Francois one', sans-serif;
+    color: gray;
+    font-size: 24px;
+    margin: 0;
+}
+
+.acheter {
+    border-radius: 4px;
+    background-color: darkslategray;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-bottom: 10px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.acheter:hover {
+    background-color: teal;
+    color: white;
+}
+
+.separateur {
+    margin: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px
+}
+a.btn{
+    margin: 10px 2px;
+}
+
+a.button {
+    background-color: white; 
+    border: 2px solid #e7e7e7;
+    color: black;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+a.button:hover{
+    background-color: teal;
+    color: white;
+}
+
+
+a.buttonActive{
+    background-color: darkslategray;
+    color: white;
+}
+

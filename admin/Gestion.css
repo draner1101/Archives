@@ -1,0 +1,154 @@
+table,
+td,
+th {
+    border: 1px solid #DDD;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th {
+    background-color: #555;
+    color: white;
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #CCC;
+}
+
+.contenu {
+    margin-left: 200px;
+    padding-top: 30px;
+}
+
+.add {
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: white;
+    border: 2px solid #e7e7e7;
+    padding: 5px 5px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+.buttonDeplacement {
+    padding: 10px 15px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.buttonDeplacement:hover,
+.buttonRecherche:hover {
+    border-color: darkgray;
+}
+
+.buttonRecherche {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 13px;
+}
+
+.button:hover {
+    color: black;
+}
+
+.buttonDelete:hover {
+    border-color: red;
+    color: white;
+}
+
+.buttonModifier:hover {
+    border-color: royalblue;
+    color: white;
+}
+
+.buttonActiver:hover {
+    border-color: limegreen;
+    color: white;
+}
+
+.buttonActive {
+    background-color: darkred;
+    color: white;
+}
+
+.formulaire {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+.divForm {
+    border-radius: 5px;
+    width: 500px;
+    padding: 20px;
+}
+
+.prix {
+    width: 20%;
+}
+
+.Combobox {
+    width: 150px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.recherche {
+    width: 500px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    padding: 13px;
+}
+
+.recherche:hover {
+    border-color: darkgray;
+}
+
+.right {
+    float: right;
+}
+
+.img {
+    height: 22px;
+    width: 22px;
+}
+
+.titre {
+    background-color: darkred;
+    color: white;
+    margin-top: -30px;
+    font-size: 36px;
+    padding: 40px 40px;
+}

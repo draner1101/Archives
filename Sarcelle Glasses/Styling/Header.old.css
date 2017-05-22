@@ -1,0 +1,59 @@
+.nav ul {
+  list-style: none;
+  background-color: darkslategray;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.nav li {
+    width: 120px;
+    border-bottom: none;
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.4em;
+}
+.social-media li{
+    width: 50px;
+    background-color: teal;
+}
+.social-media a:hover{
+    color: darkslategray;
+}
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: .3s background-color;
+}
+ 
+.menu a:hover{
+  background-color: teal;
+}
+ 
+.menu a.active {
+  background-color: #fff;
+  color: darkslategray;
+  cursor: default;
+}
+.nav li {
+    float: left;
+}
+.nav {
+    background-color: darkslategray;
+}
+.nav{
+    height: 60px;
+}
+.logo img{
+      height: 110px;
+       width: 330px;
+     
+}
+.menu{
+    float: right;
+}
+.logo{
+    float: left;
+    margin-left: 40px;
+    margin-top: 15px;
+}
