@@ -37,7 +37,7 @@ Normalisation();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="Diablos_en_fusion/Site/Script/classie.js"></script>
-    <script src="Diablos_en_fusion/Site/Script/slider.js"></script>
+    <!--<script src="Diablos_en_fusion/Site/Script/slider.js"></script>-->
     <script>
         function init() {
             window.addEventListener('scroll', function(e) {
@@ -57,7 +57,13 @@ Normalisation();
     </script>
 </head>
 
-<body>
+<script>    
+    if(typeof window.history.pushState == 'function') {
+        window.history.pushState({}, "Hide", '<?php echo $_SERVER['PHP_SELF'];?>');
+    }
+</script>
+
+<body onload = "remplirAnnee();">
     <div class="Header" id="accueil">
         <div>
             <header>
@@ -91,9 +97,13 @@ Normalisation();
             <span class="glyphicon glyphicon-menu-down" aria-hidden="true" style="font-size: 50px;"></span>
         </a>-->
         <div class="carousel-caption">
-            <input type="text" name="search" placeholder="Je recherche...">
-            <button class="weirdButton search">s</button>
-            <a class="combobox" href="">2016-2017<i class="glyphicon glyphicon-menu-down"></i></a>
+            <input type="text" class="recherche" name="search" placeholder="Je recherche...">
+            <button class="weirdButton search" onclick="recherche()">s</button>
+            <div class="select">
+                <span class="arr"></span>
+                <select id="annee">
+                </select>
+            </div>
         </div>
         <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -110,48 +120,49 @@ Normalisation();
             <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
             <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
             <div id="recherche">
-                <h1>Bienvenue dans l'histoire des Diablos(To change)</h1>
                 <?php
-				echo "<div class='row' style='margin-bottom:5px; margin-top:4px;'>";
+				echo "<div class='row' style='margin-bottom:5px; margin-top:4px; margin-left:28.4%;'>";
 				
-				echo "<div class='col-sm-12 col-xl-6 col-md-6' style='margin-top:4px;'><table class='tblRech'><tr><td style='vertical-align:middle'><label style='font-size:medium;margin-bottom:0px;'>Rechercher </label></td>";
-				$nom = isset($_POST['text']) ? $_POST['text'] : '';
-				echo "<td style='width:100%'><input type='text' name='text' id='text' class='form-control rech LookupFiltre' style='width:95%' placeholder='ex: Alex' value=\"".htmlspecialchars($nom, ENT_QUOTES)."\"></input></td></tr></table></div>";
+				// echo "<div class='col-sm-12 col-xl-6 col-md-6' style='margin-top:4px;'><table class='tblRech'><tr><td style='vertical-align:middle'><label style='font-size:medium;margin-bottom:0px;'>Rechercher </label></td>";
+				// $nom = isset($_POST['text']) ? $_POST['text'] : '';
+				// echo "<td style='width:100%'><input type='text' name='text' id='text' class='form-control rech LookupFiltre' style='width:95%' placeholder='ex: Alex' value=\"".htmlspecialchars($nom, ENT_QUOTES)."\"></input></td></tr></table></div>";
 				
 				echo "<div class='col-sm-12 col-xl-6 col-md-6' style='margin-top:4px;'><table class='tblRech'><tr><td style='vertical-align:middle'><label style='margin-bottom:0px;'>Entre </label></td>";
-				$date1 = isset($_POST['date1']) ? $_POST['date1'] : 2010;
-				echo "<td><input type='number' id='date1' class='form-control LookupFiltre' style='width:95%' name='date1' placeholder='AAAA' value='$date1'></input></td>";
+
+				echo "<td><input type='number' id='date1' class='form-control LookupFiltre' style='width:95%' name='date1' placeholder='AAAA'  onfocusout =\"anneeAuto('date1')\"></input></td>";
 				
 				echo "<td style='vertical-align:middle'><label style='margin-bottom:0px;'> et </label></td>";
-				$date2 = isset($_POST['date2']) ? $_POST['date2'] : 2016;
-				echo "<td><input type='number' id='date2' class='form-control LookupFiltre' style='width:95%' name='date2' placeholder='AAAA' value='$date2'></input></td>";
+
+				echo "<td><input type='number' id='date2' class='form-control LookupFiltre' style='width:95%' name='date2' placeholder='AAAA'  onfocusout =\"anneeAuto('date2')\"></input></td>";
 				echo "</tr></table></div></div>";
-			?>
+			    ?>
                     <div class="row">
-                        <div class="col-sm-7 ">
-                            <div class="btn-group btn-gr" data-toggle="buttons">
-                                <label id="Tous" onclick="check(this.id)" class="btn btnR btn-default active">
-							<input class="cbTous" id="btnTous" name="btnTous" type="checkbox" autocomplete="off" checked> <div class ="large">Tous</div> <div class ="small">Tous</div>
-						</label>
+                        <div class="col-sm-10 ">
+                            <div class="btn-group btn-gr" data-toggle="buttons" style="margin-left:9%">
+
+                                
                                 <label id="Joueur" onclick="check(this.id)" class="btn btnR btn-default ">
-							<input class="cbAutre" id="btnJoueur" name="btnJoueur" type="checkbox" autocomplete="off"> <div class ="large">Joueurs</div><div class ="small">J</div>
-						</label>
+							    <input class="cbAutre" id="btnJoueur" name="btnJoueur" type="checkbox" autocomplete="off"> <div class ="large">Joueurs</div><div class ="small">J</div>
+						        </label>
+
                                 <label id="Ent" onclick="check(this.id)" class="btn btnR btn-default ">
-							<input class="cbAutre" id="btnEnt" name="btnEnt" type="checkbox" autocomplete="off"> <div class ="large">Personnel</div> <div class ="small">Ent</div>
-						</label>
+							    <input class="cbAutre" id="btnEnt" name="btnEnt" type="checkbox" autocomplete="off"> <div class ="large">Entraîneurs</div> <div class ="small">Ent</div>
+						        </label>
+
+                                <label id="Pers" onclick="check(this.id)" class="btn btnR btn-default ">
+							    <input class="cbAutre" id="btnPers" name="btnPers" type="checkbox" autocomplete="off"> <div class ="large">Personnels-Artisans</div> <div class ="small">Pers</div>
+						        </label>
+
                                 <label id="Equi" onclick="check(this.id)" class="btn btnR btn-default ">
-							<input class="cbAutre" id="btnEqui" name="btnEqui" type="checkbox" autocomplete="off"> <div class ="large">Équipes</div> <div class ="small">Éq</div>
-						</label>
+							    <input class="cbAutre" id="btnEqui" name="btnEqui" type="checkbox" autocomplete="off"> <div class ="large">Équipes</div> <div class ="small">Éq</div>
+					        	</label>                        
                             </div>
                         </div>
-
-                        <div class=" col-sm-4 col-md-4 col-lg-2">
-                            <button id="btnrecherche" onclick="recherche()" class="btn btnR btn-default btnrecherche">Rechercher</button>
-                        </div>
                     </div>
-                    <div style="height:30px"></div>
             </div>
-            <div class="data"></div>
+
+         <!--div qui load les données   -->
+         <div class="data"></div>
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" style="width:80%;" role="document">
@@ -167,16 +178,51 @@ Normalisation();
         </div>
     </div>
     <div id="info">
+        <h1>Nous joindre</h1>
+    </div>
+    <div class="contact">
         <div class="container">
-            <center>
-                <h1>Vous avez plus d'information?</h1>
-                <h2>Voici comment nous joindre.</h2>
-            </center>
+            <div class="row">
+                <div class="col-xs-6 textInfo">
+                    <h3 style="font-weight: bold; color: #264d73;">Vous avez des questions ou vous <br>voulez fournir plus d'information?</h3>
+                    <?php
+                     $stmt = $conn->prepare('Select * from nous_joindre');
+		             $stmt->execute();
+		             $resultat = $stmt->fetchAll();
+		             foreach($resultat as $row)
+                     ?>
+
+
+
+
+
+
+                    <p class="information">Numéro de téléphone: (819) 376-1721, poste 2508</p>
+                    <p class="information">Twitter: @diablos_cegeptr</p>
+                    <p class="information">Facebook.com/les.diablos</p>
+                    <p class="information">Adresse postal: 3175 boulevard Laviolette, G8Z 1E9</p>
+                    <p class="information">Adresse courriel: sports@cegeptr.qc.ca</p> 
+
+
+                    <img style="width: 237px; height: 300px; margin-left: 80px;" src="Diablos_en_fusion/Site/Images/default.png" s alt=" Logo des Diablos ">
+                </div>
+                <div class="col-xs-6 mail ">
+                    <form action="index.php">
+                        <h4 class="title ">Nom*</h4>
+                        <input class="message " type="text " name='nom'><br>
+                        <h4 class="title ">Adresse courriel*</h4>
+                        <input class="message " type="text " name='adresse'><br>
+                        <h4 class="title ">Objet*</h4>
+                        <input class="message " type="text " name='objet'><br>
+                        <h4 class="title ">Message*</h4>
+                        <textarea class="message " rows="8" cols="83 " name='message'></textarea><br><br>
+                        <button class="btn ">Envoyer</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-    <div id="footer">
-        <p>This will be the footer</p>
-    </div>
+
 </body>
 
 <script type="text/javascript" src="Diablos_en_fusion/Site/slick/slick.min.js"></script>
@@ -214,10 +260,10 @@ Normalisation();
         $(this).remove();
     });
 
-    $(window).on('resize', function() {
+   /* $(window).on('resize', function() {
         $wHeight = $(window).height();
         $item.height($wHeight - 100);
-    });
+    }); */ // La fonction fesais en sorte que l'image prend toute la place quand on zoom
 
     $('.carousel').carousel({
         interval: 6000,
@@ -236,17 +282,23 @@ Normalisation();
         $('.modal-body').load("Diablos_en_fusion/Site/profilPopup.php?idPopup=" + id + "&typePopup=" + type);
     }
 
-    // function slickLoad() {
-    //     $('.slickDiaporamaProfil').slick({
-    //         arrows: false,
-    //         dots: false,
-    //         accessibility: false
-    //     });
-    // }
+    function slickLoad() {
+        $('.slickDiaporamaProfil').slick({
+            arrows: false,
+            dots: true,
+            accessibility: false
+        });
+         $('.slickDiaporamaProfil').slick('slickGoTo',0);
+    }
 
     function ShowOtherCard(id, type) {
-
         ShowCard(id, type, 1);
+    }
+
+
+    function ShowCardModifier(id, type) {
+        $("#myModal").modal();
+        $('.modal-body').load("Diablos_en_fusion/Site/popupModifier.php?idPopup=" + id + "&typePopup=" + type);
     }
 
     function check(id) {
@@ -276,45 +328,90 @@ Normalisation();
 
     }
 
+	function ajouterEquipeJoueur() {
+        var x = document.getElementById("joueurEquipe").rows.length;
+		var table = document.getElementById('joueurEquipe');
+		var row = table.insertRow(x);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		cell2.innerHTML = "<input type='number' name='numero" + x + "' min='1' max='999'></input>";
+		cell4.innerHTML = "<input type='text' name='saison" + x + "' maxlength='9'></input>";
+
+        $( "#og1" ).clone().appendTo(cell1); //copie le combobox des équipe
+        document.getElementsByName('nomEquipe1')[1].name = "nomEquipe" + x;
+
+        $( "#og2" ).clone().appendTo(cell3); //copie le combobox des positions
+        document.getElementsByName('position1')[1].name = "position" + x;
+		}
+
+    function ajouterEquipeEntraineur() {
+        var x = document.getElementById("entraineurEquipe").rows.length;
+		var table = document.getElementById('entraineurEquipe');
+		var row = table.insertRow(x);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		cell2.innerHTML = "<select name='sexe" + x + "'> <option value='F'>Féminin</option><option value='M'>Masculin</option><option value='X'>Mixte</option></select>";
+		cell4.innerHTML = "<input type='text' name='saison" + x + "' maxlength='9'></input>";
+
+        $( "#og1" ).clone().appendTo(cell1); //copie le combobox des équipe
+        document.getElementsByName('nomEquipe1')[1].name = "nomEquipe" + x;
+		
+        $( "#og2" ).clone().appendTo(cell3); //copie le combobox des équipe
+        document.getElementsByName('role1')[1].name = "role" + x;
+		}
+
     function recherche() {
 
         $(".carte").html("");
         var data = '?';
+        var tous = 1;
 
-        data = data + 'recherche=' + $('.rech').val().replace(' ', '&nbsp');
+        data = data + 'recherche=' + $('.recherche').val().replace(' ', '&nbsp');
 
 
         data = data + '&date1=' + $('#date1').val();
         data = data + '&date2=' + $('#date2').val();
+        data = data + '&date=' + $('#annee').val();
 
-        if ($('#btnTous').prop('checked') == true) {
-            data = data + '&tous=1';
-        } else {
-            data = data + '&tous=0';
-        }
 
         if ($('#btnJoueur').prop('checked') == true) {
             data = data + '&joueur=1';
+            tous = 0;
         } else {
             data = data + '&joueur=0';
         }
 
         if ($('#btnEnt').prop('checked') == true) {
             data = data + '&entraineur=1';
+            tous = 0;
         } else {
             data = data + '&entraineur=0';
         }
 
+        if ($('#btnPers').prop('checked') == true) {
+            data = data + '&personnel=1';
+            tous = 0;
+        } else {
+            data = data + '&personnel=0';
+        }
+
         if ($('#btnEqui').prop('checked') == true) {
             data = data + '&equipe=1';
+            tous = 0;
         } else {
             data = data + '&equipe=0';
         }
 
+        data = data + '&tous=' + tous;
+
         $('.data').html("");
-        $('html, body').animate({
-            scrollTop: $(".data").offset().top
-        }, 1000)
+        // $('html, body').animate({
+        //     scrollTop: $(".data").offset().top
+        // }, 1000)
         $('.data').load("Diablos_en_fusion/Site/Recherche.php" + data);
 
     }
@@ -328,6 +425,75 @@ Normalisation();
             }
         });
     });
-</script>
 
+
+    function remplirAnnee()
+    {
+        var currentTime = new Date();
+        var date1 = (currentTime.getFullYear() + 1);
+        var date2 = 1969;
+        
+
+        while (date1 > date2)
+        {
+            document.getElementById('annee').innerHTML += "<option>" + (date1-1) + "-" + date1 + "</option>";
+            date1 = (date1-1);
+        }
+        
+
+    }
+	
+	function anneeAuto(sender)
+    {
+        var currentTime = new Date();
+        var currentYear = (currentTime.getFullYear() + 1);
+		
+		if ($("#" + sender).val().length != 0)
+		{
+			if (($( "#date1" ).val().length > 0) || ($( "#date2" ).val().length > 0))
+			{
+				if (($( "#date1" ).val().length == 0) || ($( "#date1" ).val() < 1969))
+					$( "#date1" ).val(1969);
+				
+				if  ($( "#date1" ).val() > currentYear)
+					$( "#date1" ).val(currentYear);
+
+				
+				if (($( "#date2" ).val().length == 0) || ($( "#date2" ).val() > currentYear))
+					$( "#date2" ).val(currentYear);
+				
+				if  ($( "#date2" ).val() < 1969)
+					$( "#date2" ).val(1969);
+			} 
+		}		
+    }
+	
+	
+	
+
+
+</script>
+    <?php   
+                if (isset($_GET['Envoie']))
+                    {
+                    echo "<script>window.alert('Modifications Envoyées')</script>";
+                    
+                    echo "<script>ShowCard(".$_GET['Envoie'].",'".$_GET['Type']."',0)</script>";
+                    }
+
+                if (isset($_GET['message']) and isset($_GET['nom']) and isset($_GET['objet']) and isset($_GET['adresse']))
+                    {
+                        $to      = 'concep16tionweb@conceptionweb-16.scah.ca';
+                        $subject = $_GET['objet'];
+                        $message = $_GET['message'];
+                        $message = wordwrap($message,70);
+                        $headers[] = 'To: Archives Diablos <concep16tionweb@conceptionweb-16.scah.ca>';
+                        $headers[] = 'From: '.$_GET['nom']. '<'.$_GET['adresse'].'>';
+
+                        mail($to, $subject, $message, implode("\r\n", $headers));
+
+
+                        echo "<script>window.alert('Message Envoyé')</script>";
+                    }
+    ?>
 </html>
