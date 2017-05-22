@@ -19,6 +19,7 @@
 	//Création du DIV pour l'affichage des profils
 	echo '<div class="container-fluid">';
 	
+	$type = "";
 	// =========================================================================================================================================================================== //
 	// =================================================================  PERSONNES PROFILE ====================================================================================== //
 	// =========================================================================================================================================================================== //
@@ -50,20 +51,23 @@
 		//Recherche de la personne sélectionné
 		if($_GET['typePopup'] == 'Ent')
 		{
+			$type = 'Entraîneur';
 			$stmt = $conn->prepare("SELECT nom, prenom, sexe, date_naissance, ville, e.id_entraineur, e.note FROM personnes p ,
-								    entraineurs e WHERE p.id_personne = " . $_GET['idPopup']." and e.id_personne =" . $_GET['idPopup']);
+								    entraineurs e WHERE e.statut = 'Actif' and p.id_personne = " . $_GET['idPopup']." and e.id_personne =" . $_GET['idPopup']);
 				
 		}
 		elseif($_GET['typePopup'] == 'Joueur')
 		{
+			$type = 'Joueur';
 			$stmt = $conn->prepare("SELECT nom, prenom, sexe, date_naissance, ville, j.id_joueur, j.note, j.taille, j.poids, j.ecole_prec,j.domaine_etude 
-			                        FROM personnes p , joueurs j WHERE p.id_personne = " . $_GET['idPopup']." and j.id_personne =" . $_GET['idPopup']);
+			                        FROM personnes p , joueurs j WHERE j.statut = 'Actif' and p.id_personne = " . $_GET['idPopup']." and j.id_personne =" . $_GET['idPopup']);
 		}
 
 		elseif($_GET['typePopup'] == 'Personnel')
 		{
+			$type = 'Personnel';
 			$stmt = $conn->prepare("SELECT nom, prenom, sexe, date_naissance, ville, id_personnel, role, dateEmbauche, datefin
-			                        FROM personnes , personnels  WHERE personnes.id_personne = " . $_GET['idPopup']." and personnels.id_personne =" . $_GET['idPopup']);
+			                        FROM personnes , personnels  WHERE personnels.statut = 'Actif' and personnes.id_personne = " . $_GET['idPopup']." and personnels.id_personne =" . $_GET['idPopup']);
 		}
 
 		$stmt->execute();
@@ -74,7 +78,7 @@
 				//Affichage des informations générales de la personne
 				echo "<div class='row'>
 						<div class='col-md-10'>
-							<h2>" . $row['prenom'] . " " . $row['nom'] . "</h2>
+							<h2>" . $row['nom'] . ", " . $row['prenom'] .  " - ".$type."</h2>
 						</div>
 						<div class='col-md-2'>";
 			//	if(isset($_SESSION['acces']))
@@ -83,14 +87,19 @@
 					// {
 							if($_GET['typePopup'] == 'Ent')
 							{
-								echo "<button onclick='window.open(\"Diablos_en_fusion/Site/formulaire.php?AS=entraineurs&MODE=mod&id=" . $row['id_entraineur']."\",\"_self\")' class='btn btn-default' style='float:right'>Modifier</button>";
+								//echo "<button onclick='window.open(\"Diablos_en_fusion/Site/formulaire.php?AS=entraineurs&MODE=mod&id=" . $row['id_entraineur']."\",\"_self\")' class='btn btn-default' style='float:right'>Proposer des informations</button>";
+								echo "<button onclick='ShowCardModifier(\"$_GET[idPopup]\",\"Ent\")' class='btn btn-default' style='float:right'>Proposer des modifications</button>";
 							}
 							elseif($_GET['typePopup'] == 'Joueur')
 							{
-								echo "<button onclick='window.open(\"Diablos_en_fusion/Site/formulaire.php?AS=joueurs&MODE=mod&id=" . $row['id_joueur']."\",\"_self\")' class='btn btn-default' style='float:right'>Modifier</button>";
+								//echo "<button onclick='window.open(\"Diablos_en_fusion/Site/formulaire.php?AS=joueurs&MODE=mod&id=" . $row['id_joueur']."\",\"_self\")' class='btn btn-default' style='float:right'>Proposer des informations</button>";
+								echo "<button onclick='ShowCardModifier(\"$_GET[idPopup]\",\"Joueur\")' class='btn btn-default' style='float:right'>Proposer des modifications</button>";
 							}
 
-							//AJOUTER LE MODIFIER POUR PERSONNEL
+							elseif($_GET['typePopup'] == 'Personnel')
+							{								
+								echo "<button onclick='ShowCardModifier(\"$_GET[idPopup]\",\"Personnel\")' class='btn btn-default' style='float:right'>Proposer des modifications</button>";
+							}
 					// }				
 					
 				//}
@@ -124,32 +133,37 @@
 
 
 				
-			//Afficher le tableau d'information'
+			
+				//Variable pour le sexe de la personne
+			$sexe = "";
+			if($row['sexe'] == 'F')
+			{
+				$sexe = "Féminin";
+			}
+			else
+				$sexe = "Masculin";
 
+			//Afficher le tableau d'information'
 			if($_GET['typePopup'] == 'Ent') //affiche les informations de l'entraineur dans un tableau'
 				{
 				echo "
 						<table border=1 class='table table-hover table table-striped table-bordered tableheader' style='width:65%; float:right'>
 						<tr>
-							<th>Nom</th>
-							<td>".$row['prenom']." ".$row['nom']."</td>  
+							<th class='size'>Nom</th>
+							<td>".$row['nom'].", ".$row['prenom']."</td>  
 						</tr>
 						<tr>
-							<th>Sexe</th>
-							<td>".$row['sexe']."</td> 
+							<th class='size'>Sexe</th>
+							<td>".$sexe."</td> 
 						</tr>
-						<tr>
-							<th>Date de naissance</th>
-							<td>".$row['date_naissance']."</td>
 
-						</tr>
 						<tr>
-							<th>Ville</th>
+							<th class='size'>Ville</th>
 							<td>".$row['ville']."</td> 
 
 						</tr>
 						<tr>
-							<th>Note biographique</th>
+							<th class='size'>Note biographique</th>
 							<td colspan='3'>".$row['note']."</td>  
 						</tr>
 						
@@ -163,35 +177,31 @@
 				echo "
 						<table border=1 class='table table-hover table table-striped table-bordered tableheader' style='width:65%; float:right'>
 						<tr>
-							<th>Nom</th>
-							<td>".$row['prenom']." ".$row['nom']."</td>  
+							<th class='size'>Nom</th>
+							<td>".$row['nom'].", ".$row['prenom']."</td> 
 						</tr>
 						<tr>
-							<th>Sexe</th>
-							<td>".$row['sexe']."</td> 
+							<th class='size'>Sexe</th>
+							<td>".$sexe."</td> 
 						</tr>
-						<tr>
-							<th>Date de naissance</th>
-							<td>".$row['date_naissance']."</td>
 
-						</tr>
 						<tr>
-							<th>Ville</th>
+							<th class='size'>Ville</th>
 							<td>".$row['ville']."</td> 
 
 						</tr>
 						<tr>
-							<th>Rôle</th>
+							<th class='size'>Rôle</th>
 							<td>".$row['role']."</td>  
 						</tr>
 
 						<tr>
-							<th>Date d'embauche</th>
+							<th class='size'>Date d'embauche</th>
 							<td>".$row['dateEmbauche']."</td>  
 						</tr>
 
 						<tr>
-							<th>Date de fin</th>
+							<th class='size'>Date de fin</th>
 							<td>".$row['datefin']."</td>  
 						</tr>
 					
@@ -212,39 +222,35 @@
 				
 						<table border=1 class='table table-hover table table-striped table-bordered tableheader' style='width:65%; float:right'>
 						<tr>
-							<th>Nom</th>
-							<td>".$row['prenom']." ".$row['nom']."</td>  
-							<th >Taille</th>
-							<td>".round($row['taille'])." cm  / ".$str."</td>  
+							<th class='size'>Nom</th>
+							<td>".$row['nom'].", ".$row['prenom']."</td> 
+							<th style='width:90px'>Taille</th>
+							<td style='width:145px'>".round($row['taille'])." cm  / ".$str."</td>  
 						</tr>
 						<tr>
-							<th>Sexe</th>
-							<td>".$row['sexe']."</td>
-							<th>Poids</th>
-							<td>".round($row['poids'])." lbs  / ".round($poidKilo)." kg</td>   
+							<th class='size'>Sexe</th>
+							<td>".$sexe."</td>
+							<th style='width:90px'>Poids</th>
+							<td style='width:145px'>".round($row['poids'])." lbs  / ".round($poidKilo)." kg</td>   
 						</tr>
-						<tr>
-							<th>Date de naissance</th>
-							<td colspan='3'>".$row['date_naissance']."</td>
 
-						</tr>
 						<tr>
-							<th>Ville</th>
+							<th class='size'>Ville</th>
 							<td colspan='3'>".$row['ville']."</td> 
 
 						</tr>
 						<tr>
-							<th>École antérieure</th>
+							<th class='size'>École antérieure</th>
 							<td colspan='3'>".$row['ecole_prec']."</td>
 
 						</tr>
 						<tr>
-							<th>Domaine d'étude</th>
+							<th class='size'>Domaine d'étude</th>
 							<td colspan='3'>".$row['domaine_etude']."</td> 
  
 						</tr>
 						<tr>
-							<th>Note biographique</th>
+							<th class='size'>Note biographique</th>
 							<td colspan='3'>".$row['note']."</td>  
 						</tr>
 						</table>";
@@ -258,13 +264,13 @@
 		{
 			//Recherche des équipes ou la personne a jouée
 			$stmt = $conn->prepare("SELECT e.id_equipe, p.position, je.numero, e.nom,e.saison, s.sport FROM joueurs j, 
-									joueurs_equipes je, positions p, sports s, equipes e WHERE j.id_personne = " . $_GET['idPopup'] . 
+									joueurs_equipes je, positions p, sports s, equipes e WHERE je.statut = 'Actif' and j.id_personne = " . $_GET['idPopup'] . 
 									" AND j.id_joueur = je.id_joueur AND je.id_position = p.id_position AND je.id_equipe = e.id_equipe AND e.id_sport = s.id_sport");
 			$stmt->execute();
 			$resultat = $stmt->fetchAll();
 			//if($stmt->rowCount() > 0){
 				//Affichage du tableau pour les équipes ou elle a jouée
-				echo "<div class='row'><div class='col-md-12'><h2>Équipes: </h2></div></div><div class='row'><div class='col-md-12'><div class='ResultatRecherche'><table class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom d'équipe</th><th>Numéro</th><th>Position</th><th>Saison</th></tr></thead><tbody>";
+				echo "<div class='row'><div class='col-md-12'><h2>Équipes </h2></div></div><div class='row'><div class='col-md-12'><div class='ResultatRecherche'><table class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom d'équipe</th><th>Numéro</th><th>Position</th><th>Saison</th></tr></thead><tbody>";
 				foreach($resultat as $row){
 					//Affichage de chaque équipe
 					echo "<tr onclick='ShowOtherCard(\"" . $row['id_equipe'] . "\", \"equipe\")'><td>" . $row['nom'] . "<td>" . $row['numero'] . "</td><td>" . $row['position'] . "</td><td>" . $row['saison'] . "</td></tr>";
@@ -281,15 +287,15 @@
 
 		if($_GET['typePopup'] == 'Ent')
 		{
-			//Recherhce des équipe ou la personne a été coach-------------------------------------------
-			$stmt = $conn->prepare("SELECT e.id_equipe, ee.role, e.nom,e.sexe, e.saison, s.sport
-									FROM entraineurs en, entraineur_equipe ee, equipes e, sports s WHERE en.id_personne = " . 
+			//Recherhce des équipe ou la personne a été entraineur -------------------------------------------
+			$stmt = $conn->prepare("SELECT e.id_equipe, r.nom as role, e.nom,e.sexe, e.saison, s.sport
+									FROM entraineurs en, entraineur_equipe ee, equipes e, sports s , role r WHERE r.id_role = ee.role and ee.statut = 'Actif' and en.id_personne = " . 
 									$_GET['idPopup'] . " AND en.id_entraineur = ee.id_entraineur AND ee.id_equipe = e.id_equipe AND e.id_sport = s.id_sport");
 			$stmt->execute();
 			$resultat = $stmt->fetchAll();
 			//if($stmt->rowCount() > 0){
 				//Affichage du tableau pour les équipes trouvé
-				echo "<div class='row'><div class='col-md-12'><h2>Équipes: </h2></div></div><div class='row'><div class='col-md-12><div class='ResultatRecherche'><table class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom de l'équipe</th><th>Sexe</th><th>Rôle</th><th>Saison</th></tr></thead><tbody>";
+				echo "<div class='row'><div class='col-md-12'><h2>Équipes </h2></div></div><div class='row'><div class='col-md-12'><div class='ResultatRecherche'><table class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom de l'équipe</th><th>Sexe</th><th>Rôle</th><th>Saison</th></tr></thead><tbody>";
 				foreach($resultat as $row){
 					//Affichage de chaque équipe qui corresponde à la recherche
 					echo "<tr onclick='ShowOtherCard(\"" . $row['id_equipe'] . "\", \"equipe\")'><td>" . $row['nom'] . "</td><td>";  
@@ -314,7 +320,7 @@
 				{
 					echo"<tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>";
 				}
-				echo "</tbody></table></div></div></div></div>";
+				echo "</tbody></table></div></div></div>";
 			//}
 		}
 	}
@@ -326,7 +332,7 @@
 	
 	//Vérification du type de profil
 	if($_GET['typePopup'] == 'equipe'){
-		$stmt = $conn->prepare("SELECT e.nom, e.sexe, e.saison, s.sport, e.id_equipe, e.note FROM equipes e, sports s WHERE e.id_sport = s.id_sport AND e.id_equipe = " . $_GET['idPopup']);
+		$stmt = $conn->prepare("SELECT e.nom, e.sexe, e.saison, s.sport, e.id_equipe, e.note FROM equipes e, sports s WHERE e.statut = 'Actif' and e.id_sport = s.id_sport AND e.id_equipe = " . $_GET['idPopup']);
 		$stmt->execute();
 		$resultat = $stmt->fetchAll();
 		if($stmt->rowCount() > 0){
@@ -351,9 +357,9 @@
 				{
 					foreach($resultat2 as $row2)
 					{
-						if($row2['photo_equipe'] != "")
+						if($row2['photo'] != "")
 						{
-							echo "<div align='center'><img src='" . $row2['photo_equipe'] . "' style='max-width:100%;max-height:100%;'></div>";
+							echo "<div align='center'><img src='" . $row2['photo'] . "' style='max-width:100%;max-height:100%;'></div>";
 						}
 						else
 						    echo "<div align='center'><img src='/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' style='max-width:100%;max-height:200px;'></div>";
@@ -373,7 +379,7 @@
 		}
 		//Recherche des joueur dans l'équipe
 		$stmt = $conn->prepare("SELECT p.id_personne, p.nom, p.prenom, p.ville, je.numero, po.position FROM personnes p, joueurs j, 
-								joueurs_equipes je, positions po WHERE je.id_equipe = " . $_GET['idPopup'] . " AND je.id_joueur = j.id_joueur 
+								joueurs_equipes je, positions po WHERE je.statut = 'Actif' and je.id_equipe = " . $_GET['idPopup'] . " AND je.id_joueur = j.id_joueur 
 								AND je.id_position = po.id_position AND j.id_personne = p.id_personne 
 								ORDER BY je.numero");
 		$stmt->execute();
@@ -392,14 +398,14 @@
 			echo "</tobdy></table></div></div></div>";
 		//}
 		//Recherche des entraineurs de l'équipe
-		$stmt = $conn->prepare("SELECT p.id_personne, p.nom, p.prenom, p.sexe, ee.role
-								FROM personnes p, entraineurs e, entraineur_equipe ee 
-								WHERE e.id_personne = p.id_personne AND e.id_entraineur = ee.id_entraineur AND ee.id_equipe = " . $_GET['idPopup']);
+		$stmt = $conn->prepare("SELECT p.id_personne, p.nom, r.nom as role, p.prenom, p.sexe
+								FROM personnes p, entraineurs e, entraineur_equipe ee, role r 
+								WHERE ee.role = r.id_role and ee.statut = 'Actif' and e.id_personne = p.id_personne AND e.id_entraineur = ee.id_entraineur AND ee.id_equipe = " . $_GET['idPopup']);
 		$stmt->execute();
 		$resultat = $stmt->fetchAll();
 		//if($stmt->rowCount() > 0){
 			//Affichage du tableau des entraineurs
-			echo "<div class='row'><div class='col-md-12'><h2>Liste des entraineurs</h2></div></div><div class='row'><div class='col-md-12><div class='ResultatRecherche'><table class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom</th><th>Sexe</th><th>Role</th></tr></thead><tbody>";
+			echo "<div class='row'><div class='col-md-12'><h2>Liste des entraîneurs</h2></div></div><div class='row'><div class='col-md-12'><div class='ResultatRecherche'><table class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom</th><th>Sexe</th><th>Role</th></tr></thead><tbody>";
 			foreach($resultat as $row){
 				//Affichage des information sur les entraineurs de l'équipe
 				echo "<tr onclick='ShowOtherCard(\"" . $row['id_personne'] . "\", \"Ent\")'><td>" . $row['nom'] . ", " . $row['prenom'] . "</td><td>";

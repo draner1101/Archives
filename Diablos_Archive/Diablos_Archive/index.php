@@ -8,8 +8,18 @@ require_once ("Diablos_en_fusion/Site/Connexion_BD/ExecRequete.php");
 require_once ("Diablos_en_fusion/Site/Connexion_BD/Normalisation.php");
 
 // Connexion à la base
-$connexion =Connexion(NOM, PASSE, BASE, SERVEUR);
-mysqli_set_charset($connexion,'utf8');
+	$servername = SERVEUR;
+	$username = NOM;
+	$password = PASSE;
+	$dbname = BASE;
+	
+	try {
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
+	catch(PDOException $e){
+		echo "Connection failed: " . $e->getMessage();
+	}
 Normalisation(); 
 ?>
 <html>
@@ -185,24 +195,18 @@ Normalisation();
             <div class="row">
                 <div class="col-xs-6 textInfo">
                     <h3 style="font-weight: bold; color: #264d73;">Vous avez des questions ou vous <br>voulez fournir plus d'information?</h3>
-                    <?php
+                    
+                     <?php
                      $stmt = $conn->prepare('Select * from nous_joindre');
 		             $stmt->execute();
 		             $resultat = $stmt->fetchAll();
-		             foreach($resultat as $row)
-                     ?>
-
-
-
-
-
-
-                    <p class="information">Numéro de téléphone: (819) 376-1721, poste 2508</p>
-                    <p class="information">Twitter: @diablos_cegeptr</p>
-                    <p class="information">Facebook.com/les.diablos</p>
-                    <p class="information">Adresse postal: 3175 boulevard Laviolette, G8Z 1E9</p>
-                    <p class="information">Adresse courriel: sports@cegeptr.qc.ca</p> 
-
+		             foreach($resultat as $row) {
+                     echo "<p class='information'>Numéro de téléphone: $row[telephone]</p>";
+                     echo "<p class='information'>Twitter: $row[twitter]</p>";
+                     echo "<p class='information'>Facebook: $row[facebook]</p>";
+                     echo "<p class='information'>Adresse Postal: $row[adresse_postal]</p>";
+                     echo "<p class='information'>Adresse courriel: $row[courriel]</p>";
+                     }?>
 
                     <img style="width: 237px; height: 300px; margin-left: 80px;" src="Diablos_en_fusion/Site/Images/default.png" s alt=" Logo des Diablos ">
                 </div>
@@ -260,10 +264,10 @@ Normalisation();
         $(this).remove();
     });
 
-   /* $(window).on('resize', function() {
+    /*$(window).on('resize', function() {
         $wHeight = $(window).height();
         $item.height($wHeight - 100);
-    }); */ // La fonction fesais en sorte que l'image prend toute la place quand on zoom
+    });*/
 
     $('.carousel').carousel({
         interval: 6000,

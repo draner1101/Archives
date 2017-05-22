@@ -651,3 +651,9 @@ Stack trace:
 #0 /home/concep3tionwebsc/public_html/Diablos_Archive/Diablos_en_fusion/Site/ajax_sup_row.php(20): PDO->exec('delete from pos...')
 #1 {main}
   thrown in /home/concep3tionwebsc/public_html/Diablos_Archive/Diablos_en_fusion/Site/ajax_sup_row.php on line 20
+[06-Mar-2017 16:27:59 America/Montreal] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Connexion_BD/Connexion.php on line 7
+[06-Mar-2017 16:27:59 America/Montreal] PHP Warning:  mysqli_set_charset() expects parameter 1 to be mysqli, boolean given in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Recherche.php on line 10
+[06-Mar-2017 16:27:59 America/Montreal] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, boolean given in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Recherche.php on line 68
+[06-Mar-2017 16:27:59 America/Montreal] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, boolean given in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Recherche.php on line 68
+[06-Mar-2017 16:27:59 America/Montreal] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Connexion_BD/ExecRequete.php on line 6
+[06-Mar-2017 16:27:59 America/Montreal] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, boolean given in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Connexion_BD/ExecRequete.php on line 12

@@ -7,7 +7,7 @@
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php 
-        session_start();
+        //session_start();
         // if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)){
         //     if($_SESSION['type'] == 1){
                  include('navigationGestion.htm'); 
@@ -42,12 +42,13 @@
                         <th style="width: 85px"></th>
                     </tr>
                     <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "concep16_diablos";
+                    require_once ("../Connexion_BD/Connect.php");
+                    $servername = SERVEUR;
+                    $username = NOM;
+                    $password = PASSE;
+                    $dbname = BASE;
 
-                    $rowPerPage = 10;
+                    $rowPerPage = 8;
                     $recherche = false;
 
                     if(isset($_GET["page"])){
@@ -89,8 +90,8 @@
                                     <td>" .$row["saison"] ."</td>
                                     <td>" .$row["sexe"] ."</td>
                                     <td>
-                                    <a class='button buttonModifier' href='Modifier.php?table=Joueurs&id_equipe=".$row["id_equipe"]."&idtype=id_equipe'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=Equipes&id=".$row["id_equipe"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonModifier' href='Modifier.php?Table=equipes&id_equipe=".$row["id_equipe"]."'><img class='img' src='../Images/Modifier.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=equipes&idj=".$row["id_equipe"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }
@@ -104,7 +105,9 @@
                         echo "<a href='GestionEquipes.php' class='button buttonDeplacement'>Afficher tout</a>";
                     }
                     else{
-                        $nbRow = $conn->query("SELECT count(*) FROM Equipes")->fetchColumn();
+                        $sql = $conn->prepare("SELECT count(id_equipe) FROM equipes WHERE id_parent IS NULL");
+                        $sql->execute();
+                        $nbRow = $sql->fetchColumn();
                         $nbPage = ceil($nbRow / $rowPerPage);
 
                         if($page != 1){
