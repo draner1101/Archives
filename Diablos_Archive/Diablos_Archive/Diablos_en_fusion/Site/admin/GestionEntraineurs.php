@@ -7,7 +7,7 @@
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php 
-        session_start();
+        //session_start();
         // if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)){
         //     if($_SESSION['type'] == 1){
                  include('navigationGestion.htm'); 
@@ -28,7 +28,7 @@
     <div class="contenu">
         <center>
             <div style="width: 80%">
-                <a class="button buttonRecherche right" href="Ajouter.php?Table=Entraineurs">Ajouter un entraineur</a>
+                <a class="button buttonRecherche right" href="Ajouter.php?Table=Entraineurs">Ajouter un entraîneur</a>
                 <form class="right" action="GestionEntraineurs.php">
                     <input class="recherche" type="text" name="recherche" placeholder="Rechercher...">
                     <input class="button buttonRecherche" type="submit" value="Rechercher">
@@ -42,12 +42,13 @@
                         <th style="width: 85px"></th>
                     </tr>
                     <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "concep16_diablos";
+                    require_once ("../Connexion_BD/Connect.php");
+                    $servername = SERVEUR;
+                    $username = NOM;
+                    $password = PASSE;
+                    $dbname = BASE;
 
-                    $rowPerPage = 10;
+                    $rowPerPage = 8;
                     $recherche = false;
 
                     if(isset($_GET["page"])){
@@ -62,9 +63,7 @@
                     try{
                         $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
                         if(isset($_GET['recherche'])){
-                            $query = $conn->prepare("SELECT p.nom, p.prenom 
-                                                        CONCAT('(',substr(`no_tel`, 1, 3), ') ', substr(`no_tel`, 4, 3), '-',substr(`no_tel`, 7, 4)) as 'no_tel',
-                                                        p.id_personne, e.id_entraineur, e.type
+                            $query = $conn->prepare("SELECT p.nom, p.prenom, p.no_tel, p.id_personne, e.id_entraineur, e.type
                                                         FROM  personnes p, entraineurs e  
                                                         WHERE (p.id_personne = e.id_personne)
                                                         AND (p.nom LIKE '%" .$_GET['recherche'] ."%' OR p.prenom LIKE '%" .$_GET['recherche'] ."%')
@@ -72,9 +71,7 @@
                             $recherche = true;                             
                         }
                         else{
-                            $query = $conn->prepare("SELECT p.nom, p.prenom, 
-                                                        CONCAT('(',substr(`no_tel`, 1, 3), ') ', substr(`no_tel`, 4, 3), '-',substr(`no_tel`, 7, 4)) as 'no_tel',
-                                                        p.id_personne, e.id_entraineur, e.type
+                            $query = $conn->prepare("SELECT p.nom, p.prenom, p.no_tel, p.id_personne, e.id_entraineur, e.type
                                                         FROM  personnes p, entraineurs e 
                                                         WHERE p.id_personne = e.id_personne
                                                         ORDER BY p.nom 
@@ -92,8 +89,8 @@
                                     <td>" .$row["no_tel"] ."</td>
                                     <td>" .$row["type"] ."</td>
                                     <td>
-                                    <a class='button buttonModifier' href='Modifier.php?table=Entraineurs&id_personne=".$row["id_personne"]."&idtype=id_personne'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=Entraineurs&id=".$row["id_personne"] ."&page=" .$page ."&idj=" .$row["id_entraineur"] ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonModifier' href='Modifier.php?Table=entraineurs&id_personne=".$row["id_personne"]."&id_entraineur=".$row["id_entraineur"]."'><img class='img' src='../Images/Modifier.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=entraineurs&id=".$row["id_personne"] ."&page=" .$page ."&idj=" .$row["id_entraineur"] ."'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }
@@ -107,9 +104,10 @@
                         echo "<a href='GestionEntraineurs.php' class='button buttonDeplacement'>Afficher tout</a>";
                     }
                     else{
-                        $nbRow = $conn->query("SELECT count(*) FROM Entraineurs")->fetchColumn();
+                        $sql = $conn->prepare("SELECT count(id_entraineur) FROM entraineurs WHERE id_parent IS NULL");
+                        $sql->execute();
+                        $nbRow = $sql->fetchColumn();
                         $nbPage = ceil($nbRow / $rowPerPage);
-
                         if($page != 1){
                             $back = $page - 1;
                         }

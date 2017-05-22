@@ -709,26 +709,26 @@ Adam Grenon
 			}
 			
 			if($_SESSION['AS'] == 'joueurs'){
-				$sql = "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'personnes' and (column_name = 'nom' or column_name = 'prenom' or column_name like 'sexe') union SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'joueurs' and column_name not like 'id%' and column_name not like 'photo_profil'	";			
+				$sql = "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'personnes' and (column_name = 'nom' or column_name = 'prenom' or column_name like 'sexe') union SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'joueurs' and column_name not like 'id%' and column_name not like 'photo_profil'	";			
 				//Count nbr champs - Personnes
-				$sql2 = "SELECT count(column_name) FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'personnes' and (column_name = 'nom' or column_name = 'prenom' or column_name like 'sexe')";
+				$sql2 = "SELECT count(column_name) FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'personnes' and (column_name = 'nom' or column_name = 'prenom' or column_name like 'sexe')";
 				$ctr_champs = $conn->query($sql2);
 				foreach ($ctr_champs as $nbr) {
 						$_SESSION['ctr_champs'] = $nbr[0];
 				}
 			}
 			elseif($_SESSION['AS'] == 'entraineurs'){
-				$sql = "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'personnes' and column_name not like 'posteTelephonique' and column_name not like 'id%' union SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'entraineurs' and column_name not like 'id%' and column_name not like 'photo%' and column_name not like 'type%' and column_name not like 'no_embauche%' and column_name not like 'note'";
+				$sql = "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'personnes' and column_name not like 'posteTelephonique' and column_name not like 'id%' union SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'entraineurs' and column_name not like 'id%' and column_name not like 'photo%' and column_name not like 'type%' and column_name not like 'no_embauche%' and column_name not like 'note'";
 				//Count nbr champs - Personnes
 				echo '<script>console.log("'.$sql.'")</script>';
-				$sql2 = "SELECT count(column_name) FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'personnes' and column_name not like 'id%'";
+				$sql2 = "SELECT count(column_name) FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'personnes' and column_name not like 'id%'";
 				$ctr_champs = $conn->query($sql2);
 				foreach ($ctr_champs as $nbr) {
 						$_SESSION['ctr_champs'] = $nbr[0];
 				}
 			}
 			elseif($_SESSION['AS'] == 'equipes'){
-				$sql = "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep3t_diablos' AND table_name = 'equipes' and column_name not like 'id%' and column_name not like 'niveau%' and column_name not like 'photo%'";
+				$sql = "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'concep16_diablos' AND table_name = 'equipes' and column_name not like 'id%' and column_name not like 'niveau%' and column_name not like 'photo%'";
 			}
 			/*
 			elseif($_SESSION['AS'] == 'prix'){
@@ -981,7 +981,7 @@ Adam Grenon
 					$listID = explode(',',$row[1]);
 						if ($row[0] > 0){
 							for ($k = 1;$k<$row[0]+1;$k++){
-								$getInfo = new PDO("mysql:host=$servername;dbname=concep3t_diablos", $username, $password);
+								$getInfo = new PDO("mysql:host=$servername;dbname=concep16_diablos", $username, $password);
 								$sql = "SELECT CONCAT_WS(',',ifnull(je.id_equipe,''),ifnull(je.id_position,''),ifnull(je.numero,''),ifnull(je.saison,'')) FROM joueurs j left outer join joueurs_equipes je on j.id_joueur = je.id_joueur where j.id_joueur = ".$_GET['id']." and je.id_equipe = ".$listID[$k-1];
 								echo '<script>console.log("sql = '.$sql.'");</script>';
 								$infoEquipe = $getInfo->query($sql);
@@ -1053,7 +1053,7 @@ Adam Grenon
 						if ($row[0] > 0){
 							for ($k = 0;$k<$row[0];$k++){
 								echo '<script>console.log("pass")</script>';
-								$getInfo = new PDO("mysql:host=$servername;dbname=concep3t_diablos", $username, $password);
+								$getInfo = new PDO("mysql:host=$servername;dbname=concep16_diablos", $username, $password);
 								$sql = "SELECT CONCAT_WS(',',ee.id_equipe,ee.role) FROM entraineur_equipe ee inner join entraineurs e on e.id_entraineur = ee.id_entraineur where e.id_entraineur = ".$_GET['id']." and ee.id_equipe = ".$listID[$k];
 								
 								$infoEquipe = $getInfo->query($sql);
@@ -1184,8 +1184,8 @@ Adam Grenon
 				
 					//Joueurs
 					if( ($_SESSION['AS'] == 'joueurs') and (!empty($_POST['nom']))and (!empty($_POST['prenom'])) ){
-						$sql = "INSERT INTO `concep3t_diablos`.`personnes` (";
-						$sql2 = "INSERT INTO `concep3t_diablos`.`joueurs` (";
+						$sql = "INSERT INTO `concep16_diablos`.`personnes` (";
+						$sql2 = "INSERT INTO `concep16_diablos`.`joueurs` (";
 						$ctr = 0;
 						foreach ($_SESSION['arrayChamps'] as $key=>$value){
 							if ($ctr < $_SESSION['ctr_champs']){
@@ -1417,7 +1417,7 @@ Adam Grenon
 										}
 									
 										elseif( ($k > 0) and (($_POST['id_equipe'.$k])!="") ){
-											$stmt = new PDO("mysql:host=localhost;dbname=concep3t_diablos", "concep3t_admin", "admin");		
+											$stmt = new PDO("mysql:host=localhost;dbname=concep16_diablos", "root", "");		
 											$stmt->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 											$requete = "select count(id_joueur_equipe) from joueurs_equipes where id_equipe = ".$_POST['id_equipe'.$k]." and id_joueur = ".$_SESSION['max']."";
 											echo '<script>console.log("rMatch='.$requete.'");</script>';
@@ -1458,8 +1458,8 @@ Adam Grenon
 					}
 					//entraineurs
 					elseif( ($_SESSION['AS'] == 'entraineurs')  and (!empty($_POST['nom']))and (!empty($_POST['prenom'])) ){
-						$sql = "INSERT INTO `concep3t_diablos`.`personnes` (";
-						$sql2 = "INSERT INTO `concep3t_diablos`.`entraineurs` (";
+						$sql = "INSERT INTO `concep16_diablos`.`personnes` (";
+						$sql2 = "INSERT INTO `concep16_diablos`.`entraineurs` (";
 						$ctr = 0;
 						foreach ($_SESSION['arrayChamps'] as $key=>$value){
 							if ($ctr < $_SESSION['ctr_champs']){
@@ -1568,19 +1568,19 @@ Adam Grenon
 								if((isset($_POST['inputHid'])) and $_POST['inputHid'] != ""){
 								    move_uploaded_file($_FILES["photo_athleteDefault"]["tmp_name"], "Images/".$_FILES["photo_athleteDefault"]["name"]);
 									//$conn->exec("update entraineurs set photo_profil = '/Diablos_Archive/Diablos_en_fusion/Site/Images/".$_POST["inputHid"]."' where id_entraineur = ".$_SESSION['max']);
-									$conn->exec("INSERT INTO `concep3t_diablos`.`entraineurs` (`id_personne`,`photo_profil`) VALUES  (".$_SESSION['max'].",'/Diablos_Archive/Diablos_en_fusion/Site/Images/".$_POST["inputHid"]."')");
+									$conn->exec("INSERT INTO `concep16_diablos`.`entraineurs` (`id_personne`,`photo_profil`) VALUES  (".$_SESSION['max'].",'/Diablos_Archive/Diablos_en_fusion/Site/Images/".$_POST["inputHid"]."')");
 								}
 								else{
 								//	$sql2 = substr_replace($sql2,'/Diablos_en_fusion/Site/Images/default.png', strlen($sql2), 0);
 									//$conn->exec("update entraineurs set photo_profil = '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' where id_entraineur = ".$_SESSION['max']);
-									$conn->exec("INSERT INTO `concep3t_diablos`.`entraineurs` (`id_personne`) VALUES (".$_SESSION['max'].")");
+									$conn->exec("INSERT INTO `concep16_diablos`.`entraineurs` (`id_personne`) VALUES (".$_SESSION['max'].")");
 								}
 					/* fin */
 							
 							
 							$sql2 = substr_replace($sql2,$_SESSION['max'],strlen($sql2), 0);
 							$sql2 = substr_replace($sql2,")", strlen($sql2), 0);
-							$sql2 = "INSERT INTO `concep3t_diablos`.`entraineurs` (`id_personne`) VALUES (".$_SESSION['max'].")";
+							$sql2 = "INSERT INTO `concep16_diablos`.`entraineurs` (`id_personne`) VALUES (".$_SESSION['max'].")";
 							echo '<script>console.log(sql2 = "'.$sql2.'");</script>';
 							//$conn->exec($sql2);
 						//Si Avec/Sans photo
@@ -1632,7 +1632,7 @@ Adam Grenon
 							echo '<script>console.log("1'.$maxID.'")</script>';
 						}
 						//if( (isset($_POST['titre'])) and (!empty($_POST['titre'])) ){
-							$sql3 = "INSERT INTO `concep3t_diablos`.`certifications_entraineurs` (`id_entraineur`,`titre`,`description`,`annee_obtention`) VALUES (";
+							$sql3 = "INSERT INTO `concep16_diablos`.`certifications_entraineurs` (`id_entraineur`,`titre`,`description`,`annee_obtention`) VALUES (";
 							$sql3 = substr_replace($sql3,$maxID, strlen($sql3), 0);
 							$sql3 = substr_replace($sql3,",'", strlen($sql3), 0);
 							$sql3 = substr_replace($sql3,str_replace("'","''",$_POST['titre']), strlen($sql3), 0);
@@ -1703,7 +1703,7 @@ Adam Grenon
 										
 									}
 									elseif( ($k > 0) and (!empty($_POST['id_equipe'.$k])) ){
-										$stmt = new PDO("mysql:host=localhost;dbname=concep3t_diablos", "concep3t_admin", "admin");		
+										$stmt = new PDO("mysql:host=localhost;dbname=concep16_diablos", "root", "");		
 										$stmt->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 										$requete = "select count(id_entr_equipe) from entraineur_equipe where id_equipe = ".$_POST['id_equipe'.$k]." and id_entraineur = ".$maxID;
 										$countMatch = $stmt->query($requete);
@@ -1775,7 +1775,7 @@ Adam Grenon
 					/* fin */	
 						
 						
-						$sql = "INSERT INTO `concep3t_diablos`.`equipes` (`id_sport`,`nom`,`saison`,`sexe`,`note`,`photo_equipe`) VALUES (";
+						$sql = "INSERT INTO `concep16_diablos`.`equipes` (`id_sport`,`nom`,`saison`,`sexe`,`note`,`photo_equipe`) VALUES (";
 						
 						$sql = substr_replace($sql,$_POST['id_sport'], strlen($sql), 0);
 						$sql = substr_replace($sql,",'", strlen($sql), 0);
@@ -1850,8 +1850,8 @@ Adam Grenon
 								}
 					/* fin */
 						//info personnelle
-							$sql = "UPDATE `concep3t_diablos`.`personnes` SET ";
-							$sql2 = "UPDATE `concep3t_diablos`.`joueurs` SET ";
+							$sql = "UPDATE `concep16_diablos`.`personnes` SET ";
+							$sql2 = "UPDATE `concep16_diablos`.`joueurs` SET ";
 							$ctr = 0;
 							foreach ($_SESSION['arrayChamps'] as $key=>$value){
 								//Fait par Cédric Paquette Début
@@ -1960,7 +1960,7 @@ Adam Grenon
 										$conn->exec($sql);
 									}
 									elseif( ($k > 0) and (!empty($_POST['id_equipe'.$k])) ){
-										$stmt = new PDO("mysql:host=localhost;dbname=concep3t_diablos", "concep3t_admin", "admin");		
+										$stmt = new PDO("mysql:host=localhost;dbname=concep16_diablos", "root", "");		
 										$stmt->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 										$requete = "select count(id_joueur_equipe) from joueurs_equipes where id_equipe = ".$_POST['id_equipe'.$k]." and id_joueur = ".$_GET['id'];
 										$countMatch = $stmt->query($requete);
@@ -2011,8 +2011,8 @@ Adam Grenon
 								}
 					/* fin */
 						//info personnelle
-							$sql = "UPDATE `concep3t_diablos`.`personnes` SET ";
-							$sql2 = "UPDATE `concep3t_diablos`.`entraineurs` SET ";
+							$sql = "UPDATE `concep16_diablos`.`personnes` SET ";
+							$sql2 = "UPDATE `concep16_diablos`.`entraineurs` SET ";
 							$ctr = 0;
 							foreach ($_SESSION['arrayChamps'] as $key=>$value){
 								$new_value = isset($_POST[$value]) ? $_POST[$value] : '';
@@ -2053,7 +2053,7 @@ Adam Grenon
 						else{
 							$new_value = $_POST['annee_obtention'];
 						}
-						$sql3 = "UPDATE `concep3t_diablos`.`certifications_entraineurs` SET ";
+						$sql3 = "UPDATE `concep16_diablos`.`certifications_entraineurs` SET ";
 						$sql3 .= "`titre` = '".str_replace("'","''",$_POST['titre'])."', `description` = '".str_replace("'","''",$_POST['description'])."', `annee_obtention` = ".$new_value;
 						$sql3 .= " where `id_entraineur` = ".$_GET['id'];
 						
@@ -2102,7 +2102,7 @@ Adam Grenon
 										$conn->exec($sql);
 									}
 									elseif( ($k > 0) and (!empty($_POST['id_equipe'.$k])) ){
-										$stmt = new PDO("mysql:host=localhost;dbname=concep3t_diablos", "concep3t_admin", "admin");		
+										$stmt = new PDO("mysql:host=localhost;dbname=concep16_diablos", "root", "");		
 										$stmt->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 										$requete = "select count(id_entr_equipe) from entraineur_equipe where id_equipe = ".$_POST['id_equipe'.$k]." and id_entraineur = ".$_GET['id'];
 										$countMatch = $stmt->query($requete);
@@ -2148,7 +2148,7 @@ Adam Grenon
 								}
 					/* fin */
 						//info personnelle
-							$sql = "UPDATE `concep3t_diablos`.`equipes` SET ";
+							$sql = "UPDATE `concep16_diablos`.`equipes` SET ";
 							$ctr = 0;
 							foreach ($_SESSION['arrayChamps'] as $key=>$value){
 								$new_value = isset($_POST[$value]) ? $_POST[$value] : '';

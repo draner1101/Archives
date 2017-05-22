@@ -7,7 +7,7 @@
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php 
-        session_start();
+        //session_start();
         // if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)){
         //     if($_SESSION['type'] == 1){
                  include('navigationGestion.htm'); 
@@ -43,12 +43,14 @@
                         <th style="width: 85px"></th>
                     </tr>
                     <?php
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "concep16_diablos";
+                    require_once ("../Connexion_BD/Connect.php");
+                    $servername = SERVEUR;
+                    $username = NOM;
+                    $password = PASSE;
+                    $dbname = BASE;
 
-                    $rowPerPage = 10;
+
+                    $rowPerPage = 8;
                     $recherche = false;
 
                     if(isset($_GET["page"])){
@@ -63,9 +65,7 @@
                     try{
                         $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
                         if(isset($_GET['recherche'])){
-                            $query = $conn->prepare("SELECT p.nom, p.prenom, 
-                                                        CONCAT('(',substr(`no_tel`, 1, 3), ') ', substr(`no_tel`, 4, 3), '-',substr(`no_tel`, 7, 4)) as 'no_tel',
-                                                        p.id_personne, pe.id_personnel, pe.dateEmbauche, pe.role
+                            $query = $conn->prepare("SELECT p.nom, p.prenom, p.no_tel, p.id_personne, pe.id_personnel, pe.dateEmbauche, pe.role
                                                         FROM  personnes p, personnels pe 
                                                         WHERE p.id_personne = pe.id_personne
                                                         AND (p.nom LIKE '%" .$_GET['recherche'] ."%' OR p.prenom LIKE '%" .$_GET['recherche'] ."%' OR pe.Role Like '%" .$_GET['recherche'] ."%')
@@ -73,9 +73,7 @@
                             $recherche = true;                             
                         }
                         else{
-                            $query = $conn->prepare("SELECT p.nom, p.prenom, 
-                                                        CONCAT('(',substr(`no_tel`, 1, 3), ') ', substr(`no_tel`, 4, 3), '-',substr(`no_tel`, 7, 4)) as 'no_tel'
-                                                        , p.id_personne, pe.id_personnel, pe.dateEmbauche, pe.role
+                            $query = $conn->prepare("SELECT p.nom, p.prenom, p.no_tel, p.id_personne, pe.id_personnel, pe.dateEmbauche, pe.role
                                                         FROM  personnes p, personnels pe 
                                                         WHERE p.id_personne = pe.id_personne
                                                         ORDER BY p.nom 
@@ -94,8 +92,8 @@
                                     <td>" .$row["no_tel"] ."</td>
                                     <td>" .$row["dateEmbauche"] ."</td>
                                     <td>
-                                    <a class='button buttonModifier' href='Modifier.php?table=Joueurs&id_personne=".$row["id_personne"]."&idtype=id_personne'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=Personnels&id=".$row["id_personne"] ."&page=" .$page ."&idj=" .$row["id_personnel"] ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonModifier' href='Modifier.php?Table=personnels&id_personne=".$row["id_personne"]."&id_personnel=".$row["id_personnel"]."'><img class='img' src='../Images/Modifier.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=personnels&id=".$row["id_personne"] ."&page=" .$page ."&idj=" .$row["id_personnel"] ."'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";       
                            echo "</tr>";     
                         }
@@ -109,7 +107,9 @@
                         echo "<a href='GestionPersonnels.php' class='button buttonDeplacement'>Afficher tout</a>";
                     }   
                     else{
-                        $nbRow = $conn->query("SELECT count(*) FROM Personnels")->fetchColumn();
+                        $sql = $conn->prepare("SELECT count(id_personnel) FROM personnels WHERE id_parent IS NULL");
+                        $sql->execute();
+                        $nbRow = $sql->fetchColumn();
                         $nbPage = ceil($nbRow / $rowPerPage);
 
                         if($page != 1){

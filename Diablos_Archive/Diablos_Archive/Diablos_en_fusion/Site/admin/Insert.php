@@ -1,8 +1,9 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "concep16_diablos";
+    require_once ("../Connexion_BD/Connect.php");
+    $servername = SERVEUR;
+    $username = NOM;
+    $password = PASSE;
+    $dbname = BASE;
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
