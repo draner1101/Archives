@@ -11,9 +11,8 @@
                 include('navigationGestion.htm');
         }
         else{
-            $_SESSION['Previous'] = "../connexion2.php";
-            header("Location: ../connexion2.php");
             echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
+            echo "<script>window.location.href = '../connexion2.php'</script>";
         }
 
         require_once ("../Connexion_BD/Connect.php");
