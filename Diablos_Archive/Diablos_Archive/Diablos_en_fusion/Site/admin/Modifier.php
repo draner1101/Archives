@@ -202,6 +202,8 @@
                     <?php
                     }
                     break;
+                case "parametres":
+                    break;
             }
 
 
