@@ -95,17 +95,28 @@ $stmt = $conn->prepare('Select * from personnes where id_personne = ' .$_GET["pe
             else
             $ville = NULL;
 
+            if (isset($_GET["email"]))
+            {
+                if($_GET["email"] == $row['courriel'])
+                $email = NULL;
+                else
+                $email = $_GET["email"];      
+            }
+            else
+            $email = NULL;
 
-           if(!empty($nom) or !empty($prenom) or !empty($sexe) or !empty($date) or !empty($ville))//si il y a eu des modifications
+
+           if(!empty($nom) or !empty($prenom) or !empty($sexe) or !empty($date) or !empty($ville) or !empty($email))//si il y a eu des modifications
            {
-                $req = $conn->prepare("INSERT INTO personnes (nom, prenom, sexe, date_naissance, ville, statut, id_parent)
-                VALUES (:nom, :prenom, :sexe, :date_naissance, :ville, :statut, :id_parent)");
+                $req = $conn->prepare("INSERT INTO personnes (nom, prenom, sexe, date_naissance, ville, courriel, statut, id_parent)
+                VALUES (:nom, :prenom, :sexe, :date_naissance, :ville, :courriel, :statut, :id_parent)");
                 $req->execute(array(
                 "nom" => $nom,
                 "prenom" => $prenom,
                 "sexe" => $sexe, 
                 "date_naissance" => $date, 
                 "ville" => $ville,
+                "courriel" => $email,
                 "statut" => 'Temporaire', 
                 "id_parent" => $_GET["personne"]
                 ));
