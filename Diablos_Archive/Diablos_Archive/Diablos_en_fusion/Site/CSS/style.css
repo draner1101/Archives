@@ -262,7 +262,7 @@ td {
     background: darkred;
     box-sizing: border-box;
     border-radius: 4px;
-    border: 1px solid #e15960;
+    border: 1px solid darkred;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -273,7 +273,7 @@ td {
     padding: 0px;
 }
 
-.login-block button:hover {
+.login-button :hover {
     background: #ddd;
     color: black;
 }

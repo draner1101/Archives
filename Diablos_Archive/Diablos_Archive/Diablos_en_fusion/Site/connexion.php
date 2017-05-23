@@ -25,7 +25,7 @@ Normalisation();
 			<a href='../../index.php' style='position:absolute;margin-left:40px;'>Retour</a>
 			<input type="text" value="" name='nom_utilisateur' placeholder="Nom d'utilisateur" id="username" />
 			<input type="password" value="" name='mot_passe' placeholder="Mot de passe" id="password" />
-			<input type="submit" name="connecter" value="Envoyer" id="login"></input>
+			<input class="login-button" type="submit" name="connecter" value="Envoyer" id="login"></input>
 		</div>
 	</form>
 	
