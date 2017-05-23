@@ -19,7 +19,7 @@
         }
         else{
             echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
-            echo "<script>window.location.href = '../connexion2.php'</script>";
+            echo "<script>window.location.href = '../connexion.php'</script>";
         }
 
 

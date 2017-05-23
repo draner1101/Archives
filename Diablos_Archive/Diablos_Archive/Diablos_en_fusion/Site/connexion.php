@@ -15,12 +15,11 @@ Normalisation();
 	<meta charset="UTF-8">
 	<title>Connexion</title>
 	<link rel="stylesheet" type="text/css" target=_blank href="CSS/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script type="text/javascript" src="Script/jquery.js"></script>
 	<script type="text/javascript" src="Script/javascript.js"></script>	
 </head>
 <body style='text-align:center;'>
-	<form method='post' action='connexion.php'>
+	<form method='post' action='connexion2.php'>
 		<div class="login-block">
 			<h1 style='display:inline-block'>Connexion</h1>
 			<a href='../../index.php' style='position:absolute;margin-left:40px;'>Retour</a>
@@ -45,13 +44,13 @@ Normalisation();
                 $_SESSION["nom_utilisateur"]=$row['nom_utilisateur'];
                 $_SESSION["acces"]=$row['acces'];
 
-				echo "<script>window.location.href = '../../index.php'</script>";
+				echo "<script>window.location.href = 'admin/GestionDemandes.php'</script>";
             }
         else
-            echo "<div class='container alert alert-danger'>Nom d'utilisateur ou mot de passe invalide</div>";
+            echo "<script>alert('Erreur d\'authentification');</script>";
         }
         else
-            echo "<div class='container alert alert-danger'>Nom d'utilisateur ou mot de passe invalide</div>";
+            echo "<script>alert('Erreur d\'authentification');</script>";
         }
     ?>
 	
