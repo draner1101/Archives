@@ -27,7 +27,7 @@
     </script>
     <div class="contenu">
         <center>
-            <div style="width: 80%">
+            <div style="width: 80%; padding-bottom: 24px;">
                 <a class="button buttonRecherche right" href="Ajouter.php?Table=Entraineurs">Ajouter un entraîneur</a>
                 <form class="right" action="GestionEntraineurs.php">
                     <input class="recherche" type="text" name="recherche" placeholder="Rechercher...">
@@ -48,7 +48,7 @@
                     $password = PASSE;
                     $dbname = BASE;
 
-                    $rowPerPage = 8;
+                    $rowPerPage = 75;
                     $recherche = false;
 
                     if(isset($_GET["page"])){
