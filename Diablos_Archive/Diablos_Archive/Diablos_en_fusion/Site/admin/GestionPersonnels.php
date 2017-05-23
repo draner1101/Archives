@@ -50,7 +50,7 @@
                     $dbname = BASE;
 
 
-                    $rowPerPage = 8;
+                    $rowPerPage = 75;
                     $recherche = false;
 
                     if(isset($_GET["page"])){
