@@ -41,7 +41,10 @@
 
             <?php
             if($_GET['Table'] == 'equipes'){
-                echo "<div class='titre'>Équipe - Ajouter</div>";
+                echo "<div class='titre'>Équipe - Modifier</div>";
+            }
+            elseif ($_GET['Table'] == 'Parametres') {
+                echo "<div class='titre'>Paramètre - Modifier</div>";
             }
             else{
                 echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Modifier</div>";
@@ -52,7 +55,10 @@
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
-            if($_GET['Table'] != 'equipes'){
+            if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'Parametres')){
+                ?>
+                <script>alert("<?=$_GET['Table']?>")</script>
+                <?php
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -203,14 +209,14 @@
                     }
                     break;
                 case "parametres":
+
                     break;
             }
 
 
             echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">
                   <a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
-            echo"</form></div></div>";
-            
+            echo"</form></div></div>";  
         }
     ?>
     <script>
