@@ -44,7 +44,7 @@ Normalisation();
                 $_SESSION["nom_utilisateur"]=$row['nom_utilisateur'];
                 $_SESSION["acces"]=$row['acces'];
 
-				echo "<script>window.location.href = '../../index.php'</script>";
+				echo "<script>window.location.href = '/admin/gestiondemandes.php'</script>";
             }
         else
             echo "<script>alert('Erreur d\'authentification');</script>";
