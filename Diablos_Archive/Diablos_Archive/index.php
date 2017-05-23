@@ -304,7 +304,7 @@ Normalisation();
 
     function slickLoad() {
         $('.slickDiaporamaProfil').slick({
-            arrows: false,
+            arrows: true,
             dots: true,
             accessibility: false
             
