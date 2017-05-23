@@ -194,19 +194,18 @@
 							<th class='size'>Rôle</th>
 							<td>".$row['role']."</td>  
 						</tr>
-
-						<tr>
-							<th class='size'>Date d'embauche</th>
-							<td>".$row['dateEmbauche']."</td>  
-						</tr>
-
-						<tr>
-							<th class='size'>Date de fin</th>
-							<td>".$row['datefin']."</td>  
-						</tr>
-					
+		
 						</table>";
 				}
+						// 				<tr>
+						// 	<th class='size'>Date d'embauche</th>
+						// 	<td>".$row['dateEmbauche']."</td>  
+						// </tr>
+
+						// <tr>
+						// 	<th class='size'>Date de fin</th>
+						// 	<td>".$row['datefin']."</td>  
+						// </tr>
 
 			elseif($_GET['typePopup'] == 'Joueur') //Permet de calculer et d'afficher les informations d'un joueurs
 				{
@@ -240,7 +239,7 @@
 
 						</tr>
 						<tr>
-							<th class='size'>École antérieure</th>
+							<th class='size'>École secondaire</th>
 							<td colspan='3'>".$row['ecole_prec']."</td>
 
 						</tr>
@@ -361,9 +360,6 @@
 						{
 							echo "<div align='center'><img src='" . $row2['photo'] . "' style='max-width:100%;max-height:100%;'></div>";
 						}
-						else
-						    echo "<div align='center'><img src='/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' style='max-width:100%;max-height:200px;'></div>";
-
 					}
 				}
 				else

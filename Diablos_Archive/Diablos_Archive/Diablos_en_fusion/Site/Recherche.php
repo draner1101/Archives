@@ -136,7 +136,7 @@
 	}
 	
 	if ($tous == 1 or $equipe == 1){
-		$requete="select e.id_equipe, e.nom
+		$requete="select e.id_equipe, e.nom, e.saison
 		from equipes e
 		where (upper(e.nom) like upper('%". mysqli_real_escape_string($connexion, $recherche) . "%'))
 		".$verifdate."
@@ -148,7 +148,7 @@
 			echo "<table class='table table-striped table-hover table-bordered tableheader' width='100%'><thead><tr><th>Nom</th></tr></thead>";
 				while($row = mysqli_fetch_assoc($resultat)){
 					echo "<tr onclick='ShowCard(\"$row[id_equipe]\",\"equipe\",\"0\")'>";
-						echo "<td><a style='cursor:pointer;'>$row[nom]</a></td>";
+						echo "<td><a style='cursor:pointer;'>$row[nom] [$row[saison]]</a></td>";
 					echo "</tr>";
 				}
 			echo "</table>";

@@ -206,21 +206,23 @@ Normalisation();
                      echo "<p class='information'>Facebook: $row[facebook]</p>";
                      echo "<p class='information'>Adresse Postal: $row[adresse_postal]</p>";
                      echo "<p class='information'>Adresse courriel: $row[courriel]</p>";
+                     $courriel = $row['courriel'];
                      }?>
 
                     <img style="width: 237px; height: 300px; margin-left: 80px;" src="Diablos_en_fusion/Site/Images/default.png" s alt=" Logo des Diablos ">
                 </div>
                 <div class="col-xs-6 mail ">
-                    <form action="index.php">
+                    <form action="index.php" onsubmit="var x=MessageConfirmation('Êtes-vous sûr de votre choix ?');return x;">
                         <h4 class="title ">Nom*</h4>
-                        <input class="message " type="text " name='nom'><br>
+                        <input class="message " type="text " name='nom' required><br> 
                         <h4 class="title ">Adresse courriel*</h4>
-                        <input class="message " type="text " name='adresse'><br>
+                        <input class="message " type="text " name='adresse' required><br>
                         <h4 class="title ">Objet*</h4>
-                        <input class="message " type="text " name='objet'><br>
+                        <input class="message " type="text " name='objet' required><br>
                         <h4 class="title ">Message*</h4>
-                        <textarea class="message " rows="8" cols="83 " name='message'></textarea><br><br>
-                        <button class="btn ">Envoyer</button>
+                        <textarea class="message " rows="8" cols="83 " name='message' required></textarea><br><br>
+                        <input type="submit" value="Envoyer" class="btn btn-default"></input>
+                        
                     </form>
                 </div>
             </div>
@@ -231,6 +233,20 @@ Normalisation();
 
 <script type="text/javascript" src="Diablos_en_fusion/Site/slick/slick.min.js"></script>
 <script>
+
+    function MessageConfirmation(msg) 
+    {
+        if (confirm(msg) == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
     $('a[href*="#"]:not([href="#mycarousel"])').click(function() {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var target = $(this.hash);
@@ -291,6 +307,7 @@ Normalisation();
             arrows: false,
             dots: true,
             accessibility: false
+            
         });
          $('.slickDiaporamaProfil').slick('slickGoTo',0);
     }
@@ -487,17 +504,23 @@ Normalisation();
 
                 if (isset($_GET['message']) and isset($_GET['nom']) and isset($_GET['objet']) and isset($_GET['adresse']))
                     {
-                        $to      = 'concep16tionweb@conceptionweb-16.scah.ca';
+                        $to      = $courriel;
                         $subject = $_GET['objet'];
                         $message = $_GET['message'];
                         $message = wordwrap($message,70);
-                        $headers[] = 'To: Archives Diablos <concep16tionweb@conceptionweb-16.scah.ca>';
+                        $headers[] = 'To: Archives Diablos <'.$courriel.'>';
                         $headers[] = 'From: '.$_GET['nom']. '<'.$_GET['adresse'].'>';
 
-                        mail($to, $subject, $message, implode("\r\n", $headers));
-
-
-                        echo "<script>window.alert('Message Envoyé')</script>";
-                    }
+                if (!empty($message) and !empty($subject) and !empty($_GET['nom']) and !empty($_GET['adresse']))
+                     { 
+                           mail($to, $subject, $message, implode("\r\n", $headers));
+                           echo "<script>window.alert('Message Envoyé')</script>";
+                     }
+                else
+                     {
+                          echo "<script> document.location.href='index.php#info'</script>";
+                     }
+   
+                     }
     ?>
 </html>

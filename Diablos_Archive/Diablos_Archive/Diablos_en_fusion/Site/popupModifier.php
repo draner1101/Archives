@@ -147,6 +147,12 @@
 							<td><input type='text' name='ville' maxlength='50' size='35' value='".$row['ville']."'></td> 
 
 						</tr>
+
+						<tr>
+							<th>Adresse courriel</th>
+							<td><input type='email' name='email' maxlength='150' size='35' value=''></td> </td>  
+						</tr>
+
 						<tr>
 							<th>Note biographique</th>
 							<td colspan='3'><textarea name='note' size='75' rows='5' cols='75' style='resize:none' maxlength='255' value='".$row['note']."'>".$row['note']."</textarea></td>  
@@ -194,13 +200,18 @@
 						</tr>
 
 						<tr>
+							<th>Adresse courriel</th>
+							<td><input type='email' name='email' maxlength='150' size='35' value=''></td> </td>  
+						</tr>
+
+						<tr>
 							<th class='size'>Date d'embauche</th>
-							<td><input type='date' name='dateE' value='".$row['dateEmbauche']."'></td>  
+							<td><input type='date' name='dateE' value=''></td>  
 						</tr>
 
 						<tr>
 							<th class='size'>Date de fin</th>
-							<td><input type='date' name='dateF' value='".$row['datefin']."'></td>  
+							<td><input type='date' name='dateF' value=''></td>  
 						</tr>						
 						</table>
 						<input type='hidden' name='personnel' value='".$row['id_personnel']."'>
@@ -253,8 +264,9 @@
 							<td colspan='3'><input type='text' name='ville' maxlength='50' size='35' value='".$row['ville']."'</td> 
 
 						</tr>
+
 						<tr>
-							<th>École antérieure</th>
+							<th>École secondaire</th>
 							<td colspan='3'><input type='text' name='ecole' maxlength='50' size='35' value='".$row['ecole_prec']."'</td>
 
 						</tr>
@@ -262,6 +274,10 @@
 							<th>Domaine d'étude</th>
 							<td colspan='3'><input type='text' name='domaine_etude' maxlength='100' size='35' value='".$row['domaine_etude']."'</td> 
  
+						</tr>
+						<tr>
+							<th>Adresse courriel</th>
+							<td colspan='3'><input type='email' name='email' maxlength='150' size='35' value=''></td> </td>  
 						</tr>
 						<tr>
 							<th>Note biographique</th>
