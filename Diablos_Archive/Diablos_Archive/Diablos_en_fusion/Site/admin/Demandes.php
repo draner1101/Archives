@@ -12,7 +12,15 @@
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        include('navigationGestion.htm'); 
+        session_start();
+        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+            
+                include('navigationGestion.htm');
+        }
+        else{
+            echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
+            echo "<script>window.location.href = '../connexion2.php'</script>";
+        }
 
         require_once ("../Connexion_BD/Connect.php");
         $servername = SERVEUR;

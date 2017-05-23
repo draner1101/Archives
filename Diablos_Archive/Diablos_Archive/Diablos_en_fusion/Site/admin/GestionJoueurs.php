@@ -7,20 +7,15 @@
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php 
-        //session_start();
-        // if(isset($_SESSION['loggedin']) && ($_SESSION['loggedin'] == true)){
-        //     if($_SESSION['type'] == 1){
-                 include('navigationGestion.htm'); 
-        //     }
-        //     else{
-        //         $_SESSION['Previous'] = "../Gestion/GestionJoueurs.php";
-        //     header("Location: ../Login/LoginForm.php?action=type");
-        //     }
-        // }
-        // else{
-        //     $_SESSION['Previous'] = "../Gestion/GestionJoueurs.php";
-        //     header("Location: ../Login/LoginForm.php?action=login");
-        // }
+       session_start();
+        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+            
+                include('navigationGestion.htm');
+        }
+        else{
+            echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
+            echo "<script>window.location.href = '../connexion2.php'</script>";
+        }
     ?>
     <script>
         document.getElementById("Joueurs").classList.add("active");
