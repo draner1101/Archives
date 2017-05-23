@@ -19,7 +19,7 @@ Normalisation();
 	<script type="text/javascript" src="Script/javascript.js"></script>	
 </head>
 <body style='text-align:center;'>
-	<form method='post' action='connexion2.php'>
+	<form method='post' action='connexion.php'>
 		<div class="login-block">
 			<h1 style='display:inline-block'>Connexion</h1>
 			<a href='../../index.php' style='position:absolute;margin-left:40px;'>Retour</a>
