@@ -21,7 +21,9 @@
                  code_postal='" .$_GET['code_postal'] ."'
              WHERE id_personne = " .$_GET["id_personne"]);
              $query->execute();
-    }
+
+             
+        }
 
     switch($_GET['table']){
         case "Personnels":

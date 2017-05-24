@@ -56,7 +56,8 @@
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
-            if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'parametres')){
+            if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'parametres')
+                && ($_GET['Table'] != 'sports')){
                 ?>
                 <?php
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
@@ -228,6 +229,15 @@
                     <?php
                     }
                     break;
+                case "sports":
+                    $query = $conn->prepare("SELECT * from sports where id_sport = " .$_GET['id_sport']);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                    ?>
+                    <input type="text"  value="">
+                    <?php
+                    }
             }
 
                 if($_GET['Table'] != 'parametres'){
