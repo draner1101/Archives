@@ -35,7 +35,8 @@
             $table = $_GET["Table"];
             ?>
             <script>
-                document.getElementById('<?=ucFirst($table);?>').classList.add('active');
+                //document.getElementById('<?=ucFirst($table);?>').classList.add('active');
+                document.getElementById("Joueurs").classList.add("active");
             </script>
             <div class='contenu'>
 
@@ -50,14 +51,13 @@
                 echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Modifier</div>";
             }
             ?>
-            <div class='divForm'>
-            <form action='Update.php' style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
+            <div class='divForm' style="margin-bottom: 50px;">
+            <form action='Update.php' style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px; padding-bottom: 50px;'>
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
-            if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'Parametres')){
+            if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'parametres')){
                 ?>
-                <script>alert("<?=$_GET['Table']?>")</script>
                 <?php
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
@@ -209,13 +209,34 @@
                     }
                     break;
                 case "parametres":
-
+                    $query = $conn->prepare("SELECT * from nous_joindre where rowid = 1");
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                    ?>
+                    <input type="hidden" name="table" value="Parametres">
+                    <label>Telephone</label>
+                    <input class="formulaire" type="text" name="telephone" placeholder="Telephone" value="<?=$row["telephone"]?>">
+                    <label>Twitter</label>
+                    <input class="formulaire" type="text" name="twitter" placeholder="Twitter" value="<?=$row["twitter"]?>">
+                    <label>Facebook</label>
+                    <input class="formulaire" type="text" name="facebook" placeholder="Facebook" value="<?=$row["facebook"]?>">
+                    <label>Adresse postale</label>
+                    <input class="formulaire" type="text" name="adresse_postal" placeholder="Adresse Postale" value="<?=$row["adresse_postal"]?>">
+                    <label>Courriel</label>
+                    <input class="formulaire" type="text" name="courriel" placeholder="Courriel" value="<?=$row["courriel"]?>">
+                    <?php
+                    }
                     break;
             }
 
-
-            echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">
-                  <a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
+                if($_GET['Table'] != 'parametres'){
+                    echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">';
+                    echo '<a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
+                }
+                else{
+                    echo '<input class="button buttonDeplacement" style="float: right; margin-bottom: 0px; margin-top: 0px;" type="submit" value="Appliquer les modifications">';
+                }
             echo"</form></div></div>";  
         }
     ?>

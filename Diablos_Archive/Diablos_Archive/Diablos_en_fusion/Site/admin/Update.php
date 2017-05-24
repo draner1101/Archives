@@ -7,7 +7,7 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
-    if($_GET['table'] != 'Equipes'){
+    if($_GET['table'] != 'Equipes' && $_GET['table'] != 'Parametres'){
          $query = $conn->prepare("UPDATE personnes 
              SET nom='" .$_GET["nom"] ."', 
                  prenom='" .$_GET['prenom'] ."', 
@@ -65,6 +65,17 @@
                  id_sport='" .$_GET['id_sport'] ."',
                  note='" .$_GET['note'] ."' 
              WHERE id_equipe = " .$_GET["id_equipe"]);
+             $query->execute();
+            break;
+
+        case "Parametres":
+            $query = $conn->prepare("UPDATE nous_joindre 
+             SET telephone='" .$_GET["telephone"] ."', 
+                 twitter='" .$_GET['twitter'] ."', 
+                 facebook='" .$_GET['facebook'] ."', 
+                 adresse_postal='" .$_GET["adresse_postal"] ."',
+                 courriel='" .$_GET['courriel'] ."'
+             WHERE rowid = 1");
              $query->execute();
             break;
     }
