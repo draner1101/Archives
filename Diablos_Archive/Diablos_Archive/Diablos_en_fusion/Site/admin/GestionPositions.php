@@ -18,20 +18,20 @@
         }
     ?>
     <script>
-        document.getElementById("Position").classList.add("active");
+        document.getElementById("Positions").classList.add("active");
     </script>
     <div class="contenu">
         <center>
             <div style="width: 80%; padding-bottom: 24px;">
-                <a class="button buttonRecherche right" href="Ajouter.php?Table=Position">Ajouter un entraîneur</a>
-                <form class="right" action="GestionPosition.php">
+                <a class="button buttonRecherche right" href="Ajouter.php?Table=Positions">Ajouter une position</a>
+                <form class="right" action="GestionPositions.php">
                     <input class="recherche" type="text" name="recherche" placeholder="Rechercher...">
                     <input class="button buttonRecherche" type="submit" value="Rechercher">
                 </form>
                 <table>
                     <tr>
-                        <th style="width: 100px">Nom</th>
-                        <th>Rôle</th>
+                        <th>Position</th>
+                        <th>Sport</th>
                         <th style="width: 85px"></th>
                     </tr>
                     <?php
@@ -56,16 +56,18 @@
                     try{
                         $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
                         if(isset($_GET['recherche'])){
-                            $query = $conn->prepare("SELECT s.id_sport, s.sport, s.roles
-                                                        FROM  position p, sport s
-                                                        WHERE (s.sport LIKE '%" .$_GET['recherche'] ."%') OR (s.roles LIKE '%" .$_GET['recherche'] ."%')
-                                                        ORDER BY s.sport");
+                            $query = $conn->prepare("SELECT p.id_position, p.position, s.sport
+                                                        FROM  positions p, sports s
+                                                        WHERE s.id_sport = p.id_sport
+                                                        AND (s.sport LIKE '%" .$_GET['recherche'] ."%') OR (p.position LIKE '%" .$_GET['recherche'] ."%')
+                                                        ORDER BY p.position");
                             $recherche = true;                             
                         }
                         else{
-                            $query = $conn->prepare("SELECT s.id_sport, s.sport, s.roles
-                                                        FROM  Position s
-                                                        ORDER BY s.sport 
+                            $query = $conn->prepare("SELECT p.id_position, p.position, s.sport
+                                                        FROM  positions p, sports s
+                                                        WHERE s.id_sport = p.id_sport
+                                                        ORDER BY p.position 
                                                         LIMIT " .$rowStart ." , ".$rowPerPage);
                             $recherche = false;
                         }
@@ -75,11 +77,11 @@
                         $result = $query->fetchAll(PDO::FETCH_ASSOC); 
                         foreach($result as $row){
                            echo "<tr>
+                                    <td>" .$row["position"] ."</td>
                                     <td>" .$row["sport"] ."</td>
-                                    <td>" .$row["roles"] ."</td>
                                     <td>
-                                    <a class='button buttonModifier' href='Modifier.php?Table=Position&id_sport=".$row["id_sport"] ."'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=sport&id=".$row["id_sport"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonModifier' href='Modifier.php?Table=positions&id_position=".$row["id_position"] ."'><img class='img' src='../Images/Modifier.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=positions&id=".$row["id_position"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }
@@ -90,7 +92,7 @@
                     echo "</table>";
 
                     if($recherche == true){
-                        echo "<a href='GestionPosition.php' class='button buttonDeplacement'>Afficher tout</a>";
+                        echo "<a href='GestionPositions.php' class='button buttonDeplacement'>Afficher tout</a>";
                     }
                     else{
                         $sql = $conn->prepare("SELECT count(sport) FROM Position");
@@ -112,16 +114,16 @@
                         }
                     
                         if($nbPage > 1){
-                            echo "<a href='GestionPosition.php?page=".$back."' class='button buttonDeplacement'>&lt</a>";
+                            echo "<a href='GestionPositions.php?page=".$back."' class='button buttonDeplacement'>&lt</a>";
                             for($i = 1; $i <= $nbPage; $i++){
                                 if($i == $page){
-                                    echo "<a href='GestionPosition.php?page=".$i."' class='button buttonDeplacement buttonActive'>".$i."</a>";
+                                    echo "<a href='GestionPositions.php?page=".$i."' class='button buttonDeplacement buttonActive'>".$i."</a>";
                                 }
                                 else{
-                                    echo "<a href='GestionPosition.php?page=".$i."' class='button buttonDeplacement'>".$i."</a>";
+                                    echo "<a href='GestionPositions.php?page=".$i."' class='button buttonDeplacement'>".$i."</a>";
                                 }
                             }
-                            echo "<a href='GestionPosition.php?page=".$next."' class='button buttonDeplacement'>&gt</a>";
+                            echo "<a href='GestionPositions.php?page=".$next."' class='button buttonDeplacement'>&gt</a>";
                         }
                     }
                 ?>

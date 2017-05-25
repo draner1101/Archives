@@ -33,11 +33,18 @@
             $query = $conn->prepare("DELETE  FROM equipes WHERE id_equipe = " .$_GET["idj"]);
             $query->execute();
             break;
+        case 'sports': 
+            $query = $conn->prepare("DELETE  FROM sports WHERE id_sport = " .$_GET["id"]);
+            $query->execute();
+        case 'positions':
+            $query = $conn->prepare("DELETE  FROM positions WHERE id_position = " .$_GET["id"]);
+            $query->execute();
         default:
             break;
     }
 
-    if($_GET['table'] != 'equipe'){
+    if($_GET['table'] != 'equipes' && $_GET['table'] != 'sports'
+        && $_GET['table'] != 'positions'){
         $query = $conn->prepare("DELETE  FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET["idj"]);
         $query->execute();
         $query = $conn->prepare("DELETE  FROM personnes WHERE id_parent = " .$_GET["id"]);

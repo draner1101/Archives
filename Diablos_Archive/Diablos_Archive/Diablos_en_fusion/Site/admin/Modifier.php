@@ -44,11 +44,11 @@
             if($_GET['Table'] == 'equipes'){
                 echo "<div class='titre'>Équipe - Modifier</div>";
             }
-            elseif ($_GET['Table'] == 'Parametres') {
+            elseif ($_GET['Table'] == 'parametres') {
                 echo "<div class='titre'>Paramètre - Modifier</div>";
             }
             else{
-                echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Modifier</div>";
+                echo "<div class='titre'>". substr(ucFirst($_GET['Table']), 0, -1)." - Modifier</div>";
             }
             ?>
             <div class='divForm' style="margin-bottom: 50px;">
@@ -57,16 +57,15 @@
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
             if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'parametres')
-                && ($_GET['Table'] != 'sports')){
-                ?>
-                <?php
+                && ($_GET['Table'] != 'sports' && ($_GET['Table'] != 'positions'))){
+
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($result as $row) {
             ?>
-                    <input type="hidden" name="table" value="<?=$_GET['Table']?>">
+                    <input type="hidden" name="table" value="<?=ucFirst($_GET['Table'])?>">
                     <input type="hidden" name="id_personne" value="<?=$_GET['id_personne']?>">
                     <input  class="formulaire"type="text" name="nom" placeholder="Nom" value="<?=$row["nom"]?>">
                     <input  class="formulaire"type="text" name="prenom" placeholder="Prénom" value="<?=$row["prenom"]?>"><br><br>
@@ -235,8 +234,40 @@
                     $result = $query->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($result as $row) {
                     ?>
-                    <input type="text"  value="">
+                    <input type="hidden" name="id_sport" value="<?=$_GET['id_sport']?>">
+                    <input type="hidden" name="table" value="Sports">
+                    <label>Nom</label>
+                    <input class="formulaire" name="sport" type="text" value="<?=$row["sport"]?>">
+                    <label>Rôle(s)</label>
+                    <textarea  class="formulaire" type="text" name="roles" placeholder="Rôle(s)" rows="10" cols="50"><?=$row["roles"]?></textarea>
                     <?php
+                    }
+                case "positions":
+                    $query = $conn->prepare("SELECT * from positions where id_position = " .$_GET['id_position']);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                    ?>
+                    <input type="hidden" name="id_position" value="<?=$_GET['id_position']?>">
+                    <input type="hidden" name="table" value="Positions">
+                    <label>Position</label>
+                    <input class="formulaire" name="position" type="text" value="<?=$row["position"]?>">
+                    <label>Sport</label>
+                    <select class="formulaire" name="id_sport">
+
+                    <?php
+                    $query = $conn->prepare("SELECT id_sport, sport from sports order by sport");
+                    $query->execute();
+                    $sportList = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($sportList as $sport) {
+                        if($sport['id_sport'] == $row["id_sport"]){
+                            echo"<option selected='selected' value='".$sport['id_sport']."'>".$sport['sport']."</option>";
+                        }
+                        else{
+                            echo"<option value='".$sport['id_sport']."'>".$sport['sport']."</option>";
+                        }  
+                    }
                     }
             }
 
