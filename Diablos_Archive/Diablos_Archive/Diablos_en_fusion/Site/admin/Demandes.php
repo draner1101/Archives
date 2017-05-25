@@ -97,15 +97,15 @@
                     <input  readonly class="formulaire gauche" type="text" name="taille" placeholder="Taille(cm)" value="<?=$info["taille"]?> cm">
                     <label>Poids(lbs)</label>
                     <input  readonly class="formulaire gauche" type="text" name="poids" placeholder="Poids(lb)" value="<?=$info["poids"]?> lbs">
-                    <label>École précédente</label>
-                    <input  readonly class="formulaire gauche" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$info["ecole_prec"]?>">
+                    <label>École secondaire</label>
+                    <input  readonly class="formulaire gauche" type="text" name="ecole_prec" placeholder="École secondaire" value="<?=$info["ecole_prec"]?>">
                     <label>Ville natale</label>
                     <input  readonly class="formulaire gauche" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$info["ville_natal"]?>">
                     <label>Domaine d'étude</label>
                     <input  readonly class="formulaire gauche" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$info["domaine_etude"]?>">   
                     <label>Photo de profil</label>
                     <input  readonly class="formulaire gauche" type="text" name="photo_profil" placeholder="Photo de profil" value="<?=$info["photo_profil"]?>">                                    
-                    <label>Remarques</label>
+                    <label>Biographie</label>
                     <textarea  readonly class="formulaire gauche" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$info["note"]?></textarea>
                             <?php
                             break;
@@ -117,7 +117,7 @@
                     <input  readonly class="formulaire gauche" type="text" name="type" placeholder="Type" value="<?=$info["type"]?>">
                     <label>Photo de profil</label>
                     <input  readonly class="formulaire gauche" type="text" name="photo_profil" placeholder="Photo de profil" value="<?=$info["photo_profil"]?>"> 
-                    <label>Remarques</label>
+                    <label>Biographie</label>
                     <textarea  readonly class="formulaire gauche" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$info["note"]?></textarea>                           
                             <?php
                             break;
@@ -173,7 +173,7 @@
                     ?>
                     <label>Sport</label>
                     <input readonly placeholder="Sport" class="formulaire gauche" type="text" name="sport" value="<?=$sport["sport"]?>">
-                    <label>Remarques</label>
+                    <label>Biographie</label>
                     <textarea  readonly class="formulaire gauche" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$info["note"]?></textarea> 
                             <?php
                         default:
@@ -291,16 +291,16 @@
                     <span><input type="checkbox" name="cTaille" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="taille" placeholder="Taille(cm)" value="<?=$tableDroite["taille"]?>"></span>
                     <label>Poids(lbs)</label>
                     <span><input type="checkbox" name="cPoids" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="poids" placeholder="Poids(lb)" value="<?=$tableDroite["poids"]?>"></span>
-                    <label>École précédente</label>
-                    <span><input type="checkbox" name="cEcole_prec" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$tableDroite["ecole_prec"]?>"></span>
+                    <label>École secondaire</label>
+                    <span><input type="checkbox" name="cEcole_prec" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="ecole_prec" placeholder="École secondaire" value="<?=$tableDroite["ecole_prec"]?>"></span>
                     <label>Ville natale</label>
                     <span><input type="checkbox" name="cVille_natal" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$tableDroite["ville_natal"]?>"></span>
                     <label>Domaine d'étude</label>
                     <span><input type="checkbox" name="cDomaine_etude" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$tableDroite["domaine_etude"]?>"></span> 
                     <label>Photo de profil</label>
                     <span><input type="checkbox" name="cPhoto_profil" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="photo_profil" placeholder="Photo de profil" value="<?=$tableDroite["photo_profil"]?>"></span>                                   
-                    <label>Remarques</label>
-                    <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder="Remarques" rows="10" cols="50" style="width: 92%"><?=$tableDroite["note"]?></textarea></span>
+                    <label>Biographie</label>
+                    <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder="Biographie" rows="10" cols="50" style="width: 92%"><?=$tableDroite["note"]?></textarea></span>
                             <?php
                             break;
                         case 'entraineurs':
@@ -313,8 +313,8 @@
                     <span><input type="checkbox" name="cType" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="type" placeholder="Type" value="<?=$tableDroite["type"]?>"></span>
                     <label>Photo de profil</label>
                     <span><input type="checkbox" name="cPhoto_profil" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="photo_profil" placeholder="Photo de profil" value="<?=$tableDroite["photo_profil"]?>"></span> 
-                    <label>Remarques</label>
-                    <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder="Remarques" rows="10" cols="50" style="width: 92%"><?=$tableDroite["note"]?></textarea></span>                           
+                    <label>Biographie</label>
+                    <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder=" Biographie" rows="10" cols="50" style="width: 92%"><?=$tableDroite["note"]?></textarea></span>                           
                             <?php
                             break;
                         case 'personnels':
@@ -382,7 +382,7 @@
                     ?>
                     <label>Sport</label>
                     <span><input type="checkbox" name="cSport" style="padding: 10px;"><input style="width: 92%;" placeholder="Sport" class="formulaire droite" type="text" name="sport" value="<?=$sport["sport"]?>">
-                    <label>Remarques</label>
+                    <label>Biographie</label>
                     <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$tableDroite["note"]?></textarea></span>
                             <?php
                         default:

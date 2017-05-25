@@ -104,7 +104,7 @@
                     ?>
 
                     </select>
-                    <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"></textarea> 
+                    <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea> 
                     <?php
                     break;
 
@@ -112,11 +112,11 @@
                     ?>
                     <input  class="formulaire" type="text" name="taille" placeholder="Taille(cm)">
                     <input  class="formulaire" type="text" name="poids" placeholder="Poids(lb)">
-                    <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente">
+                    <input  class="formulaire" type="text" name="ecole_prec" placeholder="École secondaire">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude">   
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil">                                    
-                    <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"></textarea>
+                    <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea>
                     <?php
                     break;
                     
@@ -125,7 +125,7 @@
                     <input  class="formulaire" type="text" name="no_embauche" placeholder="No d'embauche">
                     <input  class="formulaire" type="text" name="type" placeholder="Type">
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil"> 
-                    <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"></textarea>
+                    <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea>
                     <?php
                     break;
             }
