@@ -34,8 +34,6 @@
              WHERE id_personnel = " .$_GET["id_personnel"]);
              $query->execute();
 
-<<<<<<< HEAD
-=======
              // $query = $conn->prepare("UPDATE multimedia_personne  
              // SET cacher=1
              // WHERE id_personne =".$_GET['id_personne']);
@@ -49,8 +47,6 @@
              // WHERE id_mmp =".$check);
              // $query->execute();
              //    }
-
->>>>>>> 68fdd996b216b5d1ba9b3eab5f3b2fcd0dbf2918
             break;
 
         case "Joueurs":
