@@ -224,24 +224,45 @@ if (isset($_GET["joueur"]))
             $resultat = $stmt->fetchAll();
             foreach($resultat as $row)
             {
+               if (isset($_GET["pieds"]) && isset($_GET["pouces"]))
+               {
+                    $pouces = $_GET["pouces"];
+                    $pieds = $_GET["pieds"];
+                    $cm = round(((($pouces * 0.0833333) + $pieds) / 0.032808));
 
-                if (isset($_GET["taille"]))
-                {
-                    if($_GET["taille"] == $row['taille'])
+                    if($cm == $row['taille'])
                     $taille = NULL;
                     else
-                    $taille = $_GET["taille"];      
-                }
-                else
-                $taille = NULL;
+                    $taille = $cm;     
+               }
 
+                else {  if (isset($_GET["taille"]))
+                           {
+                                if($_GET["taille"] == $row['taille'])
+                                $taille = NULL;
+                                else
+                                $taille = $_GET["taille"];      
+                           }
+
+                       else $taille = NULL;
+                     }
 
                 if (isset($_GET["poids"]))
                 {
-                    if($_GET["poids"] == $row['poids'])
-                    $poids = NULL;
-                    else
-                    $poids = $_GET["poids"];      
+                    if($_GET["typePoids"] == 'kg')
+                    {
+                       if($_GET["poids"] == $row['poids'])
+                       $poids = NULL;
+                       else
+                       $poids = $_GET["poids"] * 2.2046;   
+                    }
+
+                    else{
+                          if($_GET["poids"] == $row['poids'])
+                          $poids = NULL;
+                          else
+                          $poids = $_GET["poids"];      
+                        }
                 }
                 else
                 $poids = NULL;
