@@ -54,7 +54,8 @@
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
-            if($_GET['Table'] != 'Equipes'){
+            if($_GET['Table'] != 'Equipes' && $_GET['Table'] != 'Sports'
+               && $_GET['Table'] != 'Positions'){
             ?>
                     <input type="hidden" name="table" value="<?=$_GET['Table']?>">
                     <input  class="formulaire"type="text" name="nom" placeholder="Nom">
@@ -104,7 +105,7 @@
                     ?>
 
                     </select>
-                    <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"></textarea> 
+                    <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea> 
                     <?php
                     break;
 
@@ -112,11 +113,11 @@
                     ?>
                     <input  class="formulaire" type="text" name="taille" placeholder="Taille(cm)">
                     <input  class="formulaire" type="text" name="poids" placeholder="Poids(lb)">
-                    <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente">
+                    <input  class="formulaire" type="text" name="ecole_prec" placeholder="École secondaire">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude">   
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil">                                    
-                    <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"></textarea>
+                    <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea>
                     <?php
                     break;
                     
@@ -125,7 +126,35 @@
                     <input  class="formulaire" type="text" name="no_embauche" placeholder="No d'embauche">
                     <input  class="formulaire" type="text" name="type" placeholder="Type">
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil"> 
-                    <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"></textarea>
+                    <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea>
+                    <?php
+                    break;
+                
+                case "Sports":
+                    ?>
+                    <input type="hidden" name="table" value="Sports">
+                    <input  class="formulaire" type="text" name="sport" placeholder="Nom">
+                    <textarea  class="formulaire" type="text" name="roles" placeholder="Rôle(s) (Les rôles sont séparés par un ;)" rows="10" cols="50"></textarea>
+                    <?php
+                    break;
+                
+                case "Positions":
+                    ?>
+                    <input type="hidden" name="table" value="Positions">
+                    <input  class="formulaire" type="text" name="position" placeholder="Nom">
+                    <select class="formulaire" name="id_sport">
+                    <?php                    
+                    $query = $conn->prepare("SELECT id_sport, sport from sports order by sport");
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($result as $row) {
+                        echo"<option value='".$row['id_sport']."'>".$row['sport']."</option>";
+                    }
+
+                    ?>
+
+                    </select>
                     <?php
                     break;
             }

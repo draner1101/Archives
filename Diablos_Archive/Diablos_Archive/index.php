@@ -307,9 +307,12 @@ Normalisation();
             arrows: true,
             dots: true,
             accessibility: false
-            
         });
          $('.slickDiaporamaProfil').slick('slickGoTo',0);
+
+         // Ce code à été trouver sur https://github.com/kenwheeler/slick/issues/1320, Vincent Dufresne
+         $('.slickDiaporamaProfil').find(".slick-slide").height("500px");
+         $('.slickDiaporamaProfil').slickSetOption(null, null, true);
     }
 
     function ShowOtherCard(id, type) {
@@ -488,9 +491,6 @@ Normalisation();
 			} 
 		}		
     }
-	
-	
-	
 
 
 </script>

@@ -238,13 +238,13 @@
 							<th>Nom</th>
 							<td><input type='text' name='nom' maxlength='35' size='35' value='".$row['nom']."'></td>   
 							<th >Taille</th>
-							<td><input type='text' name='taille'  maxlength='5' value='".round($row['taille'])."'> cm</td>  
+							<td id='ligneTaille'><input type='text' name='taille' id='taille' maxlength='5' value='".round($row['taille'])."'> </br><input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td>  
 						</tr>
 					    <tr>
 							<th>Prénom</th>
 							<td><input type='text' name='prenom' maxlength='35' size='35' value='".$row['prenom']."'></td> 
 							<th>Poids</th>
-							<td><input type='text' name='poids'  maxlength='5' value='".round($row['poids'])."'> lbs</td>     
+							<td id='lignePoids'><input type='text' name='poids' id='poids' maxlength='5' value='".round($row['poids'])."'> </br><input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>     
 						</tr>
 						<tr>
 							<th>Sexe</th>
@@ -372,8 +372,6 @@
 							}
 							echo "</select>			
 							</td>
-
-
 							<td><input type='number' name='numero' min='1' max='999'></td>
 							<td><input type='text' name='position' maxlength='50'></td>
 							<td><input type='text' name='saison' maxlength='9'></td>
@@ -574,9 +572,91 @@
 	echo '</div></div></div></form>';
 	
 	echo '<script>slickLoad();</script>';
-				
-
-
-
-	
+					
 ?>
+ 
+  <script> 
+						function changerTaille() // Créer par Vincent Dufresne, permet le chagement de taille entre cm et pieds/pouces
+  						{
+   						   if(!document.getElementById('tCm').checked)
+   						       {
+    						       var pieds = document.getElementById('taille');
+								   var ligne = document.getElementById('ligneTaille');
+								   var pouces = document.createElement('INPUT');
+								   var enfant = document.getElementById('tCm');
+								   var br = document.createElement('br');
+								   var sautDeLigne = document.getElementById('pouces');
+								   var tailleCm = document.getElementById('taille').value;
+								   var x = Math.round(tailleCm * 0.3937007874);
+								   var taillePo = x % 12;
+								   var taillePi = (x - taillePo) / 12;
+
+
+
+     						       pieds.setAttribute('id', 'pieds');
+								   pieds.setAttribute('name', 'pieds');
+								   pieds.value = taillePi;
+								   pouces.setAttribute('type', 'text');
+     						       pouces.setAttribute('id', 'pouces');
+								   pouces.setAttribute('name', 'pouces');
+								   pouces.value = taillePo;
+								   br.setAttribute('id', 'sautdeligne');
+     						       ligne.insertBefore(pouces, enfant);
+								   ligne.insertBefore(br, enfant);
+								   
+
+  						        }
+   						       else
+    						      {
+                                    if(!document.getElementById('tPieds').checked)
+   						             {
+    						           var pieds = document.getElementById('pieds');
+									   var pouces = document.getElementById('pouces');
+									   var sautdeligne = document.getElementById('sautdeligne');
+     						           var taillePi = 0.00;
+									   var taillePo = 0.00;
+									   var tailleCm = 0.00;
+									   var temp = 0.00;
+
+
+
+									   taillePo = pouces.value;
+									   temp = 	parseInt(pieds.value);
+									   taillePi = (taillePo * 0.0833333) + 10;
+									   alert(taillePi);
+									   alert(temp);
+									   tailleCm = Math.round((((taillePi + temp) - 10) / 0.032808));
+
+
+									   pieds.setAttribute('id', 'taille');
+								       pieds.setAttribute('name', 'taille');
+     						           pouces.parentNode.removeChild(pouces);
+									   sautdeligne.parentNode.removeChild(sautdeligne);
+									   taille.value = tailleCm;
+  						              }
+    						      }
+							}
+
+							function changerPoids() // Créer par Vincent Dufresne, permet le changement entre Kg et Lbs
+							{
+                               if(!document.getElementById('pLbs').checked)
+   						        {
+								  var parent = 	document.getElementById('poids');   
+								  var poidsLbs = document.getElementById('poids').value;
+								  var poidsKg = poidsLbs / 2.2046;
+								  parent.value = Math.round(poidsKg);
+                                  
+								}
+
+								else
+								{
+                                    if(!document.getElementById('pKg').checked)
+									{ 
+									   var parent = document.getElementById('poids');   
+								       var poidsKg = document.getElementById('poids').value;
+								       var poidsLbs = poidsKg * 2.2046;
+								       parent.value = Math.round(poidsLbs);
+									}
+								}}
+								
+	</script>

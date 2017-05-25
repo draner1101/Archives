@@ -7,7 +7,8 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
-    if($_GET['table'] != 'Equipes'){
+    if($_GET['table'] != 'Equipes' && $_GET['table'] != 'Sports'
+        && $_GET['table'] != 'Positions' ){
         $query = $conn->prepare("INSERT INTO personnes(nom, prenom, sexe, date_naissance, no_tel, posteTelephonique, courriel, rue, ville, province, code_postal)
          VALUES(:nom, :prenom, :sexe, :date_naissance, :no_tel, :posteTelephonique, :courriel, :rue, :ville, :province, :code_postal)");
              $query->execute(array(
@@ -38,7 +39,7 @@
                                 "role" => $_GET["role"],
                                 "no_embauches" => $_GET["no_embauches"],
                                 "dateEmbauche" => $_GET["dateEmbauche"],
-                                "dateFin" => $_GET["dateFin"],
+                                "dateFin" => $_GET["dateFin"]
                             ));
             break;
         case "Joueurs":
@@ -52,7 +53,7 @@
                                 "ecole_prec" => $_GET["ecole_prec"],
                                 "ville_natal" => $_GET["ville_natal"],
                                 "domaine_etude" => $_GET["domaine_etude"],
-                                "photo_profil" => $_GET["photo_profil"],
+                                "photo_profil" => $_GET["photo_profil"]
                             ));
 
 
@@ -72,7 +73,7 @@
                                 "no_embauche" => $_GET["no_embauche"],
                                 "note" => $_GET["note"],
                                 "type" => $_GET["type"],
-                                "photo_profil" => $_GET["photo_profil"],
+                                "photo_profil" => $_GET["photo_profil"]
                             ));
             break;
 
@@ -85,7 +86,25 @@
                                 "saison" => $_GET["saison"],
                                 "photo_equipe" => $_GET["photo_equipe"],
                                 "id_sport" => $_GET["id_sport"],
-                                "note" => $_GET["note"],
+                                "note" => $_GET["note"]
+                            ));
+            break;
+
+        case "Sports":
+             $query = $conn->prepare("INSERT INTO sports(sport, roles) 
+             VALUES(:sport, :roles)");
+             $query->execute(array(
+                                "sport" => $_GET["sport"],
+                                "roles" => $_GET["roles"]
+                            ));
+            break;
+
+        case "Positions":
+             $query = $conn->prepare("INSERT INTO positions(position, id_sport) 
+             VALUES(:position, :id_sport)");
+             $query->execute(array(
+                                "position" => $_GET["position"],
+                                "id_sport" => $_GET["id_sport"]
                             ));
             break;
     }

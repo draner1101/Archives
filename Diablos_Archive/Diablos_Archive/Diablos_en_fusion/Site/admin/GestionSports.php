@@ -23,7 +23,7 @@
     <div class="contenu">
         <center>
             <div style="width: 80%; padding-bottom: 24px;">
-                <a class="button buttonRecherche right" href="Ajouter.php?Table=Sports">Ajouter un entraîneur</a>
+                <a class="button buttonRecherche right" href="Ajouter.php?Table=Sports">Ajouter un sport</a>
                 <form class="right" action="GestionSports.php">
                     <input class="recherche" type="text" name="recherche" placeholder="Rechercher...">
                     <input class="button buttonRecherche" type="submit" value="Rechercher">
@@ -79,7 +79,7 @@
                                     <td>" .$row["roles"] ."</td>
                                     <td>
                                     <a class='button buttonModifier' href='Modifier.php?Table=sports&id_sport=".$row["id_sport"] ."'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=sport&id=".$row["id_sport"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=sports&id=".$row["id_sport"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }

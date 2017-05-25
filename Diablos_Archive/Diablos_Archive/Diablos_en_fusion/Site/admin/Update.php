@@ -7,7 +7,8 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
-    if($_GET['table'] != 'Equipes'){
+    if($_GET['table'] != 'Equipes' && $_GET['table'] != 'Parametres'
+         && $_GET['table'] != 'Sports' && $_GET['table'] != 'Positions'){
          $query = $conn->prepare("UPDATE personnes 
              SET nom='" .$_GET["nom"] ."', 
                  prenom='" .$_GET['prenom'] ."', 
@@ -33,7 +34,25 @@
              WHERE id_personnel = " .$_GET["id_personnel"]);
              $query->execute();
 
+<<<<<<< HEAD
+=======
+             // $query = $conn->prepare("UPDATE multimedia_personne  
+             // SET cacher=1
+             // WHERE id_personne =".$_GET['id_personne']);
+             // $query->execute();
+
+             // foreach($_GET['liste'] as $check) {
+                
+             //    if ($check.checked) {
+             //    $query = $conn->prepare("UPDATE multimedia_personne  
+             // SET cacher=0
+             // WHERE id_mmp =".$check);
+             // $query->execute();
+             //    }
+
+>>>>>>> 68fdd996b216b5d1ba9b3eab5f3b2fcd0dbf2918
             break;
+
         case "Joueurs":
              $query = $conn->prepare("UPDATE " .strtolower($_GET["table"]) ."  
              SET taille='" .$_GET['taille'] ."', 
@@ -120,6 +139,23 @@
              WHERE id_equipe = " .$_GET["id_equipe"]);
              $query->execute();
             break;
+
+        case "Sports":
+            $query = $conn->prepare("UPDATE " .strtolower($_GET["table"]) ." 
+             SET sport='" .$_GET["sport"] ."', 
+                 roles='" .$_GET['roles'] ."'
+             WHERE id_sport = " .$_GET["id_sport"]);
+             $query->execute();
+            break;
+
+        case "Positions":
+            $query = $conn->prepare("UPDATE " .strtolower($_GET["table"]) ." 
+             SET position='" .$_GET["position"] ."', 
+                 id_sport='" .$_GET['id_sport'] ."'
+             WHERE id_position = " .$_GET["id_position"]);
+             $query->execute();
+            break;
+
     }
 
     header("Location: Gestion" .ucFirst($_GET["table"]) .".php");
