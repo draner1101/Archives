@@ -104,23 +104,7 @@
                     <input  class="formulaire" type="text" name="no_embauches" placeholder="No d'embauche(s)" value="<?=$row["no_embauches"]?>">
                     <input placeholder="Date d'embauche" class="formulaire" autocomplete="off" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dateEmbauche" value="<?=$row["dateEmbauche"]?>">
                     <input placeholder="Date de fin" class="formulaire" autocomplete="off" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dateFin" value="<?=$row["dateFin"]?>">
-                    <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
-
-                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
-                    $query->execute();
-                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
-                    echo "<div style='display:inline-block;width:100%'>";
-                    foreach ($resultphoto as $rowphoto) {
-                        echo "<div style='float:left;'>";
-
-                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
-                        ?>
-                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
-                         <?php
-                        echo "</div>";
-                    }
-                    echo "</div>";
 
                     }
                     break;

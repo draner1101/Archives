@@ -54,6 +54,15 @@
                                 "domaine_etude" => $_GET["domaine_etude"],
                                 "photo_profil" => $_GET["photo_profil"],
                             ));
+
+
+             $query = $conn->prepare("INSERT INTO multimedia_personne(id_personne,photo,cacher) 
+             VALUES(:id_personne, :photo, :cacher)");
+             $query->execute(array(
+                                "id_personne" => $result["MAX(id_personne)"],
+                                "photo" => $_GET["photo_profil"],
+                                "cacher" => 0,
+                            ));
             break;
         case "Entraineurs":
              $query = $conn->prepare("INSERT INTO entraineurs(id_personne, no_embauche, note, type, photo_profil) 
