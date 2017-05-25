@@ -35,38 +35,31 @@
             $table = $_GET["Table"];
             ?>
             <script>
-                //document.getElementById('<?=ucFirst($table);?>').classList.add('active');
-                document.getElementById("Joueurs").classList.add("active");
+                document.getElementById('<?=ucFirst($table);?>').classList.add('active');
             </script>
             <div class='contenu'>
 
             <?php
             if($_GET['Table'] == 'equipes'){
-                echo "<div class='titre'>Équipe - Modifier</div>";
-            }
-            elseif ($_GET['Table'] == 'Parametres') {
-                echo "<div class='titre'>Paramètre - Modifier</div>";
+                echo "<div class='titre'>Équipe - Ajouter</div>";
             }
             else{
                 echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Modifier</div>";
             }
             ?>
-            <div class='divForm' style="margin-bottom: 50px;">
-            <form action='Update.php' style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px; padding-bottom: 50px;'>
+            <div class='divForm'>
+            <form action='Update.php' style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
-            if(($_GET['Table'] != 'equipe') && ($_GET['Table'] != 'parametres')
-                && ($_GET['Table'] != 'sports')){
-                ?>
-                <?php
+            if($_GET['Table'] != 'equipes'){
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($result as $row) {
             ?>
-                    <input type="hidden" name="table" value="<?=$_GET['Table']?>">
+                    <input type="hidden" name="table" value="<?=ucfirst($_GET['Table'])?>">
                     <input type="hidden" name="id_personne" value="<?=$_GET['id_personne']?>">
                     <input  class="formulaire"type="text" name="nom" placeholder="Nom" value="<?=$row["nom"]?>">
                     <input  class="formulaire"type="text" name="prenom" placeholder="Prénom" value="<?=$row["prenom"]?>"><br><br>
@@ -111,7 +104,24 @@
                     <input  class="formulaire" type="text" name="no_embauches" placeholder="No d'embauche(s)" value="<?=$row["no_embauches"]?>">
                     <input placeholder="Date d'embauche" class="formulaire" autocomplete="off" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dateEmbauche" value="<?=$row["dateEmbauche"]?>">
                     <input placeholder="Date de fin" class="formulaire" autocomplete="off" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dateFin" value="<?=$row["dateFin"]?>">
+                    <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
+
+                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
+                    $query->execute();
+                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div style='display:inline-block;width:100%'>";
+                    foreach ($resultphoto as $rowphoto) {
+                        echo "<div style='float:left;'>";
+
+                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
+                        ?>
+                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
+                         <?php
+                        echo "</div>";
+                    }
+                    echo "</div>";
+
                     }
                     break;
 
@@ -190,7 +200,23 @@
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$row["domaine_etude"]?>">   
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                                    
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
+                    <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
+
+                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
+                    $query->execute();
+                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div style='display:inline-block;width:100%'>";
+                    foreach ($resultphoto as $rowphoto) {
+                        echo "<div style='float:left;'>";
+
+                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
+                        ?>
+                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
+                         <?php
+                        echo "</div>";
+                    }
+                    echo "</div>";
                     }
                     break;
                     
@@ -206,48 +232,34 @@
                     <input  class="formulaire" type="text" name="type" placeholder="Type" value="<?=$row["type"]?>">
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>"> 
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
+                    <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
+
+                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
+                    $query->execute();
+                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div style='display:inline-block;width:100%'>";
+                    foreach ($resultphoto as $rowphoto) {
+                        echo "<div style='float:left;'>";
+
+                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
+                        ?>
+                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
+                         <?php
+                        echo "</div>";
+                    }
+                    echo "</div>";
                     }
                     break;
                 case "parametres":
-                    $query = $conn->prepare("SELECT * from nous_joindre where rowid = 1");
-                    $query->execute();
-                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
-                    foreach ($result as $row) {
-                    ?>
-                    <input type="hidden" name="table" value="Parametres">
-                    <label>Telephone</label>
-                    <input class="formulaire" type="text" name="telephone" placeholder="Telephone" value="<?=$row["telephone"]?>">
-                    <label>Twitter</label>
-                    <input class="formulaire" type="text" name="twitter" placeholder="Twitter" value="<?=$row["twitter"]?>">
-                    <label>Facebook</label>
-                    <input class="formulaire" type="text" name="facebook" placeholder="Facebook" value="<?=$row["facebook"]?>">
-                    <label>Adresse postale</label>
-                    <input class="formulaire" type="text" name="adresse_postal" placeholder="Adresse Postale" value="<?=$row["adresse_postal"]?>">
-                    <label>Courriel</label>
-                    <input class="formulaire" type="text" name="courriel" placeholder="Courriel" value="<?=$row["courriel"]?>">
-                    <?php
-                    }
                     break;
-                case "sports":
-                    $query = $conn->prepare("SELECT * from sports where id_sport = " .$_GET['id_sport']);
-                    $query->execute();
-                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
-                    foreach ($result as $row) {
-                    ?>
-                    <input type="text"  value="">
-                    <?php
-                    }
             }
 
-                if($_GET['Table'] != 'parametres'){
-                    echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">';
-                    echo '<a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
-                }
-                else{
-                    echo '<input class="button buttonDeplacement" style="float: right; margin-bottom: 0px; margin-top: 0px;" type="submit" value="Appliquer les modifications">';
-                }
-            echo"</form></div></div>";  
+
+            echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">
+                  <a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
+            echo"</form></div></div>";
+            
         }
     ?>
     <script>

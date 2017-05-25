@@ -7,7 +7,7 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
-    if($_GET['table'] != 'Equipes' && $_GET['table'] != 'Parametres'){
+    if($_GET['table'] != 'Equipes'){
          $query = $conn->prepare("UPDATE personnes 
              SET nom='" .$_GET["nom"] ."', 
                  prenom='" .$_GET['prenom'] ."', 
@@ -21,9 +21,7 @@
                  code_postal='" .$_GET['code_postal'] ."'
              WHERE id_personne = " .$_GET["id_personne"]);
              $query->execute();
-
-             
-        }
+    }
 
     switch($_GET['table']){
         case "Personnels":
@@ -34,6 +32,22 @@
                  dateFin='" .$_GET["dateFin"] ."'
              WHERE id_personnel = " .$_GET["id_personnel"]);
              $query->execute();
+
+             $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=1
+             WHERE id_personne =".$_GET['id_personne']);
+             $query->execute();
+
+             foreach($_GET['liste'] as $check) {
+                
+                if ($check.checked) {
+                $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=0
+             WHERE id_mmp =".$check);
+             $query->execute();
+                }
+    }
+
             break;
         case "Joueurs":
              $query = $conn->prepare("UPDATE " .strtolower($_GET["table"]) ."  
@@ -46,6 +60,21 @@
                  photo_profil='" .$_GET['photo_profil'] ."'
              WHERE id_joueur = " .$_GET["id_joueur"]);
              $query->execute();
+
+             $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=1
+             WHERE id_personne =".$_GET['id_personne']);
+             $query->execute();
+
+             foreach($_GET['liste'] as $check) {
+                
+                if ($check.checked) {
+                $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=0
+             WHERE id_mmp =".$check);
+             $query->execute();
+                }
+    }
             break;
 
         case "Entraineurs":
@@ -56,6 +85,21 @@
                  photo_profil='" .$_GET['photo_profil'] ."'
              WHERE id_entraineur = " .$_GET["id_entraineur"]);
              $query->execute();
+
+             $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=1
+             WHERE id_personne =".$_GET['id_personne']);
+             $query->execute();
+
+             foreach($_GET['liste'] as $check) {
+                
+                if ($check.checked) {
+                $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=0
+             WHERE id_mmp =".$check);
+             $query->execute();
+                }
+    }
             break;
 
         case "Equipes":
@@ -67,17 +111,6 @@
                  id_sport='" .$_GET['id_sport'] ."',
                  note='" .$_GET['note'] ."' 
              WHERE id_equipe = " .$_GET["id_equipe"]);
-             $query->execute();
-            break;
-
-        case "Parametres":
-            $query = $conn->prepare("UPDATE nous_joindre 
-             SET telephone='" .$_GET["telephone"] ."', 
-                 twitter='" .$_GET['twitter'] ."', 
-                 facebook='" .$_GET['facebook'] ."', 
-                 adresse_postal='" .$_GET["adresse_postal"] ."',
-                 courriel='" .$_GET['courriel'] ."'
-             WHERE rowid = 1");
              $query->execute();
             break;
     }
