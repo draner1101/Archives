@@ -8,7 +8,7 @@
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
     if($_GET['table'] != 'Equipes' && $_GET['table'] != 'Sports'
-        && $_GET['table'] != 'Positions' ){
+        && $_GET['table'] != 'Positions' && $_GET['table'] != 'Utilisateurs'){
         $query = $conn->prepare("INSERT INTO personnes(nom, prenom, sexe, date_naissance, no_tel, posteTelephonique, courriel, rue, ville, province, code_postal)
          VALUES(:nom, :prenom, :sexe, :date_naissance, :no_tel, :posteTelephonique, :courriel, :rue, :ville, :province, :code_postal)");
              $query->execute(array(
@@ -45,7 +45,7 @@
         case "Joueurs":
              $query = $conn->prepare("INSERT INTO joueurs(id_personne, taille, poids, note, ecole_prec, ville_natal, domaine_etude, photo_profil) 
              VALUES(:id_personne, :taille, :poids, :note, :ecole_prec, :ville_natal, :domaine_etude, :photo_profil)");
-                // Vérifie si la taille est en pieds/pouces et si oui, la méthode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
+                // Vï¿½rifie si la taille est en pieds/pouces et si oui, la mï¿½thode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
                 if (isset($_GET["pieds"]) && isset($_GET["pouces"]))
                      {
                         $pouces = $_GET["pouces"];
@@ -54,7 +54,7 @@
                       } 
                       else {$taille = $_GET["taille"];}        
                       
-               // Vérifie si le poids est en Kg et si oui, la méthode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
+               // Vï¿½rifie si le poids est en Kg et si oui, la mï¿½thode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
                  if ($_GET["typePoids"] == 'kg')
                      {
                         $poids = $_GET["poids"] * 2.2046; 
@@ -121,6 +121,23 @@
              $query->execute(array(
                                 "position" => $_GET["position"],
                                 "id_sport" => $_GET["id_sport"]
+                            ));
+            break;
+        
+        case "Utilisateurs":
+            if(isset($_GET['acces'])){
+                $acces = 1;
+            }
+            else{
+                $acces = 0;
+            }
+
+             $query = $conn->prepare("INSERT INTO utilisateurs(nom_utilisateur, mot_passe, acces) 
+             VALUES(:nom_utilisateur, :mot_passe, :acces)");
+             $query->execute(array(
+                                "nom_utilisateur" => $_GET["nom_utilisateur"],
+                                "mot_passe" => $_GET["mot_passe"],
+                                "acces" => $acces
                             ));
             break;
     }

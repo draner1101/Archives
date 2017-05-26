@@ -61,7 +61,8 @@ session_start();
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
             if($_GET['Table'] != 'equipes' && $_GET['Table'] != 'parametres' 
-               && $_GET['Table'] != 'sports'  && $_GET['Table'] != 'positions'){
+               && $_GET['Table'] != 'sports'  && $_GET['Table'] != 'positions'
+               && $_GET['Table'] != 'utilisateurs'){
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -292,9 +293,24 @@ session_start();
                     ?>
                     </select>
                     <?php
+                    }
                     break;
-            }
-
+                case "utilisateurs":
+                    $query = $conn->prepare("SELECT * from utilisateurs where id_utilisateur = " .$_GET['id_utilisateur']);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                    ?>
+                    <input type="hidden" name="id_utilisateur" value="<?=$_GET['id_utilisateur']?>">
+                    <input type="hidden" name="table" value="Utilisateurs">
+                    <label>Nom d'utilisateur</label>
+                    <input class="formulaire" name="nom_utilisateur" type="text" value="<?=$row["nom_utilisateur"]?>">
+                    <label>Mot de passe</label>
+                    <input class="formulaire" name="mot_passe" type="text" value="<?=$row["mot_passe"]?>">
+                    <input name="acces" type="checkbox" <?php echo ($row['acces']== 1 ? 'checked' : '')?>>Super-administrateur<br>
+                    <?php
+                    }
+                    break;
             }
             echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">
                   <a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
