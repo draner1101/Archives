@@ -58,7 +58,7 @@ session_start();
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
             if($_GET['Table'] != 'Equipes' && $_GET['Table'] != 'Sports'
-               && $_GET['Table'] != 'Positions'){
+               && $_GET['Table'] != 'Positions' && $_GET['Table'] != 'Utilisateurs'){
             ?>
                     <input type="hidden" name="table" value="<?=$_GET['Table']?>">
                     <input  class="formulaire"type="text" name="nom" placeholder="Nom">
@@ -158,6 +158,17 @@ session_start();
                     ?>
 
                     </select>
+                    <?php
+                    break;
+
+                case "Utilisateurs":
+                    ?>
+                    <input type="hidden" name="table" value="Utilisateurs">
+                    <label>Nom d'utilisateur</label>
+                    <input class="formulaire" name="nom_utilisateur" type="text" placeholder="Nom d'utilisateur">
+                    <label>Mot de passe</label>
+                    <input class="formulaire" name="mot_passe" type="text" placeholder="Mot de passe">
+                    <input name="acces" type="checkbox">Super-administrateur<br>
                     <?php
                     break;
             }
