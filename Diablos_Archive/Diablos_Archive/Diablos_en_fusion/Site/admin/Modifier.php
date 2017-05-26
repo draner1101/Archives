@@ -293,9 +293,24 @@ session_start();
                     ?>
                     </select>
                     <?php
+                    }
                     break;
-            }
-
+                case "utilisateurs":
+                    $query = $conn->prepare("SELECT * from utilisateurs where id_utilisateur = " .$_GET['id_utilisateur']);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($result as $row) {
+                    ?>
+                    <input type="hidden" name="id_sport" value="<?=$_GET['id_utilisateur']?>">
+                    <input type="hidden" name="table" value="Utilisateurs">
+                    <label>Nom d'utilisateur</label>
+                    <input class="formulaire" name="sport" type="text" value="<?=$row["nom_utilisateur"]?>">
+                    <label>Mot de passe</label>
+                    <input class="formulaire" name="sport" type="text" value="<?=$row["mot_passe"]?>">
+                    <input name="acces" type="checkbox" value="<?=$row["acces"]?>">Super-administrateur<br>
+                    <?php
+                    }
+                    break;
             }
             echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">
                   <a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';

@@ -32,7 +32,7 @@ session_start();
                 </form>
                 <table>
                     <tr>
-                        <th>Nom</th>
+                        <th>Nom d'utilisateur</th>
                         <th>Accès</th>
                         <th style="width: 85px"></th>
                     </tr>
