@@ -95,7 +95,7 @@ session_start();
                         echo "<a href='GestionSports.php' class='button buttonDeplacement'>Afficher tout</a>";
                     }
                     else{
-                        $sql = $conn->prepare("SELECT count(sport) FROM sports");
+                        $sql = $conn->prepare("SELECT count(id_sport) FROM sports");
                         $sql->execute();
                         $nbRow = $sql->fetchColumn();
                         $nbPage = ceil($nbRow / $rowPerPage);

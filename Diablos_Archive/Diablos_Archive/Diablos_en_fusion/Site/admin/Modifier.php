@@ -61,7 +61,8 @@ session_start();
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
             if($_GET['Table'] != 'equipes' && $_GET['Table'] != 'parametres' 
-               && $_GET['Table'] != 'sports'  && $_GET['Table'] != 'positions'){
+               && $_GET['Table'] != 'sports'  && $_GET['Table'] != 'positions'
+               && $_GET['Table'] != 'utilisateurs'){
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
