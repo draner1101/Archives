@@ -43,8 +43,11 @@
             if($_GET['Table'] == 'equipes'){
                 echo "<div class='titre'>Équipe - Ajouter</div>";
             }
+            elseif($_GET['Table'] == 'parametres'){
+                echo "<div class='titre'>Paramètre - Ajouter</div>";
+            }
             else{
-                echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Modifier</div>";
+                echo "<div class='titre'>". substr(ucFirst($_GET['Table']), 0, -1)." - Modifier</div>";
             }
             ?>
             <div class='divForm'>
@@ -52,7 +55,8 @@
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
-            if($_GET['Table'] != 'equipes'){
+            if($_GET['Table'] != 'equipes' && $_GET['Table'] != 'parametres' 
+               && $_GET['Table'] != 'sports'  && $_GET['Table'] != 'positions'){
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -267,28 +271,26 @@
                     <input class="formulaire" name="position" type="text" value="<?=$row["position"]?>">
                     <label>Sport</label>
                     <select class="formulaire" name="id_sport">
-
-                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
+                    <?php
+                    $query = $conn->prepare("SELECT id_sport, sport from sports order by sport");
                     $query->execute();
-                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
-                    echo "<div style='display:inline-block;width:100%'>";
-                    foreach ($resultphoto as $rowphoto) {
-                        echo "<div style='float:left;'>";
+                    $sportList = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
-                        ?>
-                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
-                         <?php
-                        echo "</div>";
+                    foreach ($sportList as $sport) {
+                        if($sport['id_sport'] == $row["id_sport"]){
+                            echo"<option selected='selected' value='".$sport['id_sport']."'>".$sport['sport']."</option>";
+                        }
+                        else{
+                            echo"<option value='".$sport['id_sport']."'>".$sport['sport']."</option>";
+                        }  
                     }
-                    echo "</div>";
-                    }
-                    break;
-                case "parametres":
+                    ?>
+                    </select>
+                    <?php
                     break;
             }
 
-
+            }
             echo '<input class="button buttonDeplacement" style="float: right; "margin-bottom: 5px; "margin-top: 0px;" type="submit" value="Appliquer les modifications">
                   <a class="button buttonDeplacement" href="Gestion' .ucfirst($_GET['Table']) .'.php" style="margin-bottom: 5px; "margin-top: 0px;">Retour à la liste</a>';
             echo"</form></div></div>";

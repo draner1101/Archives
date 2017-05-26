@@ -151,6 +151,17 @@
              WHERE id_position = " .$_GET["id_position"]);
              $query->execute();
             break;
+        
+        case "Parametres":
+            $query = $conn->prepare("UPDATE " .strtolower("nous_joindre") ." 
+             SET telephone='" .$_GET["telephone"] ."', 
+                 twitter='" .$_GET["twitter"] ."', 
+                 facebook='" .$_GET["facebook"] ."', 
+                 adresse_postal='" .$_GET["adresse_postal"] ."', 
+                 courriel='" .$_GET["courriel"] ."'
+             WHERE rowid = 1");
+             $query->execute();
+            break;
 
     }
 
