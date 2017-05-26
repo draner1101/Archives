@@ -110,7 +110,7 @@ Normalisation();
             <input type="text" class="recherche" name="search" placeholder="Je recherche...">
             <button class="weirdButton search" onclick="recherche()">s</button>
             <div class="select">
-                <span class="arr"></span>
+                <span class="arr" style ="margin-right:-5px"></span>
                 <select id="annee">
                 </select>
             </div>
@@ -221,7 +221,7 @@ Normalisation();
                         <input class="message " type="text " name='objet' required><br>
                         <h4 class="title ">Message*</h4>
                         <textarea class="message " rows="8" cols="83 " name='message' required></textarea><br><br>
-                        <input type="submit" value="Envoyer" class="btn btn-default"></input>
+                        <input type="submit" value="Envoyer" class="btn btn-default" style="float:right; margin-bottom:10px;"></input>
                         
                     </form>
                 </div>
@@ -352,6 +352,62 @@ Normalisation();
 
     }
 
+    function ajaxEquipeSaison(id)
+    {
+        var e = document.getElementsByName('nomEquipe' + id)[0];
+        var equipe = e.options[e.selectedIndex].value;//id de l'equipe'
+        var position = document.getElementsByName("position" + id)[0];
+        position.options.length = 0;
+        $.ajax({
+                       type: "GET",
+                       url: "Diablos_en_fusion/Site/ajaxEquipe.php",
+                       data: {"Id": equipe,
+                             "Saison": 'True',
+                             "Position": 'True'},
+                       dataType: "json",     
+                       success:function(result){
+                         document.getElementsByName('saison'+ id)[0].innerHTML = result.saisonValue;
+                         for (vPosition in result.positionValue)
+                         {
+                             vPosition = result.positionValue[vPosition];
+                             var textPosition = vPosition.split("+")[0];
+                             var idPosition = vPosition.split("+")[1];	
+                             var option = document.createElement("option");
+                             option.value = idPosition;
+                             option.text = textPosition;
+                             position.add(option);
+                             
+                             
+                         }
+                         if(position.options.length == 0)
+                         {
+                             position.style.visibility = "hidden";
+                         }
+                         else
+                         position.style.visibility = "visible";
+
+                       }
+                });
+    }
+
+    function ajaxEquipeSexe(id)
+    {
+        var e = document.getElementsByName('nomEquipe' + id)[0];
+        var equipe = e.options[e.selectedIndex].value;//id de l'equipe'
+        $.ajax({
+                       type: "GET",
+                       url: "Diablos_en_fusion/Site/ajaxEquipe.php",
+                       data: {"Id": equipe,
+                             "Saison": 'True',
+                             "Sexe": 'True'},
+                       dataType: "json",     
+                       success:function(result){
+                         document.getElementsByName('saison'+ id)[0].innerHTML = result.saisonValue;
+                         document.getElementsByName('sexe'+ id)[0].innerHTML = result.sexeValue;                    
+                       }
+                });
+    }
+
 	function ajouterEquipeJoueur() {
         var x = document.getElementById("joueurEquipe").rows.length;
 		var table = document.getElementById('joueurEquipe');
@@ -361,13 +417,15 @@ Normalisation();
 		var cell3 = row.insertCell(2);
 		var cell4 = row.insertCell(3);
 		cell2.innerHTML = "<input type='number' name='numero" + x + "' min='1' max='999'></input>";
-		cell4.innerHTML = "<input type='text' name='saison" + x + "' maxlength='9'></input>";
+		cell4.innerHTML = "<p name='saison" + x + "'></p>";
 
         $( "#og1" ).clone().appendTo(cell1); //copie le combobox des équipe
         document.getElementsByName('nomEquipe1')[1].name = "nomEquipe" + x;
+        document.getElementsByName('nomEquipe' + x)[0].addEventListener("change", function(){ajaxEquipeSaison(x)});        
 
         $( "#og2" ).clone().appendTo(cell3); //copie le combobox des positions
         document.getElementsByName('position1')[1].name = "position" + x;
+        ajaxEquipeSaison(x);
 		}
 
     function ajouterEquipeEntraineur() {
@@ -378,14 +436,16 @@ Normalisation();
 		var cell2 = row.insertCell(1);
 		var cell3 = row.insertCell(2);
 		var cell4 = row.insertCell(3);
-		cell2.innerHTML = "<select name='sexe" + x + "'> <option value='F'>Féminin</option><option value='M'>Masculin</option><option value='X'>Mixte</option></select>";
-		cell4.innerHTML = "<input type='text' name='saison" + x + "' maxlength='9'></input>";
+		cell2.innerHTML = "<p name='sexe" + x + "'></p>";
+		cell4.innerHTML = "<p name='saison" + x + "'></p>";
 
         $( "#og1" ).clone().appendTo(cell1); //copie le combobox des équipe
         document.getElementsByName('nomEquipe1')[1].name = "nomEquipe" + x;
+        document.getElementsByName('nomEquipe' +x)[0].addEventListener("change", function(){ajaxEquipeSexe(x)});
 		
         $( "#og2" ).clone().appendTo(cell3); //copie le combobox des équipe
         document.getElementsByName('role1')[1].name = "role" + x;
+        ajaxEquipeSexe(x);
 		}
 
     function recherche() {
@@ -491,6 +551,9 @@ Normalisation();
 			} 
 		}		
     }
+	
+	
+	
 
 
 </script>

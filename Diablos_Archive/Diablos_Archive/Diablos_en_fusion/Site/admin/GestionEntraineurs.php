@@ -85,7 +85,7 @@
                                     <td>" .$row["type"] ."</td>
                                     <td>
                                     <a class='button buttonModifier' href='Modifier.php?Table=entraineurs&id_personne=".$row["id_personne"]."&id_entraineur=".$row["id_entraineur"]."'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=entraineurs&id=".$row["id_personne"] ."&page=" .$page ."&idj=" .$row["id_entraineur"] ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=entraineurs&id=".$row["id_personne"] ."&page=" .$page ."&idj=" .$row["id_entraineur"] ."' onclick = 'var x=MessageConfirmation(\"Voulez-vous supprimer cet entraîneur?\");return x;'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }

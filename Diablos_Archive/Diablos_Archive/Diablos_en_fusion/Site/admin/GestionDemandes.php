@@ -75,7 +75,7 @@
                         <td><?=$personne['no_tel']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?table=joueurs&id_type=id_joueur&id=<?=$joueur["id_joueur"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=joueurs&id_type=id_joueur&id=<?=$joueur["id_joueur"]?>'><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=joueurs&id_type=id_joueur&id=<?=$joueur["id_joueur"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
@@ -133,7 +133,7 @@
                         <td><?=$artisan['dateEmbauche']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?table=personnels&id_type=id_personnel&id=<?=$artisan["id_personnel"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=personnels&id_type=id_personnel&id=<?=$artisan["id_personnel"]?>'><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=personnels&id_type=id_personnel&id=<?=$artisan["id_personnel"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
@@ -189,7 +189,7 @@
                         <td><?=$entraineur['type']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?table=entraineurs&id_type=id_entraineur&id=<?=$entraineur["id_entraineur"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=entraineurs&id_type=id_entraineur&id=<?=$entraineur["id_entraineur"]?>'><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=entraineurs&id_type=id_entraineur&id=<?=$entraineur["id_entraineur"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
@@ -244,7 +244,7 @@
                         <td><?=$equipe['sexe']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?table=equipes&id_type=id_equipe&id=<?=$equipe["id_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=equipes&id_type=id_equipe&id=<?=$equipe["id_equipe"]?>'><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=equipes&id_type=id_equipe&id=<?=$equipe["id_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php

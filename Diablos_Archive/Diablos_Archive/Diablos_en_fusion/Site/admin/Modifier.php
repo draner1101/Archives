@@ -51,7 +51,7 @@
             }
             ?>
             <div class='divForm'>
-            <form action='Update.php' style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
+            <form action='Update.php' onsubmit="var x=MessageConfirmation('Voulez-vous appliquer les modifications?');return x;" style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe

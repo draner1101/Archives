@@ -220,7 +220,7 @@
                         <a href='Demandes.php?numero=<?=$next?>&table=<?=$_GET['table']?>&id_type=<?=$_GET['id_type']?>&id=<?=$_GET['id']?>' class='button boutonModification'>&gt</a>
                     </span>
                 </center>
-                <form action="Accepter.php">
+                <form action="Accepter.php" onsubmit="var x=MessageConfirmation('Voulez-vous garder ces modifications?');return x;">
                 <input type="hidden" name="table" value="<?=$_GET['table']?>">
                 <input type="hidden" name="id_type" value="<?=$_GET['id_type']?>">
                 <input type="hidden" name="id" value="<?=$_GET['id']?>">

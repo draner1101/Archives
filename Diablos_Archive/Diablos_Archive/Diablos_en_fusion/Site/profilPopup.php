@@ -363,7 +363,7 @@
 					}
 				}
 				else
-				echo "<div align='center'><img src='/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' style='max-width:100%;max-height:200px;'></div>";
+				echo "<div align='center'><img src='/Archives/Diablos_Archive/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' style='max-width:100%;max-height:200px;'></div>";
 
 				echo "</div></div></div>";
 				

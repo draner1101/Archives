@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.18
--- https://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
--- Client: localhost:3306
--- Généré le: Lun 06 Mars 2017 à 16:23
--- Version du serveur: 5.5.54-cll
--- Version de PHP: 5.6.30
+-- Client :  127.0.0.1
+-- Généré le :  Mer 24 Mai 2017 à 12:14
+-- Version du serveur :  5.7.14
+-- Version de PHP :  7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données: `concep16_diablos`
+-- Base de données :  `concep16_diablos`
 --
 
 -- --------------------------------------------------------
@@ -26,15 +26,13 @@ SET time_zone = "+00:00";
 -- Structure de la table `bourses`
 --
 
-CREATE TABLE IF NOT EXISTS `bourses` (
-  `id_bourse` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bourses` (
+  `id_bourse` int(6) NOT NULL,
   `id_joueur` int(6) NOT NULL,
   `montant` double(8,2) NOT NULL,
   `provenance` varchar(50) NOT NULL,
-  `annee` int(4) NOT NULL,
-  PRIMARY KEY (`id_bourse`),
-  KEY `id_joueur` (`id_joueur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+  `annee` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -42,15 +40,13 @@ CREATE TABLE IF NOT EXISTS `bourses` (
 -- Structure de la table `certifications_entraineurs`
 --
 
-CREATE TABLE IF NOT EXISTS `certifications_entraineurs` (
-  `id_certification` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `certifications_entraineurs` (
+  `id_certification` int(6) NOT NULL,
   `id_entraineur` int(6) NOT NULL,
   `annee_obtention` int(4) DEFAULT NULL,
   `titre` varchar(50) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_certification`),
-  KEY `id_entraineur` (`id_entraineur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=9 ;
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `certifications_entraineurs`
@@ -68,16 +64,15 @@ INSERT INTO `certifications_entraineurs` (`id_certification`, `id_entraineur`, `
 -- Structure de la table `demandes_equipes`
 --
 
-CREATE TABLE IF NOT EXISTS `demandes_equipes` (
-  `id_demande` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `demandes_equipes` (
+  `id_demande` int(6) NOT NULL,
   `id_equipe` int(6) NOT NULL,
   `nom` varchar(50) NOT NULL,
   `sexe` char(1) NOT NULL,
   `saison` varchar(20) NOT NULL,
   `id_sport` int(6) NOT NULL,
-  `note` varchar(8000) NOT NULL,
-  PRIMARY KEY (`id_demande`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `note` varchar(8000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -85,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `demandes_equipes` (
 -- Structure de la table `demandes_joueurs`
 --
 
-CREATE TABLE IF NOT EXISTS `demandes_joueurs` (
-  `id_demande` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `demandes_joueurs` (
+  `id_demande` int(6) NOT NULL,
   `id_joueur` int(6) NOT NULL,
   `id_personne` int(6) NOT NULL,
   `taille` double(5,2) NOT NULL,
@@ -94,9 +89,8 @@ CREATE TABLE IF NOT EXISTS `demandes_joueurs` (
   `note` varchar(255) NOT NULL,
   `ecole_prec` varchar(50) NOT NULL,
   `ville_natal` varchar(50) NOT NULL,
-  `domaine_etude` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_demande`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `domaine_etude` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -104,15 +98,14 @@ CREATE TABLE IF NOT EXISTS `demandes_joueurs` (
 -- Structure de la table `demandes_personnels`
 --
 
-CREATE TABLE IF NOT EXISTS `demandes_personnels` (
+CREATE TABLE `demandes_personnels` (
   `id_demande` int(6) NOT NULL,
   `id_personnel` int(6) NOT NULL,
   `id_personne` int(6) NOT NULL,
   `role` varchar(255) NOT NULL,
   `no_embauches` varchar(10) NOT NULL,
   `dateEmbauche` date NOT NULL,
-  `dateFin` date NOT NULL,
-  PRIMARY KEY (`id_demande`)
+  `dateFin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -121,16 +114,14 @@ CREATE TABLE IF NOT EXISTS `demandes_personnels` (
 -- Structure de la table `detail_sejour`
 --
 
-CREATE TABLE IF NOT EXISTS `detail_sejour` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `detail_sejour` (
+  `id` int(6) NOT NULL,
   `idEndroitSejour` int(6) NOT NULL,
   `demandeAchat` varchar(10) NOT NULL,
   `nbChambre` int(2) NOT NULL,
   `nbNuit` int(2) NOT NULL,
-  `date` date NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idEndroitSejour` (`idEndroitSejour`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -138,15 +129,14 @@ CREATE TABLE IF NOT EXISTS `detail_sejour` (
 -- Structure de la table `endroit_sejour`
 --
 
-CREATE TABLE IF NOT EXISTS `endroit_sejour` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `endroit_sejour` (
+  `id` int(11) NOT NULL,
   `nom` varchar(125) NOT NULL,
   `rue` varchar(125) NOT NULL,
   `ville` varchar(125) NOT NULL,
   `codePostal` varchar(7) NOT NULL,
-  `no_tel` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=23 ;
+  `no_tel` varchar(60) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `endroit_sejour`
@@ -165,8 +155,8 @@ INSERT INTO `endroit_sejour` (`id`, `nom`, `rue`, `ville`, `codePostal`, `no_tel
 -- Structure de la table `entraineurs`
 --
 
-CREATE TABLE IF NOT EXISTS `entraineurs` (
-  `id_entraineur` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `entraineurs` (
+  `id_entraineur` int(6) NOT NULL,
   `id_personne` int(6) NOT NULL,
   `no_embauche` varchar(10) DEFAULT NULL,
   `note` varchar(8000) DEFAULT NULL,
@@ -174,11 +164,8 @@ CREATE TABLE IF NOT EXISTS `entraineurs` (
   `photo_profil` varchar(255) DEFAULT '\\Diablos_Archive\\Diablos_en_fusion\\Site\\Images\\default.png',
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_entraineur`),
-  KEY `id_personne` (`id_personne`),
-  KEY `fr_entraineurs_parent` (`id_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=35 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `entraineurs`
@@ -205,21 +192,16 @@ INSERT INTO `entraineurs` (`id_entraineur`, `id_personne`, `no_embauche`, `note`
 -- Structure de la table `entraineur_equipe`
 --
 
-CREATE TABLE IF NOT EXISTS `entraineur_equipe` (
-  `id_entr_equipe` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `entraineur_equipe` (
+  `id_entr_equipe` int(6) NOT NULL,
   `id_entraineur` int(6) NOT NULL,
   `id_equipe` int(6) DEFAULT NULL,
   `role` int(5) DEFAULT '1',
   `photo_profil` varchar(255) NOT NULL DEFAULT '\\Diablos_Archive\\Diablos_en_fusion\\Site\\Images\\default.png',
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_entr_equipe`),
-  KEY `id_entraneur` (`id_entraineur`),
-  KEY `id_equipe` (`id_equipe`),
-  KEY `fk_entrai_eq_parent` (`id_parent`),
-  KEY `role` (`role`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=13 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `entraineur_equipe`
@@ -241,8 +223,8 @@ INSERT INTO `entraineur_equipe` (`id_entr_equipe`, `id_entraineur`, `id_equipe`,
 -- Structure de la table `equipes`
 --
 
-CREATE TABLE IF NOT EXISTS `equipes` (
-  `id_equipe` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `equipes` (
+  `id_equipe` int(6) NOT NULL,
   `nom` varchar(50) NOT NULL,
   `sexe` char(1) NOT NULL,
   `saison` varchar(20) NOT NULL,
@@ -251,11 +233,8 @@ CREATE TABLE IF NOT EXISTS `equipes` (
   `note` varchar(8000) DEFAULT NULL,
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_equipe`),
-  KEY `id_sport` (`id_sport`),
-  KEY `fk_equipes_parent` (`id_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=18 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `equipes`
@@ -276,8 +255,8 @@ INSERT INTO `equipes` (`id_equipe`, `nom`, `sexe`, `saison`, `photo_equipe`, `id
 -- Structure de la table `evenement`
 --
 
-CREATE TABLE IF NOT EXISTS `evenement` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `evenement` (
+  `id` int(6) NOT NULL,
   `idTransport` int(6) DEFAULT NULL,
   `statusTransport` int(1) DEFAULT NULL,
   `idSejour` int(6) DEFAULT NULL,
@@ -294,15 +273,8 @@ CREATE TABLE IF NOT EXISTS `evenement` (
   `rue` varchar(125) DEFAULT NULL,
   `codePostal` varchar(7) DEFAULT NULL,
   `status` char(1) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idTransport` (`idTransport`,`idSejour`),
-  KEY `idTransport_2` (`idTransport`),
-  KEY `idSejour` (`idSejour`),
-  KEY `idEquipeReceveur` (`equipeReceveur`),
-  KEY `idEquipeVisiteur` (`equipeVisiteur`),
-  KEY `idSport` (`idSport`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=53 ;
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `evenement`
@@ -313,12 +285,12 @@ INSERT INTO `evenement` (`id`, `idTransport`, `statusTransport`, `idSejour`, `st
 (30, 24, 0, 22, 1, '', 5, '', '', 'Match', '09:00:00', '2016-06-02', 'Club de golf du domaine Godefroy', 'Bécancour', 'Boul. Bécancour', 'G1G 1G1', '0', ''),
 (31, 25, 1, NULL, 0, '', 6, 'Diablos', 'Les Nordiques', 'Match', '18:00:00', '2016-06-16', 'Collège de Lionel-Groulx', '', '', '', '2', ''),
 (32, 26, 1, NULL, 0, '', 0, 'Lynx', 'Diablos', 'Match', '10:00:00', '2016-06-11', 'Collège Édouard-Montpetit', '', '', '', '1', ''),
-(33, 27, 0, NULL, 0, '', 6, 'Les griffons', 'Diablos', 'Match', '18:00:00', '2016-06-10', 'Cégep de l''Outaouais', '', '', '', '0', ''),
-(34, 28, 0, NULL, 0, '', 6, 'Les astrelles', 'Diablos', '', '19:00:00', '2016-06-24', ' Cégep de l''Abitbi-Témiscamingue', '', '', '', '1', ''),
+(33, 27, 0, NULL, 0, '', 6, 'Les griffons', 'Diablos', 'Match', '18:00:00', '2016-06-10', 'Cégep de l\'Outaouais', '', '', '', '0', ''),
+(34, 28, 0, NULL, 0, '', 6, 'Les astrelles', 'Diablos', '', '19:00:00', '2016-06-24', ' Cégep de l\'Abitbi-Témiscamingue', '', '', '', '1', ''),
 (35, 29, 2, NULL, 0, '', 6, 'Cavaliers', 'Diablos', 'Match', '11:00:00', '2016-06-14', 'Collège Bois-de-Boulogne', '', '', '', '2', ''),
 (36, 30, 0, NULL, 0, '', 6, 'Diablos', 'Demons', 'Match', '14:30:00', '2016-06-17', 'Cégep de Trois-Rivières', '', '', '', '1', ''),
 (37, 31, 0, NULL, 0, '', 6, 'Nomades', 'Diablos', 'Match', '15:00:00', '2016-06-24', 'Collège Montmorency', '', '', '', '3', ''),
-(38, 32, 0, NULL, 0, '', 6, 'Gaillards', 'Diablos', 'Match', '10:45:00', '2016-06-03', 'Cégep de l''Abitibi-Témiscamingue', '', '', '', '0', ''),
+(38, 32, 0, NULL, 0, '', 6, 'Gaillards', 'Diablos', 'Match', '10:45:00', '2016-06-03', 'Cégep de l\'Abitibi-Témiscamingue', '', '', '', '0', ''),
 (39, 33, 0, NULL, 0, '', 7, 'Diablos', 'Blues', 'Match', '12:00:00', '2016-05-20', 'Cégep de Trois-Rivières', '', '', '', '0', ''),
 (40, 34, 0, NULL, 0, '', 7, 'Islanders', 'Diablos', 'Match', '15:30:00', '2016-06-18', 'Collège John Abbot', '', '', '', '0', ''),
 (41, 35, 1, NULL, 0, '', 5, 'Indiens', 'Diablos', 'Match', '11:00:00', '2016-06-18', 'Collège Ahuntsic', '', '', '', '0', ''),
@@ -340,8 +312,8 @@ INSERT INTO `evenement` (`id`, `idTransport`, `statusTransport`, `idSejour`, `st
 -- Structure de la table `joueurs`
 --
 
-CREATE TABLE IF NOT EXISTS `joueurs` (
-  `id_joueur` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `joueurs` (
+  `id_joueur` int(6) NOT NULL,
   `id_personne` int(6) NOT NULL,
   `taille` double(5,2) DEFAULT NULL,
   `poids` double(5,2) DEFAULT NULL,
@@ -352,11 +324,8 @@ CREATE TABLE IF NOT EXISTS `joueurs` (
   `photo_profil` varchar(255) DEFAULT '\\Diablos_Archive\\Diablos_en_fusion\\Site\\Images\\default.png',
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_joueur`),
-  KEY `id_personne` (`id_personne`),
-  KEY `fk_joueur_parent` (`id_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=49 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `joueurs`
@@ -370,7 +339,7 @@ INSERT INTO `joueurs` (`id_joueur`, `id_personne`, `taille`, `poids`, `note`, `e
 (7, 49, 170.00, 160.94, '', 'Académies Les Estacades', '', '', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
 (9, 52, 178.00, 216.05, '', 'Collège StJeanVianey', '', '', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
 (10, 56, 185.00, 205.00, '', 'ES Chavigny', '', 'Sciences de la nature', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
-(14, 64, 172.00, 130.00, '', 'École secondaire Les Seigneuries', '', 'Technologie de l''électronique industrielle', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
+(14, 64, 172.00, 130.00, '', 'École secondaire Les Seigneuries', '', 'Technologie de l\'électronique industrielle', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
 (16, 67, NULL, NULL, '', 'Académie les Estacades', '', 'Sciences de la nature', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
 (17, 68, 167.00, NULL, '', 'Institut Keranna', '', 'Sciences de la nature', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
 (19, 70, 178.00, 115.00, '', 'Ste-Anne-de-Daveluyville', '', 'DEC-Bac en logistique', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', NULL, 'Actif', NULL),
@@ -385,8 +354,8 @@ INSERT INTO `joueurs` (`id_joueur`, `id_personne`, `taille`, `poids`, `note`, `e
 -- Structure de la table `joueurs_equipes`
 --
 
-CREATE TABLE IF NOT EXISTS `joueurs_equipes` (
-  `id_joueur_equipe` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `joueurs_equipes` (
+  `id_joueur_equipe` int(6) NOT NULL,
   `id_joueur` int(6) NOT NULL,
   `id_equipe` int(6) DEFAULT NULL,
   `id_position` int(6) DEFAULT NULL,
@@ -395,13 +364,8 @@ CREATE TABLE IF NOT EXISTS `joueurs_equipes` (
   `saison` varchar(20) DEFAULT NULL,
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_joueur_equipe`),
-  KEY `id_joueur` (`id_joueur`),
-  KEY `id_equipe` (`id_equipe`),
-  KEY `id_position` (`id_position`),
-  KEY `fk_joueur_eq_parent` (`id_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=36 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `joueurs_equipes`
@@ -430,8 +394,8 @@ INSERT INTO `joueurs_equipes` (`id_joueur_equipe`, `id_joueur`, `id_equipe`, `id
 -- Structure de la table `membres_personnel`
 --
 
-CREATE TABLE IF NOT EXISTS `membres_personnel` (
-  `id_membre` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `membres_personnel` (
+  `id_membre` int(6) NOT NULL,
   `nom` varchar(35) NOT NULL,
   `prenom` varchar(35) NOT NULL,
   `sexe` char(1) NOT NULL,
@@ -445,9 +409,8 @@ CREATE TABLE IF NOT EXISTS `membres_personnel` (
   `code_postal` varchar(7) CHARACTER SET utf8 DEFAULT NULL,
   `no_embauches` varchar(10) DEFAULT NULL,
   `dateEmbauche` date DEFAULT NULL,
-  `dateFin` date DEFAULT NULL,
-  PRIMARY KEY (`id_membre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=37 ;
+  `dateFin` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `membres_personnel`
@@ -472,13 +435,11 @@ INSERT INTO `membres_personnel` (`id_membre`, `nom`, `prenom`, `sexe`, `date_nai
 -- Structure de la table `multimedia_equipe`
 --
 
-CREATE TABLE IF NOT EXISTS `multimedia_equipe` (
-  `id_mme` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `multimedia_equipe` (
+  `id_mme` int(11) NOT NULL,
   `id_equipe` int(11) NOT NULL,
-  `photo` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_mme`),
-  KEY `id_equipe` (`id_equipe`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `photo` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `multimedia_equipe`
@@ -494,21 +455,42 @@ INSERT INTO `multimedia_equipe` (`id_mme`, `id_equipe`, `photo`) VALUES
 -- Structure de la table `multimedia_personne`
 --
 
-CREATE TABLE IF NOT EXISTS `multimedia_personne` (
-  `id_mmp` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `multimedia_personne` (
+  `id_mmp` int(11) NOT NULL,
   `id_personne` int(11) NOT NULL,
   `photo` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_mmp`),
-  KEY `id_personne` (`id_personne`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `cacher` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `multimedia_personne`
 --
 
-INSERT INTO `multimedia_personne` (`id_mmp`, `id_personne`, `photo`) VALUES
-(1, 33, '/Diablos_Archive/Diablos_en_fusion/Site/Images/A.-Foisy.jpg'),
-(2, 33, '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png');
+INSERT INTO `multimedia_personne` (`id_mmp`, `id_personne`, `photo`, `cacher`) VALUES
+(1, 33, '/Diablos_Archive/Diablos_en_fusion/Site/Images/A.-Foisy.jpg', 0),
+(2, 33, '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nous_joindre`
+--
+
+CREATE TABLE `nous_joindre` (
+  `telephone` varchar(50) NOT NULL,
+  `twitter` varchar(50) NOT NULL,
+  `facebook` varchar(50) NOT NULL,
+  `adresse_postal` varchar(50) NOT NULL,
+  `courriel` varchar(100) NOT NULL,
+  `rowid` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `nous_joindre`
+--
+
+INSERT INTO `nous_joindre` (`telephone`, `twitter`, `facebook`, `adresse_postal`, `courriel`, `rowid`) VALUES
+('(819) 376-1721, poste 2508', '@diablos_cegeptr', 'facebook.com/les.diablos', '3175 boulevard Laviolette, G8Z 1E9', 'dufresnevincent008@live.ca', 1);
 
 -- --------------------------------------------------------
 
@@ -516,8 +498,8 @@ INSERT INTO `multimedia_personne` (`id_mmp`, `id_personne`, `photo`) VALUES
 -- Structure de la table `personnels`
 --
 
-CREATE TABLE IF NOT EXISTS `personnels` (
-  `id_personnel` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personnels` (
+  `id_personnel` int(6) NOT NULL,
   `id_personne` int(6) NOT NULL,
   `role` varchar(255) DEFAULT NULL,
   `no_embauches` varchar(10) DEFAULT NULL,
@@ -525,11 +507,8 @@ CREATE TABLE IF NOT EXISTS `personnels` (
   `dateFin` date DEFAULT NULL,
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_personnel`),
-  KEY `fk_personnes_personnels` (`id_personne`),
-  KEY `fk_personnes_parent` (`id_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `personnels`
@@ -547,8 +526,8 @@ INSERT INTO `personnels` (`id_personnel`, `id_personne`, `role`, `no_embauches`,
 -- Structure de la table `personnes`
 --
 
-CREATE TABLE IF NOT EXISTS `personnes` (
-  `id_personne` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personnes` (
+  `id_personne` int(6) NOT NULL,
   `nom` varchar(35) DEFAULT NULL,
   `prenom` varchar(35) DEFAULT NULL,
   `sexe` char(1) DEFAULT NULL,
@@ -562,10 +541,8 @@ CREATE TABLE IF NOT EXISTS `personnes` (
   `code_postal` varchar(7) CHARACTER SET utf8 DEFAULT NULL,
   `id_parent` int(11) DEFAULT NULL,
   `statut` varchar(25) DEFAULT 'Actif',
-  `id_contact` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_personne`),
-  KEY `fr_personnes_parent` (`id_parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=107 ;
+  `id_contact` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `personnes`
@@ -615,13 +592,11 @@ INSERT INTO `personnes` (`id_personne`, `nom`, `prenom`, `sexe`, `date_naissance
 -- Structure de la table `positions`
 --
 
-CREATE TABLE IF NOT EXISTS `positions` (
-  `id_position` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `positions` (
+  `id_position` int(6) NOT NULL,
   `id_sport` int(6) NOT NULL,
-  `position` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_position`),
-  KEY `id_sport` (`id_sport`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=10 ;
+  `position` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `positions`
@@ -643,16 +618,12 @@ INSERT INTO `positions` (`id_position`, `id_sport`, `position`) VALUES
 -- Structure de la table `responsable_plateau`
 --
 
-CREATE TABLE IF NOT EXISTS `responsable_plateau` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `responsable_plateau` (
+  `id` int(6) NOT NULL,
   `id_personne` int(6) NOT NULL,
   `idEvenement` int(6) NOT NULL,
-  `role` varchar(80) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idEvenement` (`idEvenement`),
-  KEY `idType` (`role`),
-  KEY `id_personne` (`id_personne`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+  `role` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -660,11 +631,10 @@ CREATE TABLE IF NOT EXISTS `responsable_plateau` (
 -- Structure de la table `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
-  `id_role` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_role`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=16 ;
+CREATE TABLE `role` (
+  `id_role` int(11) NOT NULL,
+  `nom` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `role`
@@ -691,12 +661,11 @@ INSERT INTO `role` (`id_role`, `nom`) VALUES
 -- Structure de la table `sports`
 --
 
-CREATE TABLE IF NOT EXISTS `sports` (
-  `id_sport` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sports` (
+  `id_sport` int(6) NOT NULL,
   `sport` varchar(50) NOT NULL,
-  `roles` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`id_sport`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=49 ;
+  `roles` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `sports`
@@ -720,15 +689,13 @@ INSERT INTO `sports` (`id_sport`, `sport`, `roles`) VALUES
 -- Structure de la table `statut_joueurs`
 --
 
-CREATE TABLE IF NOT EXISTS `statut_joueurs` (
-  `id_statut` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `statut_joueurs` (
+  `id_statut` int(6) NOT NULL,
   `id_joueur_equipe` int(6) NOT NULL,
   `statut` varchar(200) NOT NULL,
   `date_arret` date NOT NULL,
-  `date_retour` date NOT NULL,
-  PRIMARY KEY (`id_statut`),
-  KEY `id_joueur_equipe` (`id_joueur_equipe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+  `date_retour` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -736,8 +703,8 @@ CREATE TABLE IF NOT EXISTS `statut_joueurs` (
 -- Structure de la table `transport`
 --
 
-CREATE TABLE IF NOT EXISTS `transport` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `transport` (
+  `id` int(6) NOT NULL,
   `idTransporteur` int(6) DEFAULT NULL,
   `heureDepart` time NOT NULL,
   `heureRetour` time NOT NULL,
@@ -745,10 +712,8 @@ CREATE TABLE IF NOT EXISTS `transport` (
   `date` date DEFAULT NULL,
   `dateRetour` date DEFAULT NULL,
   `note` varchar(255) NOT NULL,
-  `typeTransport` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idTransporteur` (`idTransporteur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=47 ;
+  `typeTransport` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `transport`
@@ -801,8 +766,8 @@ INSERT INTO `transport` (`id`, `idTransporteur`, `heureDepart`, `heureRetour`, `
 -- Structure de la table `transporteur`
 --
 
-CREATE TABLE IF NOT EXISTS `transporteur` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `transporteur` (
+  `id` int(6) NOT NULL,
   `nom` varchar(125) NOT NULL,
   `type` varchar(100) NOT NULL,
   `nombrePlace` int(2) NOT NULL,
@@ -810,9 +775,8 @@ CREATE TABLE IF NOT EXISTS `transporteur` (
   `ville` varchar(100) NOT NULL,
   `codePostal` varchar(7) NOT NULL,
   `courriel` varchar(125) NOT NULL,
-  `siteWeb` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=9 ;
+  `siteWeb` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `transporteur`
@@ -832,14 +796,13 @@ INSERT INTO `transporteur` (`id`, `nom`, `type`, `nombrePlace`, `rue`, `ville`, 
 -- Structure de la table `utilisateurs`
 --
 
-CREATE TABLE IF NOT EXISTS `utilisateurs` (
-  `id_utilisateur` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `utilisateurs` (
+  `id_utilisateur` int(6) NOT NULL,
   `nom_utilisateur` varchar(50) NOT NULL,
   `mot_passe` varchar(50) NOT NULL,
   `acces` varchar(50) NOT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_utilisateur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `active` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `utilisateurs`
@@ -854,15 +817,13 @@ INSERT INTO `utilisateurs` (`id_utilisateur`, `nom_utilisateur`, `mot_passe`, `a
 -- Structure de la table `utilisateurs_gestion`
 --
 
-CREATE TABLE IF NOT EXISTS `utilisateurs_gestion` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `utilisateurs_gestion` (
+  `id` int(6) NOT NULL,
   `nomUtilisateur` varchar(30) CHARACTER SET utf8 NOT NULL,
   `motPasse` varchar(255) CHARACTER SET utf8 NOT NULL,
   `estAdmin` tinyint(1) NOT NULL,
-  `estActif` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nomUtilisateur` (`nomUtilisateur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=28 ;
+  `estActif` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `utilisateurs_gestion`
@@ -883,16 +844,372 @@ INSERT INTO `utilisateurs_gestion` (`id`, `nomUtilisateur`, `motPasse`, `estAdmi
 -- Structure de la table `villes`
 --
 
-CREATE TABLE IF NOT EXISTS `villes` (
-  `no_ville` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `villes` (
+  `no_ville` int(11) NOT NULL,
   `code` int(5) NOT NULL,
   `designation` varchar(15) NOT NULL,
   `municipalite` varchar(75) NOT NULL,
   `mrc` varchar(75) NOT NULL,
-  `region` varchar(75) NOT NULL,
-  PRIMARY KEY (`no_ville`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+  `region` varchar(75) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `bourses`
+--
+ALTER TABLE `bourses`
+  ADD PRIMARY KEY (`id_bourse`),
+  ADD KEY `id_joueur` (`id_joueur`);
+
+--
+-- Index pour la table `certifications_entraineurs`
+--
+ALTER TABLE `certifications_entraineurs`
+  ADD PRIMARY KEY (`id_certification`),
+  ADD KEY `id_entraineur` (`id_entraineur`);
+
+--
+-- Index pour la table `demandes_equipes`
+--
+ALTER TABLE `demandes_equipes`
+  ADD PRIMARY KEY (`id_demande`);
+
+--
+-- Index pour la table `demandes_joueurs`
+--
+ALTER TABLE `demandes_joueurs`
+  ADD PRIMARY KEY (`id_demande`);
+
+--
+-- Index pour la table `demandes_personnels`
+--
+ALTER TABLE `demandes_personnels`
+  ADD PRIMARY KEY (`id_demande`);
+
+--
+-- Index pour la table `detail_sejour`
+--
+ALTER TABLE `detail_sejour`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEndroitSejour` (`idEndroitSejour`);
+
+--
+-- Index pour la table `endroit_sejour`
+--
+ALTER TABLE `endroit_sejour`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `entraineurs`
+--
+ALTER TABLE `entraineurs`
+  ADD PRIMARY KEY (`id_entraineur`),
+  ADD KEY `id_personne` (`id_personne`),
+  ADD KEY `fr_entraineurs_parent` (`id_parent`);
+
+--
+-- Index pour la table `entraineur_equipe`
+--
+ALTER TABLE `entraineur_equipe`
+  ADD PRIMARY KEY (`id_entr_equipe`),
+  ADD KEY `id_entraneur` (`id_entraineur`),
+  ADD KEY `id_equipe` (`id_equipe`),
+  ADD KEY `fk_entrai_eq_parent` (`id_parent`),
+  ADD KEY `role` (`role`);
+
+--
+-- Index pour la table `equipes`
+--
+ALTER TABLE `equipes`
+  ADD PRIMARY KEY (`id_equipe`),
+  ADD KEY `id_sport` (`id_sport`),
+  ADD KEY `fk_equipes_parent` (`id_parent`);
+
+--
+-- Index pour la table `evenement`
+--
+ALTER TABLE `evenement`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idTransport` (`idTransport`,`idSejour`),
+  ADD KEY `idTransport_2` (`idTransport`),
+  ADD KEY `idSejour` (`idSejour`),
+  ADD KEY `idEquipeReceveur` (`equipeReceveur`),
+  ADD KEY `idEquipeVisiteur` (`equipeVisiteur`),
+  ADD KEY `idSport` (`idSport`);
+
+--
+-- Index pour la table `joueurs`
+--
+ALTER TABLE `joueurs`
+  ADD PRIMARY KEY (`id_joueur`),
+  ADD KEY `id_personne` (`id_personne`),
+  ADD KEY `fk_joueur_parent` (`id_parent`);
+
+--
+-- Index pour la table `joueurs_equipes`
+--
+ALTER TABLE `joueurs_equipes`
+  ADD PRIMARY KEY (`id_joueur_equipe`),
+  ADD KEY `id_joueur` (`id_joueur`),
+  ADD KEY `id_equipe` (`id_equipe`),
+  ADD KEY `id_position` (`id_position`),
+  ADD KEY `fk_joueur_eq_parent` (`id_parent`);
+
+--
+-- Index pour la table `membres_personnel`
+--
+ALTER TABLE `membres_personnel`
+  ADD PRIMARY KEY (`id_membre`);
+
+--
+-- Index pour la table `multimedia_equipe`
+--
+ALTER TABLE `multimedia_equipe`
+  ADD PRIMARY KEY (`id_mme`),
+  ADD KEY `id_equipe` (`id_equipe`);
+
+--
+-- Index pour la table `multimedia_personne`
+--
+ALTER TABLE `multimedia_personne`
+  ADD PRIMARY KEY (`id_mmp`),
+  ADD KEY `id_personne` (`id_personne`);
+
+--
+-- Index pour la table `nous_joindre`
+--
+ALTER TABLE `nous_joindre`
+  ADD PRIMARY KEY (`rowid`);
+
+--
+-- Index pour la table `personnels`
+--
+ALTER TABLE `personnels`
+  ADD PRIMARY KEY (`id_personnel`),
+  ADD KEY `fk_personnes_personnels` (`id_personne`),
+  ADD KEY `fk_personnes_parent` (`id_parent`);
+
+--
+-- Index pour la table `personnes`
+--
+ALTER TABLE `personnes`
+  ADD PRIMARY KEY (`id_personne`),
+  ADD KEY `fr_personnes_parent` (`id_parent`);
+
+--
+-- Index pour la table `positions`
+--
+ALTER TABLE `positions`
+  ADD PRIMARY KEY (`id_position`),
+  ADD KEY `id_sport` (`id_sport`);
+
+--
+-- Index pour la table `responsable_plateau`
+--
+ALTER TABLE `responsable_plateau`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEvenement` (`idEvenement`),
+  ADD KEY `idType` (`role`),
+  ADD KEY `id_personne` (`id_personne`);
+
+--
+-- Index pour la table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id_role`);
+
+--
+-- Index pour la table `sports`
+--
+ALTER TABLE `sports`
+  ADD PRIMARY KEY (`id_sport`);
+
+--
+-- Index pour la table `statut_joueurs`
+--
+ALTER TABLE `statut_joueurs`
+  ADD PRIMARY KEY (`id_statut`),
+  ADD KEY `id_joueur_equipe` (`id_joueur_equipe`);
+
+--
+-- Index pour la table `transport`
+--
+ALTER TABLE `transport`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idTransporteur` (`idTransporteur`);
+
+--
+-- Index pour la table `transporteur`
+--
+ALTER TABLE `transporteur`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  ADD PRIMARY KEY (`id_utilisateur`);
+
+--
+-- Index pour la table `utilisateurs_gestion`
+--
+ALTER TABLE `utilisateurs_gestion`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nomUtilisateur` (`nomUtilisateur`);
+
+--
+-- Index pour la table `villes`
+--
+ALTER TABLE `villes`
+  ADD PRIMARY KEY (`no_ville`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `bourses`
+--
+ALTER TABLE `bourses`
+  MODIFY `id_bourse` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `certifications_entraineurs`
+--
+ALTER TABLE `certifications_entraineurs`
+  MODIFY `id_certification` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `demandes_equipes`
+--
+ALTER TABLE `demandes_equipes`
+  MODIFY `id_demande` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `demandes_joueurs`
+--
+ALTER TABLE `demandes_joueurs`
+  MODIFY `id_demande` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `detail_sejour`
+--
+ALTER TABLE `detail_sejour`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `endroit_sejour`
+--
+ALTER TABLE `endroit_sejour`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT pour la table `entraineurs`
+--
+ALTER TABLE `entraineurs`
+  MODIFY `id_entraineur` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT pour la table `entraineur_equipe`
+--
+ALTER TABLE `entraineur_equipe`
+  MODIFY `id_entr_equipe` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT pour la table `equipes`
+--
+ALTER TABLE `equipes`
+  MODIFY `id_equipe` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT pour la table `evenement`
+--
+ALTER TABLE `evenement`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+--
+-- AUTO_INCREMENT pour la table `joueurs`
+--
+ALTER TABLE `joueurs`
+  MODIFY `id_joueur` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT pour la table `joueurs_equipes`
+--
+ALTER TABLE `joueurs_equipes`
+  MODIFY `id_joueur_equipe` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+--
+-- AUTO_INCREMENT pour la table `membres_personnel`
+--
+ALTER TABLE `membres_personnel`
+  MODIFY `id_membre` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT pour la table `multimedia_equipe`
+--
+ALTER TABLE `multimedia_equipe`
+  MODIFY `id_mme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `multimedia_personne`
+--
+ALTER TABLE `multimedia_personne`
+  MODIFY `id_mmp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `nous_joindre`
+--
+ALTER TABLE `nous_joindre`
+  MODIFY `rowid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `personnels`
+--
+ALTER TABLE `personnels`
+  MODIFY `id_personnel` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
+-- AUTO_INCREMENT pour la table `personnes`
+--
+ALTER TABLE `personnes`
+  MODIFY `id_personne` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+--
+-- AUTO_INCREMENT pour la table `positions`
+--
+ALTER TABLE `positions`
+  MODIFY `id_position` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT pour la table `responsable_plateau`
+--
+ALTER TABLE `responsable_plateau`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT pour la table `sports`
+--
+ALTER TABLE `sports`
+  MODIFY `id_sport` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT pour la table `statut_joueurs`
+--
+ALTER TABLE `statut_joueurs`
+  MODIFY `id_statut` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `transport`
+--
+ALTER TABLE `transport`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT pour la table `transporteur`
+--
+ALTER TABLE `transporteur`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `utilisateurs`
+--
+ALTER TABLE `utilisateurs`
+  MODIFY `id_utilisateur` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT pour la table `utilisateurs_gestion`
+--
+ALTER TABLE `utilisateurs_gestion`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT pour la table `villes`
+--
+ALTER TABLE `villes`
+  MODIFY `no_ville` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
 --

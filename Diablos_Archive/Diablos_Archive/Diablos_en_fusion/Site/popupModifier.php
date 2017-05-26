@@ -56,7 +56,7 @@
 			foreach($resultat as $row)
 			{
 				//Affichage des informations générales de la personne
-				echo "<form  action='Diablos_en_fusion/Site/RequeteModifier.php'><div class='row'>
+				echo "<form  action='Diablos_en_fusion/Site/RequeteModifier.php' onsubmit='var x=MessageConfirmation(\"Voulez-vous envoyer cette demande de modifications?\");return x;'><div class='row'>
 						<div class='col-md-10'>
 							<h2>" . $row['nom'] . ", " . $row['prenom'] . " - ".$type ."</h2>
 						</div>
@@ -93,7 +93,7 @@
 							<div class='diaporamaPersonne' style='max-height:200px'>
 								<div class='slickDiaporamaProfil' style='max-height:200px'>";
 
-				$stmt2 = $conn->prepare("SELECT distinct photo FROM multimedia_personne  WHERE id_personne = " . $_GET['idPopup']);
+				$stmt2 = $conn->prepare("SELECT distinct photo FROM multimedia_personne  WHERE cacher = 0 and id_personne = " . $_GET['idPopup']);
 				$stmt2->execute();
 				$resultat2 = $stmt2->fetchAll();
 				if($stmt2->rowCount() > 0)//ou stmt
@@ -300,7 +300,7 @@
 		{
 			$ctr = 0;
 			//-------------Recherche des équipes ou la personne a jouée----------------//
-			$stmt = $conn->prepare("SELECT e.id_equipe, p.position, je.id_position, je.numero, e.nom,e.saison, s.sport FROM joueurs j, 
+			$stmt = $conn->prepare("SELECT e.id_equipe, p.position, je.id_position, je.numero, e.nom,e.saison, s.id_sport FROM joueurs j, 
 									joueurs_equipes je, positions p, sports s, equipes e WHERE je.statut = 'Actif' and j.id_personne = " . $_GET['idPopup'] . 
 									" AND j.id_joueur = je.id_joueur AND je.id_position = p.id_position AND je.id_equipe = e.id_equipe AND e.id_sport = s.id_sport");
 			$stmt->execute();
@@ -328,7 +328,9 @@
 								}	
 							}
 							
-							echo "</select> <script>document.getElementsByName('nomEquipe".$ctr."')[0].value = ".$row['id_equipe']." </script>
+							echo "</select> <script>document.getElementsByName('nomEquipe".$ctr."')[0].value = ".$row['id_equipe']."
+													document.getElementsByName('nomEquipe".$ctr."')[0].addEventListener('change', function(){ajaxEquipeSaison(".$ctr.")});
+											 </script>
 						</td>
 
 						<td><input type='number' name='numero".$ctr."' min='1' max='999' value='".$row['numero']."'></td>
@@ -336,7 +338,7 @@
 						<td id='og2'>
 
 							<select name='position".$ctr."'>";
-							$req = $conn->prepare('Select id_position, position from positions');
+							$req = $conn->prepare('Select id_position, position from positions where id_sport = '.$row['id_sport'].' order by position');
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
@@ -350,7 +352,9 @@
 							echo "</select><script>document.getElementsByName('position".$ctr."')[0].value = ".$row['id_position']." </script>
 						</td>
 
-						<td><input type='text' name='saison".$ctr."' maxlength='9' value='".$row['saison']."'></td>
+						<td>
+						<p name='saison".$ctr."'>".$row['saison']."</p>			
+						</td>
 					</tr>";
 				}
 
@@ -372,6 +376,8 @@
 							}
 							echo "</select>			
 							</td>
+
+
 							<td><input type='number' name='numero' min='1' max='999'></td>
 							<td><input type='text' name='position' maxlength='50'></td>
 							<td><input type='text' name='saison' maxlength='9'></td>
@@ -396,6 +402,18 @@
 				echo "<div class='row'><div class='col-md-12'><h2>Équipes </h2></div></div><div class='row'><div class='col-md-12'><div class='ResultatRecherche'><table id='entraineurEquipe' class='table table-striped table-hover table-bordered tableheader'><thead><tr><th>Nom de l'équipe</th><th>Sexe</th><th>Rôle</th><th>Saison</th></tr></thead><tbody>";
 				foreach($resultat as $row){
 					$ctr = ($ctr + 1);
+					switch ($row['sexe']) 
+					{
+					case 'X':
+						$sexeEquipe = 'Mixte';
+						break;
+					case 'M':
+						$sexeEquipe = 'Masculin';
+						break;
+					case 'F':
+						$sexeEquipe = 'Féminin';
+						break;
+					}
 					//Affichage de chaque équipe qui corresponde à la recherche
 					echo "
 					<tr>
@@ -417,17 +435,13 @@
 			 
 						
 						<td>
-							<select name='sexe".$ctr."'>
-								<option value='F'>Féminin</option>
-								<option value='M'>Masculin</option>	
-								<option value='X'>Mixte</option>
-							</select>	
+							<p name='sexe".$ctr."'>".$sexeEquipe."</p>		
 							<script>document.getElementsByName('sexe".$ctr."')[0].value = '".$row['sexe']."' </script>
 						</td>
 
 						<td id='og2'>					
 							<select name='role".$ctr."'>";
-							$req = $conn->prepare('Select * from role');
+							$req = $conn->prepare('Select * from role order by nom');
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
@@ -438,11 +452,12 @@
 								}	
 							}
 							
-							echo "</select> <script>document.getElementsByName('role".$ctr."')[0].value = '".$row['role']."' </script>
+							echo "</select> <script>document.getElementsByName('role".$ctr."')[0].value = '".$row['role']."'
+							document.getElementsByName('nomEquipe".$ctr."')[0].addEventListener('change', function(){ajaxEquipeSexe(".$ctr.")}); </script>
 						</td>
 
 						<td>
-							<input type='text' name='saison".$ctr."' maxlength='9' value = '".$row['saison']."'>
+							<p name='saison".$ctr."'>".$row['saison']."</p>	
 						</td>
 
 					</tr>";
