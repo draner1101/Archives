@@ -247,6 +247,8 @@ session_start();
                     <input class="formulaire" type="text" name="adresse_postal" placeholder="Adresse Postale" value="<?=$row["adresse_postal"]?>">
                     <label>Courriel</label>
                     <input class="formulaire" type="text" name="courriel" placeholder="Courriel" value="<?=$row["courriel"]?>">
+                    <label>Chemin photo</label>
+                    <input class="formulaire" type="text" name="path_photo" placeholder="Chemin photo" value="<?=$row["path_photo"]?>">
                     <?php
                     }
                     break;

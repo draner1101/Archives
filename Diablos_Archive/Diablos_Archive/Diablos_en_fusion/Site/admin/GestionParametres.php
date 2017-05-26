@@ -1,3 +1,3 @@
 <script>
-    window.location.href("Modifier?Table=parametres")
+    window.location = "Modifier.php?Table=parametres";
 </script>

@@ -183,7 +183,8 @@
                  twitter='" .$_GET["twitter"] ."', 
                  facebook='" .$_GET["facebook"] ."', 
                  adresse_postal='" .$_GET["adresse_postal"] ."', 
-                 courriel='" .$_GET["courriel"] ."'
+                 courriel='" .$_GET["courriel"] ."',
+                 path_photo='" .$_GET["path_photo"] ."'
              WHERE rowid = 1");
              $query->execute();
             break;

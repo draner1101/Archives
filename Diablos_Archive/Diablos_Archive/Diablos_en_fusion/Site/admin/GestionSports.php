@@ -81,7 +81,7 @@ session_start();
                                     <td>" .$row["roles"] ."</td>
                                     <td>
                                     <a class='button buttonModifier' href='Modifier.php?Table=sports&id_sport=".$row["id_sport"] ."'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=sports&id=".$row["id_sport"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=sports&id=".$row["id_sport"] ."&page=" .$page ."' onclick = 'var x=MessageConfirmation(\"Voulez-vous supprimer ce sport?\");return x;'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }

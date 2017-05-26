@@ -35,7 +35,7 @@ session_start();
                         <th>Nom</th>
                         <th>Sport</th>
                         <th style="width: 100px">Saison</th>
-                        <th style="width: 50px">Sexe</th>
+                        <th style="width: 75px">Sexe</th>
                         <th style="width: 85px"></th>
                     </tr>
                     <?php
@@ -81,11 +81,23 @@ session_start();
 
                         $result = $query->fetchAll(PDO::FETCH_ASSOC); 
                         foreach($result as $row){
+                            switch ($row['sexe']) 
+                            {
+                            case 'X':
+                                $sexeEquipe = 'Mixte';
+                                break;
+                            case 'M':
+                                $sexeEquipe = 'Masculin';
+                                break;
+                            case 'F':
+                                $sexeEquipe = 'Féminin';
+                                break;
+                            }
                            echo "<tr>
                                     <td>" .$row["nom"] ."</td>
                                     <td>" .$row["sport"] ."</td>
                                     <td>" .$row["saison"] ."</td>
-                                    <td>" .$row["sexe"] ."</td>
+                                    <td>" .$sexeEquipe."</td>
                                     <td>
                                     <a class='button buttonModifier' href='Modifier.php?Table=equipes&id_equipe=".$row["id_equipe"]."'><img class='img' src='../Images/Modifier.png'></img></a>
                                     <a class='button buttonDelete' href='Delete.php?table=equipes&idj=".$row["id_equipe"] ."&page=" .$page ."' onclick = 'var x=MessageConfirmation(\"Voulez-vous supprimer cet équipe?\");return x;'><img class='img' src='../Images/delete.png'></img></a>

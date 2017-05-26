@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 24 Mai 2017 à 12:14
+-- Généré le :  Ven 26 Mai 2017 à 16:57
 -- Version du serveur :  5.7.14
 -- Version de PHP :  7.0.10
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `concep16_diablos`
 --
+CREATE DATABASE IF NOT EXISTS `concep16_diablos` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `concep16_diablos`;
 
 -- --------------------------------------------------------
 
@@ -245,7 +247,7 @@ INSERT INTO `equipes` (`id_equipe`, `nom`, `sexe`, `saison`, `photo_equipe`, `id
 (11, 'Diablos F D3', 'F', '2017-2018', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', 2, '', NULL, 'Actif', NULL),
 (12, 'Football', 'M', '2015-2016', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', 2, 'Football masculin', NULL, 'Actif', NULL),
 (13, 'Cross-Country Mixte 2015-2016', 'X', '2015-2016', '/Diablos_Archive/Diablos_en_fusion/Site/Images/crosscountru-championnats-canadiens.jpg', 5, '', NULL, 'Actif', NULL),
-(14, 'Basketball feminin division 1', 'M', '2016-2017', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', 1, '', NULL, 'Actif', NULL),
+(14, 'Basketball feminin division 1', 'F', '2016-2017', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', 1, '', NULL, 'Actif', NULL),
 (15, 'Flag-Football', 'F', '2015-2016', '/Diablos_Archive/Diablos_en_fusion/Site/Images/Koala.jpg', 8, '', NULL, 'Actif', NULL),
 (16, 'Diablos', 'M', '2016-2017', '/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png', 0, '', NULL, 'Actif', NULL);
 
@@ -263,8 +265,8 @@ CREATE TABLE `evenement` (
   `statusSejour` int(1) DEFAULT NULL,
   `noteSejour` varchar(255) DEFAULT NULL,
   `idSport` int(6) DEFAULT NULL,
-  `equipeReceveur` varchar(75) DEFAULT NULL,
-  `equipeVisiteur` varchar(75) DEFAULT NULL,
+  `equipeReceveur` varchar(75) DEFAULT 'Diablos',
+  `equipeVisiteur` varchar(75) DEFAULT 'Diablos',
   `type` varchar(80) DEFAULT NULL,
   `heure` time DEFAULT NULL,
   `date` date NOT NULL,
@@ -273,38 +275,39 @@ CREATE TABLE `evenement` (
   `rue` varchar(125) DEFAULT NULL,
   `codePostal` varchar(7) DEFAULT NULL,
   `status` char(1) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL
+  `description` varchar(255) DEFAULT NULL,
+  `equipe_diablos` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `evenement`
 --
 
-INSERT INTO `evenement` (`id`, `idTransport`, `statusTransport`, `idSejour`, `statusSejour`, `noteSejour`, `idSport`, `equipeReceveur`, `equipeVisiteur`, `type`, `heure`, `date`, `endroit`, `ville`, `rue`, `codePostal`, `status`, `description`) VALUES
-(29, 23, 0, NULL, 0, '', 0, 'Diablos', 'Les tigres', 'Match', '01:30:00', '2016-06-02', 'Cégep                                                       ', 'Trois-Rivières', 'De courval', 'G1G 1G1', '0', ''),
-(30, 24, 0, 22, 1, '', 5, '', '', 'Match', '09:00:00', '2016-06-02', 'Club de golf du domaine Godefroy', 'Bécancour', 'Boul. Bécancour', 'G1G 1G1', '0', ''),
-(31, 25, 1, NULL, 0, '', 6, 'Diablos', 'Les Nordiques', 'Match', '18:00:00', '2016-06-16', 'Collège de Lionel-Groulx', '', '', '', '2', ''),
-(32, 26, 1, NULL, 0, '', 0, 'Lynx', 'Diablos', 'Match', '10:00:00', '2016-06-11', 'Collège Édouard-Montpetit', '', '', '', '1', ''),
-(33, 27, 0, NULL, 0, '', 6, 'Les griffons', 'Diablos', 'Match', '18:00:00', '2016-06-10', 'Cégep de l\'Outaouais', '', '', '', '0', ''),
-(34, 28, 0, NULL, 0, '', 6, 'Les astrelles', 'Diablos', '', '19:00:00', '2016-06-24', ' Cégep de l\'Abitbi-Témiscamingue', '', '', '', '1', ''),
-(35, 29, 2, NULL, 0, '', 6, 'Cavaliers', 'Diablos', 'Match', '11:00:00', '2016-06-14', 'Collège Bois-de-Boulogne', '', '', '', '2', ''),
-(36, 30, 0, NULL, 0, '', 6, 'Diablos', 'Demons', 'Match', '14:30:00', '2016-06-17', 'Cégep de Trois-Rivières', '', '', '', '1', ''),
-(37, 31, 0, NULL, 0, '', 6, 'Nomades', 'Diablos', 'Match', '15:00:00', '2016-06-24', 'Collège Montmorency', '', '', '', '3', ''),
-(38, 32, 0, NULL, 0, '', 6, 'Gaillards', 'Diablos', 'Match', '10:45:00', '2016-06-03', 'Cégep de l\'Abitibi-Témiscamingue', '', '', '', '0', ''),
-(39, 33, 0, NULL, 0, '', 7, 'Diablos', 'Blues', 'Match', '12:00:00', '2016-05-20', 'Cégep de Trois-Rivières', '', '', '', '0', ''),
-(40, 34, 0, NULL, 0, '', 7, 'Islanders', 'Diablos', 'Match', '15:30:00', '2016-06-18', 'Collège John Abbot', '', '', '', '0', ''),
-(41, 35, 1, NULL, 0, '', 5, 'Indiens', 'Diablos', 'Match', '11:00:00', '2016-06-18', 'Collège Ahuntsic', '', '', '', '0', ''),
-(42, 36, 0, NULL, 0, '', 5, 'Diablos', 'Vulkins', 'Match', '20:00:00', '2016-06-09', 'Cégep de Trois-Rivières', '', '', '', '0', ''),
-(43, 37, 0, NULL, 0, '', 5, 'Diablos', 'Nordiques', '', '12:00:00', '2016-06-17', 'Cégep de Trois-Rivières', '', '', '', '1', ''),
-(44, 38, 0, NULL, 0, '', 0, 'Diablos', 'Élans', 'Match', '13:30:00', '2016-06-16', 'Cégep de Trois-Rivières', '', '', '', '2', ''),
-(45, 39, 0, NULL, 0, '', 2, 'Cheetas', 'Diablos', '', '10:00:00', '2016-06-25', 'Collège Vanier', '', '', '', '1', ''),
-(46, 40, 0, NULL, 0, '', 2, 'Faucons', 'Diablos', 'Match', '11:30:00', '2016-06-09', 'Cégep de Trois-Rivières', '', '', '', '0', ''),
-(47, 41, 0, NULL, 0, '', 2, 'Spartiates', 'Faucons', 'Match', '00:00:00', '2016-06-21', 'Cégep de Trois-Rivières', '', '', '', '0', ''),
-(48, 42, 0, NULL, 0, '', 0, '', '', 'Tournoi', '00:00:00', '2016-06-27', '', '', '', '', '1', ''),
-(49, 43, 0, NULL, 0, '', 0, 'PAnters', 'Diablos ', 'Match', '00:00:00', '2016-06-17', '', '', '', '', '0', ''),
-(50, 44, 0, NULL, 0, '', 6, '', '', '', '10:00:00', '2016-06-01', '', '', '', '', '0', ''),
-(51, 45, 0, NULL, 0, '', 0, '', '', '', '10:00:00', '2016-06-01', '', '', '', '', '0', ''),
-(52, 46, 0, NULL, 0, '', 7, '', '', '', '02:15:00', '2017-02-02', '', '', '', '', '0', 'Tournoi');
+INSERT INTO `evenement` (`id`, `idTransport`, `statusTransport`, `idSejour`, `statusSejour`, `noteSejour`, `idSport`, `equipeReceveur`, `equipeVisiteur`, `type`, `heure`, `date`, `endroit`, `ville`, `rue`, `codePostal`, `status`, `description`, `equipe_diablos`) VALUES
+(29, 23, 0, NULL, 0, '', 0, 'Diablos', 'Les tigres', 'Match', '01:30:00', '2016-06-02', 'Cégep                                                       ', 'Trois-Rivières', 'De courval', 'G1G 1G1', '0', '', NULL),
+(30, 24, 0, 22, 1, '', 5, '', '', 'Match', '09:00:00', '2016-06-02', 'Club de golf du domaine Godefroy', 'Bécancour', 'Boul. Bécancour', 'G1G 1G1', '0', '', NULL),
+(31, 25, 1, NULL, 0, '', 6, 'Diablos', 'Les Nordiques', 'Match', '18:00:00', '2016-06-16', 'Collège de Lionel-Groulx', '', '', '', '2', '', NULL),
+(32, 26, 1, NULL, 0, '', 0, 'Lynx', 'Diablos', 'Match', '10:00:00', '2016-06-11', 'Collège Édouard-Montpetit', '', '', '', '1', '', NULL),
+(33, 27, 0, NULL, 0, '', 6, 'Les griffons', 'Diablos', 'Match', '18:00:00', '2016-06-10', 'Cégep de l\'Outaouais', '', '', '', '0', '', NULL),
+(34, 28, 0, NULL, 0, '', 6, 'Les astrelles', 'Diablos', '', '19:00:00', '2016-06-24', ' Cégep de l\'Abitbi-Témiscamingue', '', '', '', '1', '', NULL),
+(35, 29, 2, NULL, 0, '', 6, 'Cavaliers', 'Diablos', 'Match', '11:00:00', '2016-06-14', 'Collège Bois-de-Boulogne', '', '', '', '2', '', NULL),
+(36, 30, 0, NULL, 0, '', 6, 'Diablos', 'Demons', 'Match', '14:30:00', '2016-06-17', 'Cégep de Trois-Rivières', '', '', '', '1', '', NULL),
+(37, 31, 0, NULL, 0, '', 6, 'Nomades', 'Diablos', 'Match', '15:00:00', '2016-06-24', 'Collège Montmorency', '', '', '', '3', '', NULL),
+(38, 32, 0, NULL, 0, '', 6, 'Gaillards', 'Diablos', 'Match', '10:45:00', '2016-06-03', 'Cégep de l\'Abitibi-Témiscamingue', '', '', '', '0', '', NULL),
+(39, 33, 0, NULL, 0, '', 7, 'Diablos', 'Blues', 'Match', '12:00:00', '2016-05-20', 'Cégep de Trois-Rivières', '', '', '', '0', '', NULL),
+(40, 34, 0, NULL, 0, '', 7, 'Islanders', 'Diablos', 'Match', '15:30:00', '2016-06-18', 'Collège John Abbot', '', '', '', '0', '', NULL),
+(41, 35, 1, NULL, 0, '', 5, 'Indiens', 'Diablos', 'Match', '11:00:00', '2016-06-18', 'Collège Ahuntsic', '', '', '', '0', '', NULL),
+(42, 36, 0, NULL, 0, '', 5, 'Diablos', 'Vulkins', 'Match', '20:00:00', '2016-06-09', 'Cégep de Trois-Rivières', '', '', '', '0', '', NULL),
+(43, 37, 0, NULL, 0, '', 5, 'Diablos', 'Nordiques', '', '12:00:00', '2016-06-17', 'Cégep de Trois-Rivières', '', '', '', '1', '', NULL),
+(44, 38, 0, NULL, 0, '', 0, 'Diablos', 'Élans', 'Match', '13:30:00', '2016-06-16', 'Cégep de Trois-Rivières', '', '', '', '2', '', NULL),
+(45, 39, 0, NULL, 0, '', 2, 'Cheetas', 'Diablos', '', '10:00:00', '2016-06-25', 'Collège Vanier', '', '', '', '1', '', NULL),
+(46, 40, 0, NULL, 0, '', 2, 'Faucons', 'Diablos', 'Match', '11:30:00', '2016-06-09', 'Cégep de Trois-Rivières', '', '', '', '0', '', NULL),
+(47, 41, 0, NULL, 0, '', 2, 'Spartiates', 'Faucons', 'Match', '00:00:00', '2016-06-21', 'Cégep de Trois-Rivières', '', '', '', '0', '', NULL),
+(48, 42, 0, NULL, 0, '', 0, '', '', 'Tournoi', '00:00:00', '2016-06-27', '', '', '', '', '1', '', NULL),
+(49, 43, 0, NULL, 0, '', 0, 'PAnters', 'Diablos ', 'Match', '00:00:00', '2016-06-17', '', '', '', '', '0', '', NULL),
+(50, 44, 0, NULL, 0, '', 6, '', '', '', '10:00:00', '2016-06-01', '', '', '', '', '0', '', NULL),
+(51, 45, 0, NULL, 0, '', 0, '', '', '', '10:00:00', '2016-06-01', '', '', '', '', '0', '', NULL),
+(52, 46, 0, NULL, 0, '', 7, '', '', '', '02:15:00', '2017-02-02', '', '', '', '', '0', 'Tournoi', NULL);
 
 -- --------------------------------------------------------
 
@@ -477,11 +480,12 @@ INSERT INTO `multimedia_personne` (`id_mmp`, `id_personne`, `photo`, `cacher`) V
 --
 
 CREATE TABLE `nous_joindre` (
-  `telephone` varchar(50) NOT NULL,
-  `twitter` varchar(50) NOT NULL,
-  `facebook` varchar(50) NOT NULL,
-  `adresse_postal` varchar(50) NOT NULL,
-  `courriel` varchar(100) NOT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `twitter` varchar(50) DEFAULT NULL,
+  `facebook` varchar(50) DEFAULT NULL,
+  `adresse_postal` varchar(50) DEFAULT NULL,
+  `courriel` varchar(100) DEFAULT NULL,
+  `path_photo` varchar(255) DEFAULT NULL,
   `rowid` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -489,8 +493,8 @@ CREATE TABLE `nous_joindre` (
 -- Contenu de la table `nous_joindre`
 --
 
-INSERT INTO `nous_joindre` (`telephone`, `twitter`, `facebook`, `adresse_postal`, `courriel`, `rowid`) VALUES
-('(819) 376-1721, poste 2508', '@diablos_cegeptr', 'facebook.com/les.diablos', '3175 boulevard Laviolette, G8Z 1E9', 'dufresnevincent008@live.ca', 1);
+INSERT INTO `nous_joindre` (`telephone`, `twitter`, `facebook`, `adresse_postal`, `courriel`, `path_photo`, `rowid`) VALUES
+('(819) 376-1721, poste 2508', '@diablos_cegeptr', 'facebook.com/les.diablos', '3175 boulevard Laviolette, G8Z 1E9', 'dufresnevincent008@live.ca', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -620,9 +624,9 @@ INSERT INTO `positions` (`id_position`, `id_sport`, `position`) VALUES
 
 CREATE TABLE `responsable_plateau` (
   `id` int(6) NOT NULL,
-  `id_personne` int(6) NOT NULL,
+  `id_personnel` int(6) DEFAULT NULL,
   `idEvenement` int(6) NOT NULL,
-  `role` varchar(80) NOT NULL
+  `role` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -809,7 +813,7 @@ CREATE TABLE `utilisateurs` (
 --
 
 INSERT INTO `utilisateurs` (`id_utilisateur`, `nom_utilisateur`, `mot_passe`, `acces`, `active`) VALUES
-(11, 'admin', 'B9Za4C*', '0', 0);
+(11, 'admin', 'B9Za4C*', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -1013,7 +1017,7 @@ ALTER TABLE `responsable_plateau`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idEvenement` (`idEvenement`),
   ADD KEY `idType` (`role`),
-  ADD KEY `id_personne` (`id_personne`);
+  ADD KEY `id_personne` (`id_personnel`);
 
 --
 -- Index pour la table `role`
@@ -1314,8 +1318,7 @@ ALTER TABLE `positions`
 -- Contraintes pour la table `responsable_plateau`
 --
 ALTER TABLE `responsable_plateau`
-  ADD CONSTRAINT `responsable_plateau_ibfk_1` FOREIGN KEY (`idEvenement`) REFERENCES `evenement` (`id`),
-  ADD CONSTRAINT `responsable_plateau_pers` FOREIGN KEY (`id_personne`) REFERENCES `membres_personnel` (`id_membre`);
+  ADD CONSTRAINT `responsable_plateau_ibfk_1` FOREIGN KEY (`idEvenement`) REFERENCES `evenement` (`id`);
 
 --
 -- Contraintes pour la table `statut_joueurs`

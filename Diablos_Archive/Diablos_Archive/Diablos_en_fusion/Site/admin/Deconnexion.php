@@ -1,5 +1,7 @@
 <?php
 session_start();
 session_unset();
-header("Location: ../connexion.php");
 ?>
+<script>
+window.location = "../../../index.php";
+</script>

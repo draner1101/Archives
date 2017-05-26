@@ -88,7 +88,7 @@ session_start();
                            }
                            echo    "<td>
                                     <a class='button buttonModifier' href='Modifier.php?Table=utilisateurs&id_utilisateur=".$row["id_utilisateur"]."'><img class='img' src='../Images/Modifier.png'></img></a>
-                                    <a class='button buttonDelete' href='Delete.php?table=utilisateurs&id=".$row["id_utilisateur"] ."&page=" .$page ."'><img class='img' src='../Images/delete.png'></img></a>
+                                    <a class='button buttonDelete' href='Delete.php?table=utilisateurs&id=".$row["id_utilisateur"] ."&page=" .$page ."'  onclick = 'var x=MessageConfirmation(\"Voulez-vous supprimer cet utilisateur?\");return x;'><img class='img' src='../Images/delete.png'></img></a>
                                     </td>";
                            echo "</tr>";     
                         }
