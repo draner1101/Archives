@@ -242,6 +242,7 @@
                     <textarea  class="formulaire" type="text" name="roles" placeholder="Rôle(s)" rows="10" cols="50"><?=$row["roles"]?></textarea>
                     <?php
                     }
+                    break;
                 case "positions":
                     $query = $conn->prepare("SELECT * from positions where id_position = " .$_GET['id_position']);
                     $query->execute();
