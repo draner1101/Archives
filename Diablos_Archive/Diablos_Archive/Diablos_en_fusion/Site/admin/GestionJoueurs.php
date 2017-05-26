@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 
 <head>
@@ -6,8 +9,7 @@
 </head>
 
 <body style="background-color: #EEE; margin-top: -20px;">
-    <?php 
-       session_start();
+    <?php
         if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
             
                 include('navigationGestion.htm');

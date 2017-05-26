@@ -48,8 +48,9 @@
              // $query->execute();
              //    }
             break;
+
         case "Joueurs":
-                // VÃ©rifie si la taille est en pieds/pouces et si oui, la mÃ©thode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
+                // Vérifie si la taille est en pieds/pouces et si oui, la méthode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
                 if (isset($_GET["pieds"]) && isset($_GET["pouces"]))
                      {
                         $pouces = $_GET["pouces"];
@@ -58,7 +59,7 @@
                       } 
                       else {$taille = $_GET["taille"];}        
                       
-               // VÃ©rifie si le poids est en Kg et si oui, la mÃ©thode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
+               // Vérifie si le poids est en Kg et si oui, la méthode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
                  if ($_GET["typePoids"] == 'kg')
                      {
                         $poids = $_GET["poids"] * 2.2046; 
@@ -91,6 +92,9 @@
              WHERE id_personne =".$_GET['id_personne']);
              $query->execute();
 
+             if (!empty($_GET['liste']))
+             {
+
              foreach($_GET['liste'] as $check) {
                 
                 if ($check.checked) {
@@ -100,6 +104,7 @@
              $query->execute();
                 }
     }
+}
             break;
 
         case "Entraineurs":
@@ -128,6 +133,9 @@
              WHERE id_personne =".$_GET['id_personne']);
              $query->execute();
 
+             if (!empty($_GET['liste']))
+             {
+
              foreach($_GET['liste'] as $check) {
                 
                 if ($check.checked) {
@@ -137,6 +145,7 @@
              $query->execute();
                 }
     }
+}
             break;
 
         case "Equipes":

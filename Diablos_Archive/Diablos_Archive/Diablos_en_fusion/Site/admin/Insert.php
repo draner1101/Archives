@@ -45,7 +45,7 @@
         case "Joueurs":
              $query = $conn->prepare("INSERT INTO joueurs(id_personne, taille, poids, note, ecole_prec, ville_natal, domaine_etude, photo_profil) 
              VALUES(:id_personne, :taille, :poids, :note, :ecole_prec, :ville_natal, :domaine_etude, :photo_profil)");
-                // VÃ©rifie si la taille est en pieds/pouces et si oui, la mÃ©thode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
+                // Vérifie si la taille est en pieds/pouces et si oui, la méthode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
                 if (isset($_GET["pieds"]) && isset($_GET["pouces"]))
                      {
                         $pouces = $_GET["pouces"];
@@ -54,7 +54,7 @@
                       } 
                       else {$taille = $_GET["taille"];}        
                       
-               // VÃ©rifie si le poids est en Kg et si oui, la mÃ©thode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
+               // Vérifie si le poids est en Kg et si oui, la méthode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
                  if ($_GET["typePoids"] == 'kg')
                      {
                         $poids = $_GET["poids"] * 2.2046; 
@@ -69,7 +69,7 @@
                                 "ecole_prec" => $_GET["ecole_prec"],
                                 "ville_natal" => $_GET["ville_natal"],
                                 "domaine_etude" => $_GET["domaine_etude"],
-                                "photo_profil" => $_GET["photo_profil"],
+                                "photo_profil" => $_GET["photo_profil"]
                             ));
 
 
