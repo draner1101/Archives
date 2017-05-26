@@ -62,17 +62,6 @@ session_start();
             //Liste de champs communs pour tous les formulaires sauf équipe
             if($_GET['Table'] != 'equipes' && $_GET['Table'] != 'parametres' 
                && $_GET['Table'] != 'sports'  && $_GET['Table'] != 'positions'){
-                <script>
-                /*swal({
-                        title: "<?=$_GET['Table']?>",
-                        text: "Voici le joueur",
-                        //type: "warning",
-                        confirmButtonColor: "#0000FF",
-                        confirmButtonText: "Confirmer",
-                        showCancelButton: true,      
-                });*/
-                </script>
-                <?php
                 $query = $conn->prepare("SELECT * from personnes where id_personne = " .$_GET['id_personne']);
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
