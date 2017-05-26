@@ -50,7 +50,7 @@
             }
             ?>
             <div class='divForm'>
-            <form action='Insert.php' onsubmit="var x=MessageConfirmation('Voulez-vous créer cela?');return x;" style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
+            <form action='Insert.php' id='formulairePrincipal' onsubmit="var x=MessageConfirmation('Voulez-vous créer cela?');return x;" style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
@@ -111,8 +111,8 @@
 
                 case "Joueurs":
                     ?>
-                    <input  class="formulaire" type="text" name="taille" placeholder="Taille(cm)">
-                    <input  class="formulaire" type="text" name="poids" placeholder="Poids(lb)">
+                    <input  class="formulaire" type="text" name="taille" placeholder="Taille(cm)" id='taille'><input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td>
+                    <input  class="formulaire" type="text" name="poids" placeholder="Poids(lb)" id='poids'> <input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École secondaire">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude">   
@@ -173,4 +173,124 @@
             //$(selector).inputmask("9-a{1,3}9{1,3}"); //mask with dynamic syntax
         });
     </script>
+
+          <script> 
+						function changerTaille() // Créer par Vincent Dufresne, permet le chagement de taille entre cm et pieds/pouces
+  						{
+   						   if(!document.getElementById('tCm').checked)
+   						       {
+                                   //Variables
+    						       var pieds = document.getElementById('taille');
+								   var parent = document.getElementById('formulairePrincipal');
+								   var pouces = document.createElement('INPUT');
+								   var enfant = document.getElementById('tCm');
+								   var br = document.createElement('br');
+								   var sautDeLigne = document.getElementById('pouces');
+								   var tailleCm = document.getElementById('taille').value;
+								   var x = Math.round(tailleCm * 0.3937007874);
+								   var taillePo = x % 12;
+								   var taillePi = (x - taillePo) / 12;
+
+
+                                   //Création du textBox Pieds
+     						       pieds.setAttribute('id', 'pieds');
+								   pieds.setAttribute('name', 'pieds');
+                                   pieds.setAttribute('style', 'width: 17%; display: inline-block;');
+                                   pieds.setAttribute('placeholder', 'Pieds');
+								   pieds.value = taillePi;
+
+                                   //Création du textBox Pouces
+								   pouces.setAttribute('type', 'text');
+     						       pouces.setAttribute('id', 'pouces');
+								   pouces.setAttribute('name', 'pouces');
+                                   pouces.setAttribute('class', 'formulaire');
+                                   pouces.setAttribute('style', 'width: 17%; display: inline-block;');
+                                   pouces.setAttribute('placeholder', 'Pouces');
+								   pouces.value = taillePo;
+
+                                   //Ajoute les nouveaux textBox à la page
+								   br.setAttribute('id', 'sautdeligne');
+     						       parent.insertBefore(pouces, enfant);
+								   
+                                                                    
+
+                                   // Création et positionnement des labels
+                                   var paraPied = document.createElement('span');
+                                   var nodePied = document.createTextNode("Pied(s)");
+                                   paraPied.setAttribute('id', 'paraPied');
+                                   paraPied.setAttribute('style', 'margin-right: 20px; margin-left: 10px;');
+                                   paraPied.appendChild(nodePied);
+                                   var paraPouce = document.createElement('span');
+                                   var nodePouce = document.createTextNode("Pouce(s)");
+                                   paraPouce.setAttribute('style', 'display: inline-block;');
+                                   paraPouce.setAttribute('id', 'paraPouce');
+                                   paraPouce.setAttribute('style', 'margin-left: 7px;');
+                                   paraPouce.appendChild(nodePouce);
+
+                                   
+
+                                   //Ajoute les labels des textBox à la page
+                                   parent.insertBefore(paraPied, pouces);
+                                   parent.insertBefore(paraPouce, enfant);
+                                   parent.insertBefore(br, enfant); // Ajoute un saut de ligne
+
+  						        }
+   						       else
+    						      {
+                                    if(!document.getElementById('tPieds').checked)
+   						             {
+                                        //Déclaration
+    						           var pieds = document.getElementById('pieds');
+									   var pouces = document.getElementById('pouces');
+									   var sautdeligne = document.getElementById('sautdeligne');
+     						           var taillePi = 0.00;
+									   var taillePo = 0.00;
+									   var tailleCm = 0.00;
+									   var temp = 0.00;
+                                       var paraPouce = document.getElementById('paraPouce');
+                                       var paraPied = document.getElementById('paraPied');
+
+                                       //Conversion 
+									   taillePo = pouces.value;
+									   temp = 	parseInt(pieds.value);
+									   taillePi = (taillePo * 0.0833333) + 10;
+									   tailleCm = Math.round((((taillePi + temp) - 10) / 0.032808));
+
+                                       //Changer l'apparence du champs et supprimer le champs pouces
+									   pieds.setAttribute('id', 'taille');
+								       pieds.setAttribute('name', 'taille');
+                                       pieds.setAttribute('style', 'width: 100%;');
+     						           pouces.parentNode.removeChild(pouces);
+									   sautdeligne.parentNode.removeChild(sautdeligne);
+                                       paraPouce.parentNode.removeChild(paraPouce);
+                                       paraPied.parentNode.removeChild(paraPied);
+									   taille.value = tailleCm;
+                                       
+  						              }
+    						      }
+							}
+
+							function changerPoids() // Créer par Vincent Dufresne, permet le changement entre Kg et Lbs
+							{
+                               if(!document.getElementById('pLbs').checked)
+   						        {
+								  var parent = 	document.getElementById('poids');   
+								  var poidsLbs = document.getElementById('poids').value;
+								  var poidsKg = poidsLbs / 2.2046;
+								  parent.value = Math.round(poidsKg);
+                                  
+								}
+
+								else
+								{
+                                    if(!document.getElementById('pKg').checked)
+									{ 
+									   var parent = document.getElementById('poids');   
+								       var poidsKg = document.getElementById('poids').value;
+								       var poidsLbs = poidsKg * 2.2046;
+								       parent.value = Math.round(poidsLbs);
+									}
+							}}
+								
+	</script>
 </body>

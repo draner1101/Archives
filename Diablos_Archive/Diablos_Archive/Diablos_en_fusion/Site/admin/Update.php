@@ -48,11 +48,26 @@
              // $query->execute();
              //    }
             break;
-
         case "Joueurs":
+                // Vérifie si la taille est en pieds/pouces et si oui, la méthode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
+                if (isset($_GET["pieds"]) && isset($_GET["pouces"]))
+                     {
+                        $pouces = $_GET["pouces"];
+                        $pieds = $_GET["pieds"];
+                        $taille = round(((($pouces * 0.0833333) + $pieds) / 0.032808));
+                      } 
+                      else {$taille = $_GET["taille"];}        
+                      
+               // Vérifie si le poids est en Kg et si oui, la méthode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
+                 if ($_GET["typePoids"] == 'kg')
+                     {
+                        $poids = $_GET["poids"] * 2.2046; 
+                      } 
+                      else {$poids = $_GET["poids"];} 
+
              $query = $conn->prepare("UPDATE " .strtolower($_GET["table"]) ."  
-             SET taille='" .$_GET['taille'] ."', 
-                 poids='" .$_GET['poids'] ."', 
+             SET taille='" .$taille ."', 
+                 poids='" .$poids ."', 
                  note='" .$_GET['note'] ."',
                  ecole_prec='" .$_GET['ecole_prec'] ."', 
                  ville_natal='" .$_GET['ville_natal'] ."', 

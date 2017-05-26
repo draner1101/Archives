@@ -133,7 +133,7 @@
                         <td><?=$artisan['dateEmbauche']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?table=personnels&id_type=id_personnel&id=<?=$artisan["id_personnel"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=personnels&id_type=id_personnel&id=<?=$artisan["id_personnel"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=personnels&id_type=id_personnel&id=<?=$artisan["id_personnel"]?>'><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
