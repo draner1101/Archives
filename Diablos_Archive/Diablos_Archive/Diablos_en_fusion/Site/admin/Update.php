@@ -8,7 +8,8 @@
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
     if($_GET['table'] != 'Equipes' && $_GET['table'] != 'Parametres'
-         && $_GET['table'] != 'Sports' && $_GET['table'] != 'Positions'){
+         && $_GET['table'] != 'Sports' && $_GET['table'] != 'Positions'
+          && $_GET['table'] != 'Utilisateurs'){
          $query = $conn->prepare("UPDATE personnes 
              SET nom='" .$_GET["nom"] ."', 
                  prenom='" .$_GET['prenom'] ."', 
@@ -50,7 +51,7 @@
             break;
 
         case "Joueurs":
-                // Vérifie si la taille est en pieds/pouces et si oui, la méthode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
+                // Vï¿½rifie si la taille est en pieds/pouces et si oui, la mï¿½thode convertie la taille en Cm automatiquement, Fait par Vincent Dufresne
                 if (isset($_GET["pieds"]) && isset($_GET["pouces"]))
                      {
                         $pouces = $_GET["pouces"];
@@ -59,7 +60,7 @@
                       } 
                       else {$taille = $_GET["taille"];}        
                       
-               // Vérifie si le poids est en Kg et si oui, la méthode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
+               // Vï¿½rifie si le poids est en Kg et si oui, la mï¿½thode convertie le poids en Lbs automatiquement, Fait par Vincent Dufresne
                  if ($_GET["typePoids"] == 'kg')
                      {
                         $poids = $_GET["poids"] * 2.2046; 
@@ -184,6 +185,21 @@
                  adresse_postal='" .$_GET["adresse_postal"] ."', 
                  courriel='" .$_GET["courriel"] ."'
              WHERE rowid = 1");
+             $query->execute();
+            break;
+        
+        case "Utilisateurs":
+            if(isset($_GET['acces'])){
+                $acces = 1;
+            }
+            else{
+                $acces = 0;
+            }
+            $query = $conn->prepare("UPDATE " .strtolower($_GET["table"]) ." 
+             SET nom_utilisateur='" .$_GET["nom_utilisateur"] ."', 
+                 mot_passe='" .$_GET["mot_passe"] ."', 
+                 acces='" .$acces ."'
+             WHERE id_utilisateur = " .$_GET["id_utilisateur"]);
              $query->execute();
             break;
 

@@ -301,13 +301,13 @@ session_start();
                     $result = $query->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($result as $row) {
                     ?>
-                    <input type="hidden" name="id_sport" value="<?=$_GET['id_utilisateur']?>">
+                    <input type="hidden" name="id_utilisateur" value="<?=$_GET['id_utilisateur']?>">
                     <input type="hidden" name="table" value="Utilisateurs">
                     <label>Nom d'utilisateur</label>
-                    <input class="formulaire" name="sport" type="text" value="<?=$row["nom_utilisateur"]?>">
+                    <input class="formulaire" name="nom_utilisateur" type="text" value="<?=$row["nom_utilisateur"]?>">
                     <label>Mot de passe</label>
-                    <input class="formulaire" name="sport" type="text" value="<?=$row["mot_passe"]?>">
-                    <input name="acces" type="checkbox" value="<?=$row["acces"]?>">Super-administrateur<br>
+                    <input class="formulaire" name="mot_passe" type="text" value="<?=$row["mot_passe"]?>">
+                    <input name="acces" type="checkbox" <?php echo ($row['acces']== 1 ? 'checked' : '')?>>Super-administrateur<br>
                     <?php
                     }
                     break;

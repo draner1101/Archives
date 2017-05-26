@@ -81,10 +81,10 @@ session_start();
                            echo "<tr>
                                     <td>" .$row["nom_utilisateur"] ."</td>";
                            if($row["acces"] == 1){
-                                echo "<td>Super admin</td>";
+                                echo "<td>Super-administrateur</td>";
                            }
                            else{
-                                echo "<td>Admin</td>";
+                                echo "<td>Administrateur</td>";
                            }
                            echo    "<td>
                                     <a class='button buttonModifier' href='Modifier.php?Table=utilisateurs&id_utilisateur=".$row["id_utilisateur"]."'><img class='img' src='../Images/Modifier.png'></img></a>
