@@ -192,8 +192,10 @@ session_start();
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$row["ecole_prec"]?>">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$row["ville_natal"]?>">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$row["domaine_etude"]?>">   
-                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                                    
+                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                               
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
+                    <a href="form_upload.php?nopersonne=<?=$row["id_personne"]?>" onclick="window.open(this.href, 'Photo',
+                    'left=20,top=20,width=250,height=250,toolbar=1,resizable=0'); return false;" >Ajouter d'autres images</a>     
                     <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
 
