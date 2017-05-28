@@ -35,19 +35,24 @@
              WHERE id_personnel = " .$_GET["id_personnel"]);
              $query->execute();
 
-             // $query = $conn->prepare("UPDATE multimedia_personne  
-             // SET cacher=1
-             // WHERE id_personne =".$_GET['id_personne']);
-             // $query->execute();
+             $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=1
+             WHERE id_personne =".$_GET['id_personne']);
+             $query->execute();
 
-             // foreach($_GET['liste'] as $check) {
+             if (!empty($_GET['liste']))
+             {
+
+             foreach($_GET['liste'] as $check) {
                 
-             //    if ($check.checked) {
-             //    $query = $conn->prepare("UPDATE multimedia_personne  
-             // SET cacher=0
-             // WHERE id_mmp =".$check);
-             // $query->execute();
-             //    }
+                if ($check.checked) {
+                $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=0
+             WHERE id_mmp =".$check);
+             $query->execute();
+                }
+    }
+}
             break;
 
         case "Joueurs":
@@ -117,36 +122,36 @@
              WHERE id_entraineur = " .$_GET["id_entraineur"]);
              $query->execute();
 
-//              if (($_GET['photo_profil'])!='') {
-//                 $query = $conn->prepare("INSERT INTO multimedia_personne(id_personne,photo,cacher) 
-//              VALUES(:id_personne, :photo, :cacher)");
-//              $query->execute(array(
-//                                 "id_personne" => $_GET["id_personne"],
-//                                 "photo" => $_GET["photo_profil"],
-//                                 "cacher" => 0,
-//                             ));
-//             }
+             if (($_GET['photo_profil'])!='') {
+                $query = $conn->prepare("INSERT INTO multimedia_personne(id_personne,photo,cacher) 
+             VALUES(:id_personne, :photo, :cacher)");
+             $query->execute(array(
+                                "id_personne" => $_GET["id_personne"],
+                                "photo" => $_GET["photo_profil"],
+                                "cacher" => 0,
+                            ));
+            }
 
 
 
-//              $query = $conn->prepare("UPDATE multimedia_personne  
-//              SET cacher=1
-//              WHERE id_personne =".$_GET['id_personne']);
-//              $query->execute();
+             $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=1
+             WHERE id_personne =".$_GET['id_personne']);
+             $query->execute();
 
-//              if (!empty($_GET['liste']))
-//              {
+             if (!empty($_GET['liste']))
+             {
 
-//              foreach($_GET['liste'] as $check) {
+             foreach($_GET['liste'] as $check) {
                 
-//                 if ($check.checked) {
-//                 $query = $conn->prepare("UPDATE multimedia_personne  
-//              SET cacher=0
-//              WHERE id_mmp =".$check);
-//              $query->execute();
-//                 }
-//     }
-// }
+                if ($check.checked) {
+                $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=0
+             WHERE id_mmp =".$check);
+             $query->execute();
+                }
+    }
+}
             break;
 
         case "Equipes":
