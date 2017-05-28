@@ -35,19 +35,24 @@
              WHERE id_personnel = " .$_GET["id_personnel"]);
              $query->execute();
 
-             // $query = $conn->prepare("UPDATE multimedia_personne  
-             // SET cacher=1
-             // WHERE id_personne =".$_GET['id_personne']);
-             // $query->execute();
+             $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=1
+             WHERE id_personne =".$_GET['id_personne']);
+             $query->execute();
 
-             // foreach($_GET['liste'] as $check) {
+             if (!empty($_GET['liste']))
+             {
+
+             foreach($_GET['liste'] as $check) {
                 
-             //    if ($check.checked) {
-             //    $query = $conn->prepare("UPDATE multimedia_personne  
-             // SET cacher=0
-             // WHERE id_mmp =".$check);
-             // $query->execute();
-             //    }
+                if ($check.checked) {
+                $query = $conn->prepare("UPDATE multimedia_personne  
+             SET cacher=0
+             WHERE id_mmp =".$check);
+             $query->execute();
+                }
+    }
+}
             break;
 
         case "Joueurs":

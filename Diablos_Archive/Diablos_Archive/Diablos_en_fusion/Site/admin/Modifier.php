@@ -114,8 +114,24 @@ session_start();
                     <input  class="formulaire" type="text" name="no_embauches" placeholder="No d'embauche(s)" value="<?=$row["no_embauches"]?>">
                     <input placeholder="Date d'embauche" class="formulaire" autocomplete="off" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dateEmbauche" value="<?=$row["dateEmbauche"]?>">
                     <input placeholder="Date de fin" class="formulaire" autocomplete="off" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="dateFin" value="<?=$row["dateFin"]?>">
+                    <a href="form_upload.php?nopersonne=<?=$row["id_personne"]?>" onclick="window.open(this.href, 'Photo',
+                    'left=20,top=20,width=250,height=250,toolbar=1,resizable=0'); return false;" >Ajouter d'autres images</a>
+                    <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
+                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
+                    $query->execute();
+                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div style='display:inline-block;width:100%'>";
+                    foreach ($resultphoto as $rowphoto) {
+                        echo "<div style='float:left;'>";
 
+                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
+                        ?>
+                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
+                         <?php
+                        echo "</div>";
+                    }
+                    echo "</div>";
                     }
                     break;
 
@@ -192,8 +208,10 @@ session_start();
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$row["ecole_prec"]?>">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$row["ville_natal"]?>">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$row["domaine_etude"]?>">   
-                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                                    
+                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                               
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
+                    <a href="form_upload.php?nopersonne=<?=$row["id_personne"]?>" onclick="window.open(this.href, 'Photo',
+                    'left=20,top=20,width=250,height=250,toolbar=1,resizable=0'); return false;" >Ajouter d'autres images</a>     
                     <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
 
@@ -226,8 +244,25 @@ session_start();
                     <input  class="formulaire" type="text" name="type" placeholder="Type" value="<?=$row["type"]?>">
                     <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>"> 
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
+                    <a href="form_upload.php?nopersonne=<?=$row["id_personne"]?>" onclick="window.open(this.href, 'Photo',
+                    'left=20,top=20,width=250,height=250,toolbar=1,resizable=0'); return false;" >Ajouter d'autres images</a>
                     <input type="hidden" name="id_personne" value="<?=$row['id_personne']?>" />
                     <?php
+
+                    $query = $conn->prepare("SELECT * from multimedia_personne where id_personne = " .$row['id_personne']);
+                    $query->execute();
+                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div style='display:inline-block;width:100%'>";
+                    foreach ($resultphoto as $rowphoto) {
+                        echo "<div style='float:left;'>";
+
+                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
+                        ?>
+                         <figcaption>Affichée<input type='checkbox' name='liste[]' value='<?=$rowphoto['id_mmp']?>' <?php echo ($rowphoto['cacher']==0 ? 'checked' : '');?>></figcaption>
+                         <?php
+                        echo "</div>";
+                    }
+                    echo "</div>";
                     }
                     break;
                 case "parametres":
