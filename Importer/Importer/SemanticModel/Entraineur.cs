@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,15 @@ namespace Importer
                 : "";
         }
 
-        public string Write()
+        public void Write(TextWriter output)
         {
-            throw new NotImplementedException();
+            Personne.Write(output);
+
+            string instruction = "INSERT INTO entraineurs(`id_personne`, `no_embauche`, `note`, `type`, `statut`)" +
+                "VALUES(LAST_INSERT_ID(), '" + NoEmbauche.ToSafeString() + "', '" + Note.ToSafeString() + "', '" +
+                Type.ToSafeString() + "', 'actif');";
+            output.WriteLine(instruction);
+
         }
     }
 }

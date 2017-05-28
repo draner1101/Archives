@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,8 @@ namespace Importer
     public class Joueur : IEntity
     {
         public Personne Personne { get; set; }
-        public double? Taille { get; set; }
-        public double? Poids { get; set; }
+        public string Taille { get; set; }
+        public string Poids { get; set; }
         public string EcoleSecondaire { get; set; }
         public string VilleNatale { get; set; }
         public string DomaineEtude { get; set; }
@@ -25,11 +26,11 @@ namespace Importer
         {
             Personne = Personne.FromArray(fieldDefinition, values);
             Taille = Array.Exists(fieldDefinition, field => field.Equals("Taille")) 
-                ? (double?)Convert.ToDouble(values[Array.IndexOf(fieldDefinition, "Taille")])
-                : null;
+                ? values[Array.IndexOf(fieldDefinition, "Taille")]
+                : "";
             Poids = Array.Exists(fieldDefinition, field => field.Equals("Poids"))
-                ? (double?)Convert.ToDouble(values[Array.IndexOf(fieldDefinition, "Poids")])
-                : null;
+                ? values[Array.IndexOf(fieldDefinition, "Poids")]
+                : "";
             DomaineEtude = Array.Exists(fieldDefinition, field => field.Equals("DomaineEtude"))
                 ? values[Array.IndexOf(fieldDefinition, "DomaineEtude")]
                 : "";
@@ -44,9 +45,18 @@ namespace Importer
                 : "";
         }
 
-        public string Write()
+        public void Write(TextWriter output)
         {
-            throw new NotImplementedException();
+            string taille = String.IsNullOrEmpty(Taille) ? "NULL" : Taille;
+            string poids = String.IsNullOrEmpty(Poids) ? "NULL" : Poids;
+          
+            Personne.Write(output);
+       
+            string instruction = "INSERT INTO joueurs(`id_personne`, `taille`, `poids`, `note`, `ecole_prec`, " +
+                "`ville_natal`, `domaine_etude`, `statut`) VALUES(LAST_INSERT_ID(), " + taille + ", " + poids +
+                ", '" + Note.ToSafeString() + "', '" + EcoleSecondaire.ToSafeString() + "', '" + 
+                VilleNatale.ToSafeString() + "', '" + DomaineEtude.ToSafeString() + "' , 'actif');";
+            output.WriteLine(instruction);
         }
     }
 }

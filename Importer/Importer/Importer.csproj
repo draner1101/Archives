@@ -64,6 +64,8 @@
     <Compile Include="SemanticModel\Entraineur.cs" />
     <Compile Include="SemanticModel\Joueur.cs" />
     <Compile Include="SemanticModel\Personne.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="Writer\ScriptWriter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,8 +107,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Writer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

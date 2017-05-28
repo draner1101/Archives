@@ -26,8 +26,9 @@ namespace Importer
             InitializeComponent();
             StreamReader input = new StreamReader("ParserTest.txt");
             ScriptParser parser = new ScriptParser(input);
-
-            parser.Run();
+            StreamWriter output = new StreamWriter("WriterTest.sql");
+            ScriptWriter writer = new ScriptWriter(parser.Run(), output);
+            writer.Run();
         }
     }
 }
