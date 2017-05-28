@@ -1,0 +1,4 @@
+:Joueur
+>#,Nom,Prénom,Sexe,Code Permanent,Clé interne,Naissance,Provenance,Téléphone,Mobile,Courriel
+1,Abran,Vincent,M,AAAA12345678,16-5-0895,1999-01-01,Trois-Rivières,999-999-9999,999-999-9999,aaaaaaaa@gmail.com
+2,Bastille-Thériault,Sarah,F,AAAA12345679,16-8-2187,1999-01-02,Pohénégamook,999-999-10000,999-999-10000,aaaaaaaa@gmail.com

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,10 @@ namespace Importer
         public MainWindow()
         {
             InitializeComponent();
+            StreamReader input = new StreamReader("ParserTest.txt");
+            ScriptParser parser = new ScriptParser(input);
+
+            parser.Run();
         }
     }
 }
