@@ -1,0 +1,16 @@
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer.csprojResolveAssemblyReference.cache
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\MainWindow.g.cs
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\App.g.cs
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer_MarkupCompile.cache
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer_MarkupCompile.lref
+D:\Document\Repos\Archives\Importer\Importer\bin\Debug\Importer.exe.config
+D:\Document\Repos\Archives\Importer\Importer\bin\Debug\Importer.exe
+D:\Document\Repos\Archives\Importer\Importer\bin\Debug\Importer.pdb
+D:\Document\Repos\Archives\Importer\Importer\bin\Debug\Antlr3.Runtime.dll
+D:\Document\Repos\Archives\Importer\Importer\bin\Debug\Antlr3.Runtime.pdb
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\MainWindow.baml
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer.g.resources
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer.Properties.Resources.resources
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer.csproj.GenerateResource.Cache
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer.exe
+D:\Document\Repos\Archives\Importer\Importer\obj\Debug\Importer.pdb

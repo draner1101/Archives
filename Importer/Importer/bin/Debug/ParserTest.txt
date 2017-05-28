@@ -1,0 +1,32 @@
+﻿--Test commentaire
+:Joueur
+>#,Nom,Prenom,Sexe,Code Permanent,Cle interne,Naissance,Provenance,Telephone,Mobile,Courriel
+1,Abran,Vincent,M,AAAA12345678,16-5-0895,1999-01-01,Trois-Rivières,999-999-9999,999-999-9999,aaaaaaaa@gmail.com
+2,Bastille-Thériault,Sarah,F,AAAA12345679,16-8-2187,1999-01-02,Pohénégamook,999-999-10000,999-999-10000,aaaaaaaa@gmail.com
+3,Béraud,Cédric,M,AAAA12345680,15-5-5405,1999-01-03,Trois-Rivières,999-999-10001,999-999-10001,aaaaaaaa@gmail.com
+4,Cloutier,Jonathan,M,AAAA12345681,61-3-6595,1999-01-04,Yamachiche,999-999-10002,999-999-10002,aaaaaaaa@gmail.com
+5,Comtois,Camille,F,AAAA12345682,16-7-9976,1999-01-05,Trois-Rivières,999-999-10003,999-999-10003,aaaaaaaa@gmail.com
+6,D'emers,Emmanuel,M,AAAA12345683,15-6-6024,1999-01-06,Champlain,999-999-10004,999-999-10004,aaaaaaaa@gmail.com
+7,Désy,Cédric,M,AAAA12345684,15-4-0587,1999-01-07,Ile-Dupas,999-999-10005,999-999-10005,aaaaaaaa@gmail.com
+8,Dumas,Nathalie,F,AAAA12345685,16-6-3471,1999-01-08,Warwick,999-999-10006,999-999-10006,aaaaaaaa@gmail.com
+9,Fournier,Anthony,M,AAAA12345686,3086-12-06,1999-01-09,Bécancour,999-999-10007,999-999-10007,aaaaaaaa@gmail.com
+10,Frénée-Larose,Thomas,M,AAAA12345687,16-4-7319,1999-01-10,Trois-Rivières,999-999-10008,999-999-10008,aaaaaaaa@gmail.com
+11,Grenier,Mathieu,M,AAAA12345688,16-5-6949,1999-01-11,Princeville,999-999-10009,999-999-10009,aaaaaaaa@gmail.com
+12,Laroche,Benjamin,M,AAAA12345689,15-8-8745,1999-01-12,Trois-Rivières,999-999-10010,999-999-10010,aaaaaaaa@gmail.com
+13,Leblanc,Benjamin,M,AAAA12345690,15-2-3487,1999-01-13,Saint-Léonard-d'Aston,999-999-10011,999-999-10011,aaaaaaaa@gmail.com
+14,Malo,Samuel,M,AAAA12345691,14-5-3319,1999-01-14,St-Paul-de-Joliette,999-999-10012,999-999-10012,aaaaaaaa@gmail.com
+15,Michaud,Laura,F,AAAA12345692,16-5-1024,1999-01-15,Trois-Rivières,999-999-10013,999-999-10013,aaaaaaaa@gmail.com
+16,Nadeau,Marc-Antoine,M,AAAA12345693,15-3-7953,1999-01-16,Trois-Rivières,999-999-10014,999-999-10014,aaaaaaaa@gmail.com
+17,Perron,Jérémie,M,AAAA12345694,16-6-3364,1999-01-17,Trois-Rivières,999-999-10015,999-999-10015,aaaaaaaa@gmail.com
+18,Poirier,Antoine,M,AAAA12345695,14-5-6628,1999-01-18,Racine,999-999-10016,999-999-10016,aaaaaaaa@gmail.com
+19,Poirier,Thomas,M,AAAA12345696,15-6-1104,1999-01-19,Racine,999-999-10017,999-999-10017,aaaaaaaa@gmail.com
+20,Simoneau,Jordan,M,AAAA12345697,14-8-5194,1999-01-20,Trois-Rivières,999-999-10018,999-999-10018,aaaaaaaa@gmail.com
+21,Trudel,Jessie,F,AAAA12345698,16-7-7275,1999-01-21,Trois-Rivières,999-999-10019,999-999-10019,aaaaaaaa@gmail.com
+22,Zemo Kemlepe,Eddy Karol,M,AAAA12345699,15-3-1400,1999-01-22,Trois-Rivières,999-999-10020,999-999-10020,aaaaaaaa@gmail.com
+
+--section entraineur
+:Entraineur
+>#,Nom,Prenom,Sexe,Naissance,Telephone,Mobile,Courriel
+1,Bergeron,Alexandra,F,1999-01-01,,,
+2,Lachance,Anne,F,1999-01-02,,,
+3,Villemure,Pascal,M,1999-01-03,,,
