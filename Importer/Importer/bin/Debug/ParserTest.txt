@@ -6,7 +6,7 @@
 3,Béraud,Cédric,M,AAAA12345680,15-5-5405,1999-01-03,Trois-Rivières,999-999-10001,999-999-10001,aaaaaaaa@gmail.com
 4,Cloutier,Jonathan,M,AAAA12345681,61-3-6595,1999-01-04,Yamachiche,999-999-10002,999-999-10002,aaaaaaaa@gmail.com
 5,Comtois,Camille,F,AAAA12345682,16-7-9976,1999-01-05,Trois-Rivières,999-999-10003,999-999-10003,aaaaaaaa@gmail.com
-6,Demers,Emmanuel,M,AAAA12345683,15-6-6024,1999-01-06,Champlain,999-999-10004,999-999-10004,aaaaaaaa@gmail.com
+6,D'emers,Emmanuel,M,AAAA12345683,15-6-6024,1999-01-06,Champlain,999-999-10004,999-999-10004,aaaaaaaa@gmail.com
 7,Désy,Cédric,M,AAAA12345684,15-4-0587,1999-01-07,Ile-Dupas,999-999-10005,999-999-10005,aaaaaaaa@gmail.com
 8,Dumas,Nathalie,F,AAAA12345685,16-6-3471,1999-01-08,Warwick,999-999-10006,999-999-10006,aaaaaaaa@gmail.com
 9,Fournier,Anthony,M,AAAA12345686,3086-12-06,1999-01-09,Bécancour,999-999-10007,999-999-10007,aaaaaaaa@gmail.com

@@ -10,7 +10,7 @@ namespace Importer
     {
         public static string ToSafeString(this string input)
         {
-            return input.Replace("'", "\'");
+            return input.Replace("'", "''");
         }
     }
 }
