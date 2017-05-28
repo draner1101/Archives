@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Importer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Importer" Height="150" Width="450" ResizeMode="NoResize" Background="White">
     <Grid>
-        
+        <Button x:Name="BtnOpenFile" Content="Choisir un fichier" HorizontalAlignment="Left" Margin="286.569,40.306,0,0" VerticalAlignment="Top" Width="121.163" Click="BtnOpenFile_Click"/>
+        <Button x:Name="BtnSaveFile" Content="Générer" HorizontalAlignment="Left" Margin="332.732,80,0,0" VerticalAlignment="Top" Width="75" Click="BtnSaveFile_Click" IsEnabled="False"/>
+        <Label x:Name="LblPathFrom" Content="" HorizontalAlignment="Left" BorderThickness="1" Margin="10,37.306,0,0" VerticalAlignment="Top" Width="271.569" BorderBrush="#FF8D8D8D" Background="White"/>
+
     </Grid>
 </Window>
