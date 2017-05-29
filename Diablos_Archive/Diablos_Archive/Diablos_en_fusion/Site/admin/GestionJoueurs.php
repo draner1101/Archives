@@ -30,7 +30,7 @@ session_start();
                     <input class="recherche" type="text" name="recherche" placeholder="Rechercher...">
                     <input class="button buttonRecherche" type="submit" value="Rechercher">
                 </form>
-                <table>
+                <table style="margin-bottom: 100px !important;">
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
