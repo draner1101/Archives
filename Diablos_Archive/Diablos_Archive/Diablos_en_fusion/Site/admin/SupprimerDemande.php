@@ -19,14 +19,17 @@
             $query = $conn->prepare($sql);
             $query->execute();
         }
-
-    $sql = "Delete from " .$_GET['table'] ." where id_parent = " .$_GET['id'];
+    if(isset($_GET['ajouter']))
+        $sql = "Delete from " .$_GET['table'] ." where id_parent = " .$_GET['id'];
+    else
+        $sql = "Delete from " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['id'];
     $query = $conn->prepare($sql);
     $query->execute();
 
     }
     else{
-        if($_GET['table'] != 'equipes'){
+        if($_GET['table'] != 'equipes'and $_GET['table'] != 'joueurs_equipes' and
+                $_GET['table'] != 'entraineur_equipe'){
             $sql = "DELETE  FROM " .$_GET['table'] ." WHERE  ".$_GET['id_type'] ." = " .$_GET['clone'];
             $query = $conn->prepare($sql);
             $query->execute();
