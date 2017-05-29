@@ -26,3 +26,6 @@
 [30-May-2016 16:45:58 UTC] PHP Warning:  mysqli_set_charset() expects parameter 1 to be mysqli, boolean given in /home/concep3tionwebsc/public_html/Diablos_Archive/index.php on line 12
 [06-Mar-2017 16:27:57 America/Montreal] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/concep16tionweb/public_html/Diablos_Archive/Diablos_en_fusion/Site/Connexion_BD/Connexion.php on line 7
 [06-Mar-2017 16:27:57 America/Montreal] PHP Warning:  mysqli_set_charset() expects parameter 1 to be mysqli, boolean given in /home/concep16tionweb/public_html/Diablos_Archive/index.php on line 12
+[26-May-2017 16:35:43 America/Montreal] PHP Fatal error:  Call to a member function prepare() on null in /home/concep16tionweb/public_html/Diablos_Archive/index.php on line 200
+[26-May-2017 16:35:43 America/Montreal] PHP Fatal error:  Call to a member function prepare() on null in /home/concep16tionweb/public_html/Diablos_Archive/index.php on line 200
+[26-May-2017 16:35:43 America/Montreal] PHP Fatal error:  Call to a member function prepare() on null in /home/concep16tionweb/public_html/Diablos_Archive/index.php on line 200

@@ -17,10 +17,12 @@ if(isset($_POST["submit"])) {
     $uploadOk = 1;
     
     // DÉTERMINER LE REPERTOIRE OU DEPOSE LES IMAGES
-    $target_dir = "images/";
+    $chemin = "/Diablos_Archive/Diablos_en_fusion/Site/Images/";
+    $target_dir = "../Images/";
     
     // DEFINI LE CHEMIN DE TELECHARGEMENT
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $nomimage = $chemin.basename($_FILES["fileToUpload"]["name"]);
      
 
     // VALIDE L'EXTENTION SI C'EST UNE IMAGE
@@ -71,7 +73,7 @@ if(isset($_POST["submit"])) {
              VALUES(:id_personne, :photo, :cacher)");
              $query->execute(array(
                                 "id_personne" => $numerodelapersonne,
-                                "photo" => $target_file,
+                                "photo" => $nomimage,
                                 "cacher" => 0,
                             ));
             echo "L'image ". basename( $_FILES["fileToUpload"]["name"]). " a été telechargée <br>";

@@ -78,7 +78,7 @@ Normalisation();
         <div>
             <header>
                 <div class="container clearfix">
-                    <img src='Diablos_en_fusion/Site/Images/diablos_logo.png' onclick="location.href = '../index.php'"></img>
+                    <img src='Diablos_en_fusion/Site/Images/diablos_logo.png' onclick="location.href = 'index.php'"></img>
                     <!--<div class='col-sm-6'><h1 class="text-header">Archives Diablos <br> Cégep de Trois-Rivières</h1></div>-->
                     <nav>
                         <a href="#accueil">Accueil</a>
@@ -308,6 +308,7 @@ Normalisation();
             dots: true,
             accessibility: false
         });
+         //$('.slickDiaporamaProfil').slick('slickGoTo',1);
          $('.slickDiaporamaProfil').slick('slickGoTo',0);
 
          // Ce code à été trouver sur https://github.com/kenwheeler/slick/issues/1320, Vincent Dufresne

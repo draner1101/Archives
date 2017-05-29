@@ -111,7 +111,7 @@
 							<div class='diaporamaPersonne' style='max-height:200px'>
 								<div class='slickDiaporamaProfil' style='max-height:200px'>";
 
-				$stmt2 = $conn->prepare("SELECT distinct photo FROM multimedia_personne  WHERE id_personne = " . $_GET['idPopup']);
+				$stmt2 = $conn->prepare("SELECT distinct photo FROM multimedia_personne  WHERE cacher = 0 and id_personne = " . $_GET['idPopup']);
 				$stmt2->execute();
 				$resultat2 = $stmt2->fetchAll();
 				if($stmt2->rowCount() > 0)//ou stmt
@@ -363,7 +363,7 @@
 					}
 				}
 				else
-				echo "<div align='center'><img src='/Archives/Diablos_Archive/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' style='max-width:100%;max-height:200px;'></div>";
+				echo "<div align='center'><img src='/Diablos_Archive/Diablos_en_fusion/Site/Images/default.png' style='max-width:100%;max-height:200px;'></div>";
 
 				echo "</div></div></div>";
 				

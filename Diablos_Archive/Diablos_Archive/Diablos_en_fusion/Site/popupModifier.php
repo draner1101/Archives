@@ -317,7 +317,7 @@
 
 						<td id='og1'>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare('Select id_equipe, nom from equipes');
+							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
@@ -364,7 +364,7 @@
 					echo"<tr>						
 							<td>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif'");
+							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
@@ -419,7 +419,7 @@
 					<tr>
 						<td id='og1'>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare('Select id_equipe, nom from equipes');
+							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)

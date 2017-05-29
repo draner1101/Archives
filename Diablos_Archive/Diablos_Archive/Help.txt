@@ -1,0 +1,16 @@
+-----------------NOM-------------------
+LE NOM DE LA BD EST: "concep16_diablos"
+
+
+--------------Connexion----------------
+Si l'application est utilisée autre qu'en local, il faut changer le fichier Connect.php, qui se trouve dans le dossier Connexion_BD,
+en changeant les données.
+
+
+
+--------NOTRE COMPTE CPANEL---------
+conceptionweb-16.expertiseweb.ca/Diablos_Archive
+conceptionweb-16.expertiseweb.ca/Diablos_Archive/Diablos_en_fusion/Site/admin/GestionDemandes.php
+
+USERNAME: concep16tionweb
+PASSWORD: I*%T&3x.fP}x

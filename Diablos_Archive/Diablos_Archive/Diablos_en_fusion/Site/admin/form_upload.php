@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 <html>
-<body style="background-color:blue;color: white;">
+<body style="background-color:#CCC;color: Black;">
 
 <?php
 $numero = $_GET['nopersonne'];
