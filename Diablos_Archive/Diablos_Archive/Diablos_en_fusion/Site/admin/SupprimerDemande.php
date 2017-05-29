@@ -8,7 +8,8 @@
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
 
     if($_GET['single'] != 'true'){
-        if($_GET['table'] != 'equipes'){
+        if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes' and
+                $_GET['table'] != 'entraineur_equipe'){
             $sql = "select id_personne from " .$_GET['table'] ." where id_parent = " .$_GET['id'];
             $query = $conn->prepare($sql);
             $query->execute();
