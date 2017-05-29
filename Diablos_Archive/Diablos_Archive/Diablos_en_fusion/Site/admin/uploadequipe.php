@@ -12,7 +12,7 @@ require_once ("../Connexion_BD/Connect.php");
 if(isset($_POST["submit"])) {
     
     
-    $numerodelapersonne = $_GET["numero"];
+    $numeroequipe = $_GET["numero"];
     // INITIALISE LA VARABLE DE VALIDATION 
     $uploadOk = 1;
     
@@ -69,10 +69,10 @@ if(isset($_POST["submit"])) {
     // TELECHARGEMENT DE L'IMAGE DANS LE RÉPERTOIRE
     if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $query = $conn->prepare("INSERT INTO multimedia_personne(id_personne,photo,cacher) 
-             VALUES(:id_personne, :photo, :cacher)");
+            $query = $conn->prepare("INSERT INTO multimedia_equipe(id_equipe,photo,cacher) 
+             VALUES(:id_equipe, :photo, :cacher)");
              $query->execute(array(
-                                "id_personne" => $numerodelapersonne,
+                                "id_equipe" => $numeroequipe,
                                 "photo" => $nomimage,
                                 "cacher" => 0,
                             ));

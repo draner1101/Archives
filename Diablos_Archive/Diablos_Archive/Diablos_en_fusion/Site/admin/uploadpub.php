@@ -1,28 +1,16 @@
 <?php
 
-require_once ("../Connexion_BD/Connect.php");
-    $servername = SERVEUR;
-    $username = NOM;
-    $password = PASSE;
-    $dbname = BASE;
-
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-
 // VALIDE SI APPELER DU FORMULAIRE SINON QUITTER LA PAGE
 if(isset($_POST["submit"])) {
     
-    
-    $numerodelapersonne = $_GET["numero"];
     // INITIALISE LA VARABLE DE VALIDATION 
     $uploadOk = 1;
     
     // DÉTERMINER LE REPERTOIRE OU DEPOSE LES IMAGES
-    $chemin = "/Diablos_Archive/Diablos_en_fusion/Site/Images/";
-    $target_dir = "../Images/";
+    $target_dir = "../Images/Carousel/";
     
     // DEFINI LE CHEMIN DE TELECHARGEMENT
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $nomimage = $chemin.basename($_FILES["fileToUpload"]["name"]);
      
 
     // VALIDE L'EXTENTION SI C'EST UNE IMAGE
@@ -69,13 +57,6 @@ if(isset($_POST["submit"])) {
     // TELECHARGEMENT DE L'IMAGE DANS LE RÉPERTOIRE
     if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $query = $conn->prepare("INSERT INTO multimedia_personne(id_personne,photo,cacher) 
-             VALUES(:id_personne, :photo, :cacher)");
-             $query->execute(array(
-                                "id_personne" => $numerodelapersonne,
-                                "photo" => $nomimage,
-                                "cacher" => 0,
-                            ));
             echo "L'image ". basename( $_FILES["fileToUpload"]["name"]). " a été telechargée <br>";
         } else {
             echo "Une erreur s'est produite dans le telechargement.<br>";

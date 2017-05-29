@@ -94,7 +94,7 @@ session_start();
                     <input type="radio" name="sexe" value="X"> Mixte
                     <input type="radio" name="sexe" value="F"> Féminin<br><br>
                     <input  class="formulaire"type="text" name="saison" placeholder="Saison">
-                    <input  class="formulaire" type="file" name="photo_equipe" placeholder="Photo équipe">
+                    <input type="hidden"  class="formulaire" type="file" name="photo_equipe" placeholder="Photo équipe">
                     <select class="formulaire" name="id_sport">
                     <?php                    
                     $query = $conn->prepare("SELECT id_sport, sport from sports order by sport");
@@ -119,7 +119,7 @@ session_start();
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École secondaire">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude">   
-                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil">                                    
+                    <input type="hidden"  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil">                                    
                     <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea>
                     <?php
                     break;
@@ -128,7 +128,7 @@ session_start();
                     ?>
                     <input  class="formulaire" type="text" name="no_embauche" placeholder="No d'embauche">
                     <input  class="formulaire" type="text" name="type" placeholder="Type">
-                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil"> 
+                    <input type="hidden"  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil"> 
                     <textarea  class="formulaire" type="text" name="note" placeholder="Biographie" rows="10" cols="50"></textarea>
                     <?php
                     break;

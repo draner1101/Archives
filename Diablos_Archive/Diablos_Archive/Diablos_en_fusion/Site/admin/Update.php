@@ -164,6 +164,25 @@
                  note='" .$_GET['note'] ."' 
              WHERE id_equipe = " .$_GET["id_equipe"]);
              $query->execute();
+
+//              $query = $conn->prepare("UPDATE multimedia_equipe 
+//              SET cacher=1
+//              WHERE id_equipe =".$_GET['id_equipe']);
+//              $query->execute();
+
+//              if (!empty($_GET['liste']))
+//              {
+
+//              foreach($_GET['liste'] as $check) {
+                
+//                 if ($check.checked) {
+//                 $query = $conn->prepare("UPDATE multimedia_equipe 
+//              SET cacher=0
+//              WHERE id_mme =".$check);
+//              $query->execute();
+//                 }
+//     }
+// }
             break;
 
         case "Sports":
