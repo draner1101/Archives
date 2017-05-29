@@ -453,23 +453,34 @@ if (isset($_GET["entraineur"]))
                     {
                         $flag2 = true;
                     }
+
+                    if(empty($nomEquipe))
+                    {
+                        $parent = $row['id_parent'];
+                    }
+                    else
+                    {
+                        $parent = NULL;
+                    }
                 }
 
                 if($flag2 == false)
                 {
                     if(!empty($nomEquipe) or !empty($role))//si il y a eu des modifications
                         {
-                            $req = $conn->prepare("INSERT INTO entraineur_equipe (id_entraineur, id_equipe, role, statut)
-                            VALUES (:id_entraineur, :id_equipe, :role, :statut)");
+                            $req = $conn->prepare("INSERT INTO entraineur_equipe (id_entraineur, id_equipe, role, id_parent, statut)
+                            VALUES (:id_entraineur, :id_equipe, :role, :id_parent, :statut)");
                             $req->execute(array(
                             "id_entraineur" => $_GET["entraineur"],
                             "id_equipe" => $nomEquipe,
                             "role" => $role,
+                            "id_parent" => $parent,
                             "statut" => 'Temporaire'
                             ));
                         }
                     $flag2 = true;
                 }
+                
         }
 
         else

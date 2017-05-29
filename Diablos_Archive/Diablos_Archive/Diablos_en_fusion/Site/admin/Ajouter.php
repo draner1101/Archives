@@ -16,7 +16,7 @@ session_start();
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+        if(isset($_SESSION['acces'])){
             
                 include('navigationGestion.htm');
         }
@@ -47,6 +47,9 @@ session_start();
             <?php
             if($_GET['Table'] == 'Equipes'){
                 echo "<div class='titre'>Équipe - Ajouter</div>";
+            }
+            else if($_GET['Table'] == 'Entraineurs'){
+                echo "<div class='titre'>Entraîneur - Ajouter</div>";
             }
             else{
                 echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Ajouter</div>";

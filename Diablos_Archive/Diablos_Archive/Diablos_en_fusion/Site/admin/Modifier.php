@@ -18,13 +18,18 @@ session_start();
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+        if(isset($_SESSION['acces'])){
             
+                if($_GET['Table'] == 'parametres' and $_SESSION['acces'] != 1)
+                {
+                    echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
+                    echo "<script>window.location.href = 'GestionDemandes.php'</script>";
+                }
                 include('navigationGestion.htm');
         }
         else{
             echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
-            echo "<script>window.location.href = '../connexion.php'</script>";
+            echo "<script>window.location.href = 'GestionDemandes.php'</script>";
         }
 
         require_once ("../Connexion_BD/Connect.php");
@@ -49,7 +54,10 @@ session_start();
                 echo "<div class='titre'>Équipe - Modifier</div>";
             }
             elseif($_GET['Table'] == 'parametres'){
-                echo "<div class='titre'>Paramètre - Ajouter</div>";
+                echo "<div class='titre'>Paramètre - Modifier</div>";
+            }
+            elseif($_GET['Table'] == 'entraineurs'){
+                echo "<div class='titre'>Entraîneur - Modifier</div>";
             }
             else{
                 echo "<div class='titre'>". substr(ucFirst($_GET['Table']), 0, -1)." - Modifier</div>";
@@ -272,8 +280,8 @@ session_start();
                     foreach ($result as $row) {
                     ?>
                     <input type="hidden" name="table" value="Parametres">
-                    <label>Telephone</label>
-                    <input class="formulaire" type="text" name="telephone" placeholder="Telephone" value="<?=$row["telephone"]?>">
+                    <label>Téléphone</label>
+                    <input class="formulaire" type="text" name="telephone" placeholder="Téléphone" value="<?=$row["telephone"]?>">
                     <label>Twitter</label>
                     <input class="formulaire" type="text" name="twitter" placeholder="Twitter" value="<?=$row["twitter"]?>">
                     <label>Facebook</label>
@@ -282,11 +290,12 @@ session_start();
                     <input class="formulaire" type="text" name="adresse_postal" placeholder="Adresse Postale" value="<?=$row["adresse_postal"]?>">
                     <label>Courriel</label>
                     <input class="formulaire" type="text" name="courriel" placeholder="Courriel" value="<?=$row["courriel"]?>">
-                    <label>Chemin photo</label>
-                    <input class="formulaire" type="text" name="path_photo" placeholder="Chemin photo" value="<?=$row["path_photo"]?>">
+                    <p style="border:solid DarkGray">*Ces paramètres permettent de changer les informations de la section "Nous joindre" sur la page d'accueil.</p>
                     <?php
                     }
                     break;
+                    // <label>Chemin photo</label>
+                    // <input class="formulaire" type="text" name="path_photo" placeholder="Chemin photo" value="<?=$row["path_photo"]
                 case "sports":
                     $query = $conn->prepare("SELECT * from sports where id_sport = " .$_GET['id_sport']);
                     $query->execute();

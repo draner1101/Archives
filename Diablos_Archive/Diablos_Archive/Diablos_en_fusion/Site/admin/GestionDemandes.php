@@ -8,7 +8,7 @@ session_start();
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+        if(isset($_SESSION['acces'])){
             
                 include('navigationGestion.htm');
         }
@@ -147,7 +147,7 @@ session_start();
                 ?>
 
                 <!--+++++++++++++++++++++SECTION ENTRAINEUR+++++++++++++++++++++-->
-                <p class="formulaire titreDemande">Entraineurs</p>
+                <p class="formulaire titreDemande">Entraîneurs</p>
                 <?php
                     //Vérifie s'il y a des modifications effectuées
                     $query = $conn->prepare("SELECT COUNT(ID_PARENT) FROM entraineurs");
@@ -155,7 +155,7 @@ session_start();
                     $result = $query->fetch(PDO::FETCH_NUM);
 
                     if($result[0] == 0){
-                        ?><p style="float: left">Aucun entraineur n'a été modifié</p><?php
+                        ?><p style="float: left">Aucun entraîneur n'a été modifié</p><?php
                     }
                     else{
                 ?>

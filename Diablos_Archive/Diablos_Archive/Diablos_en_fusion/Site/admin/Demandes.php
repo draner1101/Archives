@@ -63,13 +63,13 @@ session_start();
                     if($personne["sexe"] != "F"){
                         ?>
                         <input readonly type="radio" name="sexeB" value="M" checked> Masculin
-                        <input readonly type="radio" name="sexeB" value="F"> Feminin<br><br>
+                        <input readonly type="radio" name="sexeB" value="F"> Féminin<br><br>
                         <?php
                     }
                     else{
                         ?>
                         <input readonly type="radio" name="sexeB" value="M"> Masculin
-                        <input readonly type="radio" name="sexeB" value="F" checked> Feminin<br><br>
+                        <input readonly type="radio" name="sexeB" value="F" checked> Féminin<br><br>
                         <?php
                     }
                     ?>
@@ -252,7 +252,7 @@ session_start();
                         <span>
                         <input type="checkbox" name="cSexe" style="padding: 10px; display: inline;">
                         <input type="radio" name="sexe" value="M" checked> Masculin
-                        <input type="radio" name="sexe" value="F"> Feminin<br><br>
+                        <input type="radio" name="sexe" value="F"> Féminin<br><br>
                         </span>
                         <?php
                     }
@@ -260,7 +260,7 @@ session_start();
                         ?>
                         <span><input type="checkbox" name="cSexe" style="padding: 10px; display: inline;">
                         <input type="radio" name="sexe" value="M"> Masculin
-                        <input type="radio" name="sexe" value="F" checked> Feminin<br><br>
+                        <input type="radio" name="sexe" value="F" checked> Féminin<br><br>
                         </span?>
                         <?php
                     }

@@ -317,14 +317,15 @@
 
 						<td id='og1'>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
+							$req = $conn->prepare("Select id_equipe, nom, saison from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
-							{			
+							{	
+								echo "<option value ='TEMP'></option>";		
 								foreach($resultat2 as $row2)
 								{
-									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."</option>";	
+									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']." [".$row2['saison']."]</option>";	
 								}	
 							}
 							
@@ -342,7 +343,8 @@
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
-							{			
+							{	
+								//echo "<option value ='TEMP'></option>";		
 								foreach($resultat2 as $row2)
 								{
 									echo "<option value='".$row2['id_position']."'>".$row2['position']."</option>";	
@@ -364,14 +366,15 @@
 					echo"<tr>						
 							<td>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
+							$req = $conn->prepare("Select id_equipe, nom, saison from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
 							{			
+								echo "<option value ='TEMP'></option>";
 								foreach($resultat2 as $row2)
 								{
-									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."</option>"	;
+									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']." [".$row2['saison']."]</option>"	;
 								}	
 							}
 							echo "</select>			
@@ -419,14 +422,15 @@
 					<tr>
 						<td id='og1'>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
+							$req = $conn->prepare("Select id_equipe, nom, saison from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
 							{			
+								echo "<option value ='TEMP'></option>";
 								foreach($resultat2 as $row2)
 								{
-									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."</option>";	
+									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."  [".$row2['saison']."]</option>";	
 								}	
 							}
 							

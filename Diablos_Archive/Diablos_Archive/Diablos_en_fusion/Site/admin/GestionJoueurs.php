@@ -10,7 +10,7 @@ session_start();
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+        if(isset($_SESSION['acces'])){
             
                 include('navigationGestion.htm');
         }
