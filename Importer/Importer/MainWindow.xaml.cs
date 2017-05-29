@@ -32,11 +32,15 @@ namespace Importer
         {
             BtnSaveFile.IsEnabled = false;
             LblPathFrom.Content = "";
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Fichier text (*.txt)|*.txt";
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                InitialDirectory = @"C:\",
+                Filter = "Fichier text (*.txt)|*.txt"
+            };
+
             if (openFileDialog.ShowDialog() == true)
             {
-                pathFrom = openFileDialog.SafeFileName;
+                pathFrom = openFileDialog.FileName;
                 LblPathFrom.Content = pathFrom;
                 BtnSaveFile.IsEnabled = true;
             }
@@ -44,8 +48,11 @@ namespace Importer
 
         private void BtnSaveFile_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Fichier SQL (*.sql)|*.sql";
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                InitialDirectory = @"C:\",
+                Filter = "Fichier SQL (*.sql)|*.sql"
+            };
             if (saveFileDialog.ShowDialog() == true)
             {
                 pathTo = saveFileDialog.FileName;

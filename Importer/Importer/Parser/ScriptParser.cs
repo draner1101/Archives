@@ -44,7 +44,7 @@ namespace Importer
                     MessageBox.Show("Une erreur s'est produite avec la continuation de l'instruction" + line);
                     Application.Current.Shutdown();
                 }
-                    
+
                 return String.Format("{0} {1}", first.Trim(), AppendContinuingLine(next));
             }
             else
@@ -62,14 +62,25 @@ namespace Importer
             line = Regex.Replace(line, @"\s+", "");
             if (IsEmpty(line))
                 return;
+
             if (IsEntityDefinition(line))
                 ChangeParser(line);
             else if (IsFieldDefinition(line))
-                ChangeFieldDefinition(line);
+            {
+                if (parser != null)
+                    ChangeFieldDefinition(line);
+                else
+                    TypeException();
+            }
             else
-                result.Add(parser.Parse(line));
+            {
+                if (parser != null)
+                    result.Add(parser.Parse(line));
+                else
+                    TypeException();
+            }
         }
-
+  
         private string RemoveComment(string line)
         {
             return Regex.Replace(line, @"--.*", "");
@@ -97,8 +108,8 @@ namespace Importer
                     parser = new EntraineurParser();
                     break;
                 default:
-                    MessageBox.Show("Les insertions de " + line + " ne sont pas supportées");
-                    Application.Current.Shutdown();
+                    MessageBox.Show("Les insertions de type " + line + " ne sont pas supportées");
+                    Environment.Exit(0);
                     break;
             }
         }
@@ -111,6 +122,12 @@ namespace Importer
         private void ChangeFieldDefinition(string line)
         {
             parser.FieldDefinition = line.Split(',');
+        }
+
+        private void TypeException()
+        {
+            MessageBox.Show("Aucun type d'insertion n'a été sélectionné");
+            Environment.Exit(0);
         }
     }
 }
