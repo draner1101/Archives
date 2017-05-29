@@ -1,7 +1,6 @@
-﻿--Test commentaire
-:Joueur
->#,Nom,Prenom,Sexe,Code Permanent,Cle interne,Naissance,Provenance,Telephone,Mobile,Courriel
-1,Abran,Vincent,M,AAAA12345678,16-5-0895,1999-01-01,Trois-Rivières,999-999-9999,999-999-9999,aaaaaaaa@gmail.com
+﻿:Joueur --Bloc d'insertion dans la table joueur
+>#, Nom, Prenom, Sexe, Code Permanent, Cle interne, Naissance, Provenance, Telephone, Mobile, Courriel
+1, Abran, Vincent, M, AAAA12345678,16-5-0895, 1999-01-01, Trois-Rivières, 999-999-9999, 999-999-9999, aaaaaaaa@gmail.com
 2,Bastille-Thériault,Sarah,F,AAAA12345679,16-8-2187,1999-01-02,Pohénégamook,999-999-10000,999-999-10000,aaaaaaaa@gmail.com
 3,Béraud,Cédric,M,AAAA12345680,15-5-5405,1999-01-03,Trois-Rivières,999-999-10001,999-999-10001,aaaaaaaa@gmail.com
 4,Cloutier,Jonathan,M,AAAA12345681,61-3-6595,1999-01-04,Yamachiche,999-999-10002,999-999-10002,aaaaaaaa@gmail.com
@@ -24,7 +23,7 @@
 21,Trudel,Jessie,F,AAAA12345698,16-7-7275,1999-01-21,Trois-Rivières,999-999-10019,999-999-10019,aaaaaaaa@gmail.com
 22,Zemo Kemlepe,Eddy Karol,M,AAAA12345699,15-3-1400,1999-01-22,Trois-Rivières,999-999-10020,999-999-10020,aaaaaaaa@gmail.com
 
---section entraineur
+--Section entraineur
 :Entraineur
 >#,Nom,Prenom,Sexe,Naissance,Telephone,Mobile,Courriel
 1,Bergeron,Alexandra,F,1999-01-01,,,

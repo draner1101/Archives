@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Importer
 {
@@ -39,8 +40,12 @@ namespace Importer
                 var first = Regex.Replace(line, @"\+\s*$", "");
                 var next = input.ReadLine();
                 if (next == null)
-                    throw new RecognitionException(line);
-                return String.Format("{0} {1}", first.Trim(), AppendContinuingLine(line));
+                {
+                    MessageBox.Show("Une erreur s'est produite avec la continuation de l'instruction" + line);
+                    Application.Current.Shutdown();
+                }
+                    
+                return String.Format("{0} {1}", first.Trim(), AppendContinuingLine(next));
             }
             else
                 return line.Trim();
@@ -54,6 +59,7 @@ namespace Importer
         private void ParseLine(string line)
         {
             line = RemoveComment(line);
+            line = Regex.Replace(line, @"\s+", "");
             if (IsEmpty(line))
                 return;
             if (IsEntityDefinition(line))
@@ -61,7 +67,7 @@ namespace Importer
             else if (IsFieldDefinition(line))
                 ChangeFieldDefinition(line);
             else
-                result.Add(parser.Parse(line.Trim()));
+                result.Add(parser.Parse(line));
         }
 
         private string RemoveComment(string line)
@@ -91,7 +97,9 @@ namespace Importer
                     parser = new EntraineurParser();
                     break;
                 default:
-                    throw new RecognitionException();
+                    MessageBox.Show("Les insertions de " + line + " ne sont pas supportées");
+                    Application.Current.Shutdown();
+                    break;
             }
         }
 
