@@ -19,7 +19,7 @@
             $query = $conn->prepare($sql);
             $query->execute();
         }
-    if(isset($_GET['ajouter']))
+    if(!isset($_GET['ajouter']))
         $sql = "Delete from " .$_GET['table'] ." where id_parent = " .$_GET['id'];
     else
         $sql = "Delete from " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['id'];
