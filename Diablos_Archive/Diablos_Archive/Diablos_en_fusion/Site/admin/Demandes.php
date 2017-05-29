@@ -264,6 +264,29 @@ session_start();
                              AND po.id_position = je.id_position");
                         }
                     }
+                    else if($_GET['table'] == 'entraineur_equipe'){
+                        if(!isset($_GET['type'])){
+                            $query = $conn->prepare("SELECT je.id_entraineur_equipe, je.numero,
+                            po.position, p.nom, p.prenom, e.nom as equipe
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, positions po
+                             WHERE id_parent = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur
+                             AND po.id_position = je.id_position
+                             LIMIT " .$numeroModif ." ,1");
+                        }
+                        else{
+                            $query = $conn->prepare("SELECT je.id_entraineur_equipe, p.nom, p.prenom, e.nom as equipe,
+                            je.numero, po.position
+                             FROM entraineur_equipe je, personnes p, equipes e, joueurs j, positions po
+                             WHERE id_entraineur_equipe = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur
+                             AND po.id_position = je.id_position");
+                        }
+                    }
                     else{
                         $query = $conn->prepare("SELECT * FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET['id'] ." LIMIT " .$numeroModif ." ,1");
                     } 
@@ -434,9 +457,22 @@ session_start();
                     <label>Equipe</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$tableDroite["equipe"]?>"></span>
                     <label>Numéro</label>
-                    <span><input style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
+                    <span><input type="checkbox" name="cNumero" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
+                    <label>Position</label>
+                    <span><input type="checkbox" name="cPosition" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
+                        <?php
+                            break;
+                        case 'joueurs_equipes':
+                            $clone = $tableDroite['id_entraineur_equipe'];
+                        ?>
+                    <label>Nom</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
+                    <label>Equipe</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$tableDroite["equipe"]?>"></span>
                     <label>Numéro</label>
-                    <span><input style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
+                    <span><input type="checkbox" name="cNumero" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
+                    <label>Position</label>
+                    <span><input type="checkbox" name="cPosition" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
                         <?php
                             break;
                         default:
@@ -449,14 +485,21 @@ session_start();
                         $_GET['table'] != 'entraineur_equipe'){
                 ?>
                 <a class="button buttonDeplacement" style="margin-bottom: 0px;" href="SupprimerDemande.php?single=true&id_type=<?=$_GET['id_type']?>&clone=<?=$clone?>&clonePersonne=<?=$clonePersonne?>&table=<?=$_GET['table']?>">Supprimer cette demande</a>
-<?php
+                <?php
                     }
                     else{
-?>
+                        if(isset($_GET['type'])){
+                ?>
+                <a class="button buttonDeplacement" style="margin-bottom: 0px;" href="SupprimerDemande.php?ajouter=true&single=true&id_type=<?=$_GET['id_type']?>&clone=<?=$clone?>&table=<?=$_GET['table']?>">Supprimer cette demande</a>
+                <?php
+                        }
+                        else{    
+                ?>
                 <a class="button buttonDeplacement" style="margin-bottom: 0px;" href="SupprimerDemande.php?single=true&id_type=<?=$_GET['id_type']?>&clone=<?=$clone?>&table=<?=$_GET['table']?>">Supprimer cette demande</a>
-<?php
+                <?php
+                        }
                 }
-?>
+                ?>
                 </form>
             </div>
         </div>
