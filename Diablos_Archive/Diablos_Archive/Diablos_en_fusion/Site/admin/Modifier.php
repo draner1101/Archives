@@ -56,7 +56,7 @@ session_start();
             }
             ?>
             <div class='divForm'>
-            <form action='Update.php' onsubmit="var x=MessageConfirmation('Voulez-vous appliquer les modifications?');return x;" style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
+            <form action='Update.php' id='formulairePrincipal' onsubmit="var x=MessageConfirmation('Voulez-vous appliquer les modifications?');return x;" style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
@@ -204,7 +204,7 @@ session_start();
                     ?>
                     <input type="hidden" name="id_joueur" value="<?=$_GET['id_joueur']?>">
                     <input  class="formulaire" type="text" name="taille" id='taille' placeholder="Taille(cm)" value="<?=$row["taille"]?>"> <input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td> 
-                    <input  class="formulaire" type="text" name="poids" id='poids' placeholder="Poids(lb)" value="<?=$row["poids"]?>"> <input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>
+                    <input  class="formulaire" type="text" name="poids" id='poids' placeholder="Poids(lbs)" value="<?=$row["poids"]?>"> <input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$row["ecole_prec"]?>">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$row["ville_natal"]?>">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$row["domaine_etude"]?>">   
@@ -466,6 +466,7 @@ session_start();
 								  var parent = 	document.getElementById('poids');   
 								  var poidsLbs = document.getElementById('poids').value;
 								  var poidsKg = poidsLbs / 2.2046;
+                                  parent.setAttribute('placeholder', 'Poids(kg)');
 								  parent.value = Math.round(poidsKg);
 								}
 
@@ -476,6 +477,7 @@ session_start();
 									   var parent = document.getElementById('poids');   
 								       var poidsKg = document.getElementById('poids').value;
 								       var poidsLbs = poidsKg * 2.2046;
+                                       parent.setAttribute('placeholder', 'Poids(lbs)');
 								       parent.value = Math.round(poidsLbs);
 									}
 							}}
