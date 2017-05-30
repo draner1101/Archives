@@ -204,6 +204,7 @@ session_start();
                     <label>Biographie</label>
                     <textarea  readonly class="formulaire gauche" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$info["note"]?></textarea> 
                             <?php
+                            break;
                         case 'joueurs_equipes':
                             ?>
                     <label>Nom</label>
@@ -494,6 +495,7 @@ session_start();
                     <label>Biographie</label>
                     <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$tableDroite["note"]?></textarea></span>
                             <?php
+                            break;
                         case 'joueurs_equipes':
                             $clone = $tableDroite['id_joueur_equipe'];
                             if(isset($_GET['type'])){
