@@ -274,7 +274,7 @@ session_start();
                 <table>
                     <tr>
                         <th>Nom</th>
-                        <th>Préonm</th>
+                        <th>Prénom</th>
                         <th>Équipe</th>
                         <th style="width: 100px"></th>
                     </tr>
@@ -301,7 +301,7 @@ session_start();
                         <td><?=$je['equipe']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?table=equipes&id_type=id_equipe&id=<?=$je["id_joueur_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=equipes&id_type=id_equipe&id=<?=$je["id_joueur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
@@ -330,7 +330,7 @@ session_start();
                 <table>
                     <tr>
                         <th>Nom</th>
-                        <th>Préonm</th>
+                        <th>Prénom</th>
                         <th>Équipe</th>
                         <th style="width: 100px"></th>
                     </tr>
@@ -357,7 +357,7 @@ session_start();
                         <td><?=$je['equipe']?></td>
                         <td><center>
                         <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?ajouter=true&table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
@@ -386,21 +386,21 @@ session_start();
                 <table>
                     <tr>
                         <th>Nom</th>
-                        <th>Préonm</th>
+                        <th>Prénom</th>
                         <th>Équipe</th>
                         <th style="width: 100px"></th>
                     </tr>
                     <?php
                         //On va chercher tous les artisans qui ont été modifiés
-                        $query = $conn->prepare("SELECT DISTINCT(ID_PARENT) FROM entraineur_equipes WHERE ID_PARENT IS NOT NULL");
+                        $query = $conn->prepare("SELECT DISTINCT(ID_PARENT) FROM entraineur_equipe WHERE ID_PARENT IS NOT NULL");
                         $query->execute();
                         $rows = $query->fetchAll(PDO::FETCH_NUM); 
 
                         foreach ($rows as $row) {
                             //Selectionne l`equipe qui a été modifié
-                            $query = $conn->prepare("SELECT je.id_entraineur_equipe, p.nom, p.prenom, e.nom as equipe
-                             FROM joueurs_equipes je, personnes p, equipes e, entraineur j
-                             WHERE id_entraineur_equipe = " .$row[0] ." 
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j
+                             WHERE id_entr_equipe = " .$row[0] ." 
                              AND j.id_personne = p.id_personne
                              AND e.id_equipe = je.id_equipe
                              AND j.id_entraineur = je.id_entraineur");
@@ -412,8 +412,8 @@ session_start();
                         <td><?=$je['prenom']?></td>
                         <td><?=$je['equipe']?></td>
                         <td><center>
-                        <a class='button buttonModifier' href='Demandes.php?table=equipes&id_type=id_equipe&id=<?=$je["id_entraineur_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=equipes&id_type=id_equipe&id=<?=$je["id_entraineur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonModifier' href='Demandes.php?table=equipes&id_type=id_equipe&id=<?=$je["id_entr_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
@@ -429,34 +429,34 @@ session_start();
                     <hr />    
                     <?php
                     //V/rifie s'il y a des modifications effectuées
-                    $query = $conn->prepare("SELECT COUNT(id_entraineur_equipe) FROM entraineur_equipe
+                    $query = $conn->prepare("SELECT COUNT(id_entr_equipe) FROM entraineur_equipe
                                             WHERE statut = 'Temporaire'");
                     $query->execute();
                     $result = $query->fetch(PDO::FETCH_NUM);
 
                     if($result[0] == 0){
-                        ?><p style="float: left; padding-bottom: 80px;">Aucun jentraineur équipe n'a été ajouté</p><?php
+                        ?><p style="float: left; padding-bottom: 80px;">Aucun entraineur équipe n'a été ajouté</p><?php
                     }
                     else{
                 ?>
                 <table>
                     <tr>
                         <th>Nom</th>
-                        <th>Préonm</th>
+                        <th>Prénom</th>
                         <th>Équipe</th>
                         <th style="width: 100px"></th>
                     </tr>
                     <?php
                         //On va chercher tous les artisans qui ont été modifiés
-                        $query = $conn->prepare("SELECT id_entraineur_equipe FROM entraineur_equipe WHERE statut = 'Temporaire'");
+                        $query = $conn->prepare("SELECT id_entr_equipe FROM entraineur_equipe WHERE statut = 'Temporaire'");
                         $query->execute();
                         $rows = $query->fetchAll(PDO::FETCH_NUM); 
 
                         foreach ($rows as $row) {
                             //Selectionne l`equipe qui a été modifié
-                            $query = $conn->prepare("SELECT je.id_entraineur_equipe, p.nom, p.prenom, e.nom as equipe
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe
                              FROM entraineur_equipe je, personnes p, equipes e, entraineurs j
-                             WHERE id_entraineur_equipe = " .$row[0] ." 
+                             WHERE id_entr_equipe = " .$row[0] ." 
                              AND j.id_personne = p.id_personne
                              AND e.id_equipe = je.id_equipe
                              AND j.id_entraineur = je.id_entraineur");
@@ -468,8 +468,8 @@ session_start();
                         <td><?=$je['prenom']?></td>
                         <td><?=$je['equipe']?></td>
                         <td><center>
-                        <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=equipes&id_type=id_equipe&id=<?=$je["id_entraineur_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
-                        <a class='button buttonDelete' href='SupprimerDemande.php?table=equipes&id_type=id_equipe&id=<?=$je["id_entraineur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=equipes&id_type=id_equipe&id=<?=$je["id_entr_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?ajouter=true&table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
                     <?php
