@@ -238,13 +238,13 @@
 							<th>Nom</th>
 							<td><input type='text' name='nom' maxlength='35' size='35' value='".$row['nom']."'></td>   
 							<th >Taille</th>
-							<td id='ligneTaille'><input type='text' name='taille' id='taille' maxlength='5' value='".round($row['taille'])."'> </br><input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td>  
+							<td id='ligneTaille'><input type='text' name='taille' id='taille' placeholder = 'cm' maxlength='5' value='".round($row['taille'])."'> </br><input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td>  
 						</tr>
 					    <tr>
 							<th>Prénom</th>
 							<td><input type='text' name='prenom' maxlength='35' size='35' value='".$row['prenom']."'></td> 
 							<th>Poids</th>
-							<td id='lignePoids'><input type='text' name='poids' id='poids' maxlength='5' value='".round($row['poids'])."'> </br><input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>     
+							<td id='lignePoids'><input type='text' name='poids' id='poids' placeholder = 'lbs' maxlength='5' value='".round($row['poids'])."'> </br><input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>     
 						</tr>
 						<tr>
 							<th>Sexe</th>
@@ -317,14 +317,15 @@
 
 						<td id='og1'>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
+							$req = $conn->prepare("Select id_equipe, nom, saison from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
-							{			
+							{	
+								echo "<option value ='TEMP'></option>";		
 								foreach($resultat2 as $row2)
 								{
-									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."</option>";	
+									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']." [".$row2['saison']."]</option>";	
 								}	
 							}
 							
@@ -342,7 +343,8 @@
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
-							{			
+							{	
+								//echo "<option value ='TEMP'></option>";		
 								foreach($resultat2 as $row2)
 								{
 									echo "<option value='".$row2['id_position']."'>".$row2['position']."</option>";	
@@ -364,14 +366,15 @@
 					echo"<tr>						
 							<td>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
+							$req = $conn->prepare("Select id_equipe, nom, saison from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
 							{			
+								echo "<option value ='TEMP'></option>";
 								foreach($resultat2 as $row2)
 								{
-									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."</option>"	;
+									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']." [".$row2['saison']."]</option>"	;
 								}	
 							}
 							echo "</select>			
@@ -419,14 +422,15 @@
 					<tr>
 						<td id='og1'>
 							<select name='nomEquipe".$ctr."'>";
-							$req = $conn->prepare("Select id_equipe, nom from equipes where statut = 'Actif' order by nom");
+							$req = $conn->prepare("Select id_equipe, nom, saison from equipes where statut = 'Actif' order by nom");
 							$req->execute();
 							$resultat2 = $req->fetchAll();
 							if($req->rowCount() > 0)
 							{			
+								echo "<option value ='TEMP'></option>";
 								foreach($resultat2 as $row2)
 								{
-									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."</option>";	
+									echo "<option value='".$row2['id_equipe']."'>".$row2['nom']."  [".$row2['saison']."]</option>";	
 								}	
 							}
 							
@@ -590,7 +594,7 @@
 					
 ?>
  
-  <script> 
+  <!--<script> 
 						function changerTaille() // Créer par Vincent Dufresne, permet le chagement de taille entre cm et pieds/pouces
   						{
    						   if(!document.getElementById('tCm').checked)
@@ -610,10 +614,12 @@
 
      						       pieds.setAttribute('id', 'pieds');
 								   pieds.setAttribute('name', 'pieds');
+								   pieds.setAttribute('placeholder', 'Pieds');
 								   pieds.value = taillePi;
 								   pouces.setAttribute('type', 'text');
      						       pouces.setAttribute('id', 'pouces');
 								   pouces.setAttribute('name', 'pouces');
+								   pouces.setAttribute('placeholder', 'Pouces');
 								   pouces.value = taillePo;
 								   br.setAttribute('id', 'sautdeligne');
      						       ligne.insertBefore(pouces, enfant);
@@ -674,4 +680,4 @@
 									}
 								}}
 								
-	</script>
+	</script>-->

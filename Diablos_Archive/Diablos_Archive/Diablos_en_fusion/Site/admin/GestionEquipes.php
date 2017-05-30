@@ -10,7 +10,7 @@ session_start();
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+        if(isset($_SESSION['acces'])){
             
                 include('navigationGestion.htm');
         }
@@ -65,14 +65,14 @@ session_start();
                                                         WHERE s.id_sport = e.id_sport
                                                         AND (e.nom LIKE '%" .$_GET['recherche'] ."%' OR s.sport LIKE '%" .$_GET['recherche'] ."%'
                                                         OR e.sexe LIKE '%" .$_GET['recherche'] ."%' OR e.saison LIKE '%" .$_GET['recherche'] ."%')
-                                                        ORDER BY e.nom");
+                                                        ORDER BY e.saison DESC, s.sport ASC, e.nom ASC");
                             $recherche = true;                             
                         }
                         else{
                             $query = $conn->prepare("SELECT e.nom, e.saison, e.sexe, e.id_equipe, s.sport
                                                         FROM  sports s, equipes e 
                                                         WHERE s.id_sport = e.id_sport
-                                                        ORDER BY e.nom 
+                                                        ORDER BY e.saison DESC, s.sport ASC, e.nom ASC
                                                         LIMIT " .$rowStart ." , ".$rowPerPage);
                             $recherche = false;
                         }

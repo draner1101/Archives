@@ -8,7 +8,7 @@ session_start();
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+        if(isset($_SESSION['acces'])){
             
                 include('navigationGestion.htm');
         }
@@ -147,7 +147,7 @@ session_start();
                 ?>
 
                 <!--+++++++++++++++++++++SECTION ENTRAINEUR+++++++++++++++++++++-->
-                <p class="formulaire titreDemande">Entraineurs</p>
+                <p class="formulaire titreDemande">Entraîneurs</p>
                 <?php
                     //Vérifie s'il y a des modifications effectuées
                     $query = $conn->prepare("SELECT COUNT(ID_PARENT) FROM entraineurs");
@@ -155,7 +155,7 @@ session_start();
                     $result = $query->fetch(PDO::FETCH_NUM);
 
                     if($result[0] == 0){
-                        ?><p style="float: left">Aucun entraineur n'a été modifié</p><?php
+                        ?><p style="float: left">Aucun entraîneur n'a été modifié</p><?php
                     }
                     else{
                 ?>
@@ -211,7 +211,8 @@ session_start();
                     $result = $query->fetch(PDO::FETCH_NUM);
 
                     if($result[0] == 0){
-                        ?><p style="float: left; padding-bottom: 80px;">Aucune équipe n'a été modifiée</p><?php
+                        ?><p style="float: left;">Aucune équipe n'a été modifiée</p><?php
+
                     }
                     else{
                 ?>
@@ -256,6 +257,230 @@ session_start();
                 <?php
                     }
                 ?>
+                <!--+++++++++++++++++++++SECTION EQUIPE JOUEUR+++++++++++++++++++++-->
+                <p class="formulaire titreDemande">Joueur par équipe</p>
+                <h3>Modifié</h3>
+                <hr />
+                <?php
+                    //V/rifie s'il y a des modifications effectuées
+                    $query = $conn->prepare("SELECT COUNT(ID_PARENT) FROM joueurs_equipes");
+                    $query->execute();
+                    $result = $query->fetch(PDO::FETCH_NUM);
+
+                    if($result[0] == 0){
+                        ?><p style="float: left;">Aucun joueur équipe n'a été modifié</p><?php
+                    }
+                    else{
+                ?>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Équipe</th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                    <?php
+                        //On va chercher tous les artisans qui ont été modifiés
+                        $query = $conn->prepare("SELECT DISTINCT(ID_PARENT) FROM joueurs_equipes WHERE ID_PARENT IS NOT NULL");
+                        $query->execute();
+                        $rows = $query->fetchAll(PDO::FETCH_NUM); 
+
+                        foreach ($rows as $row) {
+                            //Selectionne l`equipe qui a été modifié
+                            $query = $conn->prepare("SELECT je.id_joueur_equipe, p.nom, p.prenom, e.nom as equipe
+                             FROM joueurs_equipes je, personnes p, equipes e, joueurs j
+                             WHERE id_joueur_equipe = " .$row[0] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_joueur = je.id_joueur");
+                            $query->execute();
+                            $je = $query->fetch(PDO::FETCH_ASSOC);   
+                    ?>
+                    <tr>
+                        <td><?=$je['nom']?></td>
+                        <td><?=$je['prenom']?></td>
+                        <td><?=$je['equipe']?></td>
+                        <td><center>
+                        <a class='button buttonModifier' href='Demandes.php?table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        </center></td>
+                    </tr>
+                    <?php
+                        }
+                    ?>
+                    </table>
+                    <?php
+                    }
+                    ?>
+                    <br />
+                    <br />
+                    <h3>Ajouté</h3>
+                    <hr />    
+                    <?php
+                    //V/rifie s'il y a des modifications effectuées
+                    $query = $conn->prepare("SELECT COUNT(id_joueur_equipe) FROM joueurs_equipes
+                                            WHERE statut = 'Temporaire'");
+                    $query->execute();
+                    $result = $query->fetch(PDO::FETCH_NUM);
+
+                    if($result[0] == 0){
+                        ?><p style="float: left;">Aucun joueur équipe n'a été ajouté</p><?php
+                    }
+                    else{
+                ?>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Équipe</th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                    <?php
+                        //On va chercher tous les artisans qui ont été modifiés
+                        $query = $conn->prepare("SELECT id_joueur_equipe FROM joueurs_equipes WHERE statut = 'Temporaire'");
+                        $query->execute();
+                        $rows = $query->fetchAll(PDO::FETCH_NUM); 
+
+                        foreach ($rows as $row) {
+                            //Selectionne l`equipe qui a été modifié
+                            $query = $conn->prepare("SELECT je.id_joueur_equipe, p.nom, p.prenom, e.nom as equipe
+                             FROM joueurs_equipes je, personnes p, equipes e, joueurs j
+                             WHERE id_joueur_equipe = " .$row[0] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_joueur = je.id_joueur");
+                            $query->execute();
+                            $je = $query->fetch(PDO::FETCH_ASSOC);   
+                    ?>
+                    <tr>
+                        <td><?=$je['nom']?></td>
+                        <td><?=$je['prenom']?></td>
+                        <td><?=$je['equipe']?></td>
+                        <td><center>
+                        <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?ajouter=true&table=joueurs_equipes&id_type=id_joueur_equipe&id=<?=$je["id_joueur_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        </center></td>
+                    </tr>
+                    <?php
+                        }
+                    ?>
+                </table>
+                <?php
+                    }
+                ?>
+
+                <!--+++++++++++++++++++++SECTION EQUIPE ENTRAINEUR+++++++++++++++++++++-->
+                <p class="formulaire titreDemande">Entraineur par équipe</p>
+                <h3>Modifié</h3>
+                <hr />
+                <?php
+                    //V/rifie s'il y a des modifications effectuées
+                    $query = $conn->prepare("SELECT COUNT(ID_PARENT) FROM entraineur_equipe");
+                    $query->execute();
+                    $result = $query->fetch(PDO::FETCH_NUM);
+
+                    if($result[0] == 0){
+                        ?><p style="float: left;">Aucun entraineur équipe n'a été modifié</p><?php
+                    }
+                    else{
+                ?>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Équipe</th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                    <?php
+                        //On va chercher tous les artisans qui ont été modifiés
+                        $query = $conn->prepare("SELECT DISTINCT(ID_PARENT) FROM entraineur_equipe WHERE ID_PARENT IS NOT NULL");
+                        $query->execute();
+                        $rows = $query->fetchAll(PDO::FETCH_NUM); 
+
+                        foreach ($rows as $row) {
+                            //Selectionne l`equipe qui a été modifié
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j
+                             WHERE id_entr_equipe = " .$row[0] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur");
+                            $query->execute();
+                            $je = $query->fetch(PDO::FETCH_ASSOC);   
+                    ?>
+                    <tr>
+                        <td><?=$je['nom']?></td>
+                        <td><?=$je['prenom']?></td>
+                        <td><?=$je['equipe']?></td>
+                        <td><center>
+                        <a class='button buttonModifier' href='Demandes.php?table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        </center></td>
+                    </tr>
+                    <?php
+                        }
+                    ?>
+                    </table>
+                    <?php
+                    }
+                    ?>
+                    <br />
+                    <br />
+                    <h3>Ajouté</h3>
+                    <hr />    
+                    <?php
+                    //V/rifie s'il y a des modifications effectuées
+                    $query = $conn->prepare("SELECT COUNT(id_entr_equipe) FROM entraineur_equipe
+                                            WHERE statut = 'Temporaire'");
+                    $query->execute();
+                    $result = $query->fetch(PDO::FETCH_NUM);
+
+                    if($result[0] == 0){
+                        ?><p style="float: left; padding-bottom: 80px;">Aucun entraineur équipe n'a été ajouté</p><?php
+                    }
+                    else{
+                ?>
+                <table>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Équipe</th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                    <?php
+                        //On va chercher tous les artisans qui ont été modifiés
+                        $query = $conn->prepare("SELECT id_entr_equipe FROM entraineur_equipe WHERE statut = 'Temporaire'");
+                        $query->execute();
+                        $rows = $query->fetchAll(PDO::FETCH_NUM); 
+
+                        foreach ($rows as $row) {
+                            //Selectionne l`equipe qui a été modifié
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j
+                             WHERE id_entr_equipe = " .$row[0] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur");
+                            $query->execute();
+                            $je = $query->fetch(PDO::FETCH_ASSOC);   
+                    ?>
+                    <tr>
+                        <td><?=$je['nom']?></td>
+                        <td><?=$je['prenom']?></td>
+                        <td><?=$je['equipe']?></td>
+                        <td><center>
+                        <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonDelete' href='SupprimerDemande.php?ajouter=true&table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
+                        </center></td>
+                    </tr>
+                    <?php
+                        }
+                    ?>
+                </table>
+                <?php
+                    }
+                ?>
+                </table>
             </div>
         <center>
     </div>
