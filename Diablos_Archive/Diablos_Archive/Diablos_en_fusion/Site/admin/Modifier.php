@@ -18,13 +18,22 @@ session_start();
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+
+        if(isset($_SESSION['acces'])){
             
+                if($_GET['Table'] == 'parametres' and $_SESSION['acces'] != 1)
+                {
+                    echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
+                    echo "<script>window.location.href = 'GestionDemandes.php'</script>";
+                }
+
                 include('navigationGestion.htm');
         }
         else{
             echo "<script>alert('Vous n\'avez pas accès à la console administrateur');</script>";
-            echo "<script>window.location.href = '../connexion.php'</script>";
+
+            echo "<script>window.location.href = 'GestionDemandes.php'</script>";
+
         }
 
         require_once ("../Connexion_BD/Connect.php");
@@ -49,14 +58,21 @@ session_start();
                 echo "<div class='titre'>Équipe - Modifier</div>";
             }
             elseif($_GET['Table'] == 'parametres'){
-                echo "<div class='titre'>Paramètre - Ajouter</div>";
+
+                echo "<div class='titre'>Paramètre - Modifier</div>";
+            }
+            elseif($_GET['Table'] == 'entraineurs'){
+                echo "<div class='titre'>Entraîneur - Modifier</div>";
+
             }
             else{
                 echo "<div class='titre'>". substr(ucFirst($_GET['Table']), 0, -1)." - Modifier</div>";
             }
             ?>
             <div class='divForm'>
+
             <form action='Update.php' id='formulairePrincipal' onsubmit="var x=MessageConfirmation('Voulez-vous appliquer les modifications?');return x;" style='margin-left: 58%; width: 100%; border: 3px solid darkgray; border-radius: 4px; padding: 20px;'>
+
 
             <?php
             //Liste de champs communs pour tous les formulaires sauf équipe
@@ -204,7 +220,9 @@ session_start();
                     ?>
                     <input type="hidden" name="id_joueur" value="<?=$_GET['id_joueur']?>">
                     <input  class="formulaire" type="text" name="taille" id='taille' placeholder="Taille(cm)" value="<?=$row["taille"]?>"> <input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td> 
+
                     <input  class="formulaire" type="text" name="poids" id='poids' placeholder="Poids(lbs)" value="<?=$row["poids"]?>"> <input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>
+
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$row["ecole_prec"]?>">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$row["ville_natal"]?>">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$row["domaine_etude"]?>">   
@@ -272,8 +290,10 @@ session_start();
                     foreach ($result as $row) {
                     ?>
                     <input type="hidden" name="table" value="Parametres">
-                    <label>Telephone</label>
-                    <input class="formulaire" type="text" name="telephone" placeholder="Telephone" value="<?=$row["telephone"]?>">
+
+                    <label>Téléphone</label>
+                    <input class="formulaire" type="text" name="telephone" placeholder="Téléphone" value="<?=$row["telephone"]?>">
+
                     <label>Twitter</label>
                     <input class="formulaire" type="text" name="twitter" placeholder="Twitter" value="<?=$row["twitter"]?>">
                     <label>Facebook</label>
@@ -282,11 +302,14 @@ session_start();
                     <input class="formulaire" type="text" name="adresse_postal" placeholder="Adresse Postale" value="<?=$row["adresse_postal"]?>">
                     <label>Courriel</label>
                     <input class="formulaire" type="text" name="courriel" placeholder="Courriel" value="<?=$row["courriel"]?>">
-                    <label>Chemin photo</label>
-                    <input class="formulaire" type="text" name="path_photo" placeholder="Chemin photo" value="<?=$row["path_photo"]?>">
+
+                    <p style="border:solid DarkGray">*Ces paramètres permettent de changer les informations de la section "Nous joindre" sur la page d'accueil.</p>
                     <?php
                     }
                     break;
+                    // <label>Chemin photo</label>
+                    // <input class="formulaire" type="text" name="path_photo" placeholder="Chemin photo" value="<?=$row["path_photo"]
+
                 case "sports":
                     $query = $conn->prepare("SELECT * from sports where id_sport = " .$_GET['id_sport']);
                     $query->execute();
@@ -466,7 +489,9 @@ session_start();
 								  var parent = 	document.getElementById('poids');   
 								  var poidsLbs = document.getElementById('poids').value;
 								  var poidsKg = poidsLbs / 2.2046;
+
                                   parent.setAttribute('placeholder', 'Poids(kg)');
+
 								  parent.value = Math.round(poidsKg);
 								}
 
@@ -477,7 +502,9 @@ session_start();
 									   var parent = document.getElementById('poids');   
 								       var poidsKg = document.getElementById('poids').value;
 								       var poidsLbs = poidsKg * 2.2046;
+
                                        parent.setAttribute('placeholder', 'Poids(lbs)');
+
 								       parent.value = Math.round(poidsLbs);
 									}
 							}}

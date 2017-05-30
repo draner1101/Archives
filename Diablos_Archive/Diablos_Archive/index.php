@@ -204,7 +204,7 @@ Normalisation();
                      echo "<p class='information'>Numéro de téléphone: $row[telephone]</p>";
                      echo "<p class='information'>Twitter: $row[twitter]</p>";
                      echo "<p class='information'>Facebook: $row[facebook]</p>";
-                     echo "<p class='information'>Adresse Postal: $row[adresse_postal]</p>";
+                     echo "<p class='information'>Adresse Postale: $row[adresse_postal]</p>";
                      echo "<p class='information'>Adresse courriel: $row[courriel]</p>";
                      $courriel = $row['courriel'];
                      }?>
@@ -385,16 +385,22 @@ Normalisation();
                              position.style.visibility = "hidden";
                          }
                          else
-                         position.style.visibility = "visible";
-
+                         position.style.visibility = "visible";                
                        }
                 });
+
+                if(equipe == "TEMP")
+                         {
+                             document.getElementsByName('saison'+ id)[0].innerHTML = "";
+                             position.style.visibility = "hidden";
+                         }
     }
 
     function ajaxEquipeSexe(id)
     {
         var e = document.getElementsByName('nomEquipe' + id)[0];
         var equipe = e.options[e.selectedIndex].value;//id de l'equipe'
+        var role = document.getElementsByName("role" + id)[0];
         $.ajax({
                        type: "GET",
                        url: "Diablos_en_fusion/Site/ajaxEquipe.php",
@@ -404,9 +410,23 @@ Normalisation();
                        dataType: "json",     
                        success:function(result){
                          document.getElementsByName('saison'+ id)[0].innerHTML = result.saisonValue;
-                         document.getElementsByName('sexe'+ id)[0].innerHTML = result.sexeValue;                    
+                         document.getElementsByName('sexe'+ id)[0].innerHTML = result.sexeValue;
+
+                         if(role.options.length == 0)
+                         {
+                             role.style.visibility = "hidden";
+                         }
+                         else
+                         role.style.visibility = "visible";                      
                        }
                 });
+
+        if(equipe == "TEMP")
+                {
+                   document.getElementsByName('saison'+ id)[0].innerHTML = "";
+                   role.style.visibility = "hidden";
+                   document.getElementsByName('sexe'+ id)[0].innerHTML = "";
+                }
     }
 
 	function ajouterEquipeJoueur() {
@@ -515,9 +535,13 @@ Normalisation();
     function remplirAnnee()
     {
         var currentTime = new Date();
-        var date1 = (currentTime.getFullYear() + 1);
+        var date1 = (currentTime.getFullYear());
         var date2 = 1969;
-        
+        var mois = currentTime.getMonth()+1;
+       if(mois >= 1 && mois < 7 )
+            date1 = date1;
+       else
+            date1=(currentTime.getFullYear()+1);
 
         while (date1 > date2)
         {
