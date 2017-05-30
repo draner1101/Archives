@@ -71,7 +71,14 @@ if(isset($_POST["submit"])) {
         echo "L'image ne s'est pas telechargee.<br>";
     } 
 
-}else { echo "ERREUR - VIOLATION D'ACCES<br>";}
+} elseif (isset($_POST["vider"])) {
+    $files = glob('../Images/Carousel/*'); // get all file names
+foreach($files as $file){ // iterate files
+  if(is_file($file))
+    unlink($file); // delete file
+}
+echo "Le dossier est vide";
+}
 
-
+else { echo "ERREUR - VIOLATION D'ACCES<br>";}
 ?>
