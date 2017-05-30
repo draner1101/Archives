@@ -38,17 +38,46 @@ session_start();
     <div class="contenu">
         <div class="titre">Demandes</div>
         <!--********************Partie de gauche*******************-->
+
+        <?php
+         if(!isset($_GET['type'])){
+         ?>
+
         <div style="width: 49%; padding-bottom: 50px; float: left;">
             <div class='demande'>
                 <center>
                     <h2 style="margin-bottom: 67px;">Fiche actuelle</h2>
                 </center>
                 <?php
-                    $query = $conn->prepare("SELECT * FROM " .$_GET['table'] ." WHERE " .$_GET['id_type'] ." = " .$_GET['id']);
+
+                if($_GET['table'] == 'joueurs_equipes'){
+                            $query = $conn->prepare("SELECT je.id_joueur_equipe, p.nom, p.prenom, e.nom as equipe,
+                            je.numero, po.position
+                             FROM joueurs_equipes je, personnes p, equipes e, joueurs j, positions po
+                             WHERE id_joueur_equipe = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_joueur = je.id_joueur
+                             AND po.id_position = je.id_position");
+                    }
+                    else if($_GET['table'] == 'entraineur_equipe'){
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe,
+                             po.nom as role
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, role po
+                             WHERE id_entr_equipe = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur
+                             AND po.id_role = id_role");
+                    }
+                    else{
+                        $query = $conn->prepare("SELECT * FROM " .$_GET['table'] ." WHERE " .$_GET['id_type'] ." = " .$_GET['id']);
+                    }
                     $query->execute();
                     $info = $query->fetch(PDO::FETCH_ASSOC);
-
-                    if($_GET['table'] != 'equipes'){
+        
+                    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes'
+                        and $_GET['table'] != 'entraineur_equipe'){
                         $query = $conn->prepare("SELECT * FROM personnes WHERE ID_PERSONNE = " .$info['id_personne']);
                         $query->execute();
                         $personne = $query->fetch(PDO::FETCH_ASSOC);     
@@ -178,6 +207,30 @@ session_start();
                     <label>Biographie</label>
                     <textarea  readonly class="formulaire gauche" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$info["note"]?></textarea> 
                             <?php
+
+                            break;
+                        case 'joueurs_equipes':
+                            ?>
+                    <label>Nom</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$info["nom"] .', '.$info["prenom"]?>"></span>
+                    <label>Equipe</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$info["equipe"]?>"></span>
+                    <label>Numéro</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$info["numero"]?>"></span> 
+                    <label>Position</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$info["position"]?>"></span> 
+                        <?php
+                            break;
+                        case 'entraineur_equipe':
+                            ?>
+                    <label>Nom</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$info["nom"] .', '.$info["prenom"]?>"></span>
+                    <label>Equipe</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$info["equipe"]?>"></span>
+                    <label>Rôle</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="role" placeholder="Rôle" value="<?=$info["role"]?>"></span> 
+                    <?php
+                            break;
                         default:
                             break;
                     }
@@ -185,6 +238,9 @@ session_start();
             </div>
             <a class="button buttonDeplacement" href='GestionDemandes.php' style='margin-left: 5%;'>Retour à la liste</a>
         </div>
+        <?php
+         }
+         ?>
         <!--********************Partie de droite*******************-->
         <?php
             if(isset($_GET['numero'])){
@@ -193,9 +249,13 @@ session_start();
                 $numeroModif = 0;
             }
 
-            $query = $conn->prepare("SELECT count(id_parent) FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET['id']);
-            $query->execute();
-            $totalModif = $query->fetchColumn();
+            if(!isset($_GET['type'])){
+                $query = $conn->prepare("SELECT count(id_parent) FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET['id']);
+                $query->execute();
+                $totalModif = $query->fetchColumn();
+            }
+            else
+                $totalModif = 1;
 
             if($numeroModif != 0){
                 $back = $numeroModif - 1;
@@ -209,17 +269,23 @@ session_start();
             }
             else{
                 $next = $totalModif - 1;
-            }
-            
+
+            }            
         ?>
         <div style="width: 49%; padding-bottom: 50px; float: left;"> 
             <div class='demande'>
                 <center>
                     <h2>Fiche proposée</h2>
                     <span>
+                        <?php
+                            if (!isset($_GET['type'])){
+                        ?>
                         <a href='Demandes.php?numero=<?=$back?>&table=<?=$_GET['table']?>&id_type=<?=$_GET['id_type']?>&id=<?=$_GET['id']?>' class='button boutonModification'>&lt</a>
                         <?=$numeroModif + 1 ."/" .$totalModif?>
                         <a href='Demandes.php?numero=<?=$next?>&table=<?=$_GET['table']?>&id_type=<?=$_GET['id_type']?>&id=<?=$_GET['id']?>' class='button boutonModification'>&gt</a>
+                        <?php
+                            }
+                        ?>
                     </span>
                 </center>
                 <form action="Accepter.php" onsubmit="var x=MessageConfirmation('Voulez-vous garder ces modifications?');return x;">
@@ -227,11 +293,59 @@ session_start();
                 <input type="hidden" name="id_type" value="<?=$_GET['id_type']?>">
                 <input type="hidden" name="id" value="<?=$_GET['id']?>">
                 <?php
-                    $query = $conn->prepare("SELECT * FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET['id'] ." LIMIT " .$numeroModif ." ,1");
+                    if($_GET['table'] == 'joueurs_equipes'){
+                        if(!isset($_GET['type'])){
+                            $query = $conn->prepare("SELECT je.id_joueur_equipe, je.numero,
+                            po.position, p.nom, p.prenom, e.nom as equipe, je.id_position, je.id_equipe
+                             FROM joueurs_equipes je, personnes p, equipes e, joueurs j, positions po
+                             WHERE je.id_parent = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_joueur = je.id_joueur
+                             AND po.id_position = je.id_position
+                             LIMIT " .$numeroModif ." ,1");
+                        }
+                        else{
+                            $query = $conn->prepare("SELECT je.id_joueur_equipe, p.nom, p.prenom, e.nom as equipe,
+                            je.numero, po.position
+                             FROM joueurs_equipes je, personnes p, equipes e, joueurs j, positions po
+                             WHERE id_joueur_equipe = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_joueur = je.id_joueur
+                             AND po.id_position = je.id_position");
+                        }
+                    }
+                    else if($_GET['table'] == 'entraineur_equipe'){
+                        if(!isset($_GET['type'])){
+                            $query = $conn->prepare("SELECT je.id_entr_equipe,
+                            po.nom as role, p.nom, p.prenom, e.nom as equipe, je.id_equipe, je.role as id_role, je.id_parent
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, role po
+                             WHERE je.id_parent = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur
+                             AND po.id_role = je.role
+                             LIMIT " .$numeroModif ." ,1");
+                        }
+                        else{
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe,
+                             po.nom as role
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, role po
+                             WHERE id_entr_equipe = " .$_GET['id'] ." 
+                             AND j.id_personne = p.id_personne
+                             AND e.id_equipe = je.id_equipe
+                             AND j.id_entraineur = je.id_entraineur
+                             AND po.id_role = id_role");
+                        }
+                    }
+                    else{
+                        $query = $conn->prepare("SELECT * FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET['id'] ." LIMIT " .$numeroModif ." ,1");
+                    } 
                     $query->execute();
                     $tableDroite = $query->fetch(PDO::FETCH_ASSOC);
-
-                    if($_GET['table'] != 'equipes'){
+                    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes'
+                        and $_GET['table'] != 'entraineur_equipe'){
                         $query = $conn->prepare("SELECT * FROM personnes WHERE id_personne = " .$tableDroite['id_personne']);
                         $query->execute();
                         $personneDroite = $query->fetch(PDO::FETCH_ASSOC);   
@@ -261,7 +375,7 @@ session_start();
                         <span><input type="checkbox" name="cSexe" style="padding: 10px; display: inline;">
                         <input type="radio" name="sexe" value="M"> Masculin
                         <input type="radio" name="sexe" value="F" checked> Féminin<br><br>
-                        </span?>
+                        </span>
                         <?php
                     }
                     ?>
@@ -387,12 +501,80 @@ session_start();
                     <label>Biographie</label>
                     <span><input type="checkbox" name="cNote" style="padding: 10px;"><textarea class="formulaire droite" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$tableDroite["note"]?></textarea></span>
                             <?php
+                            break;
+                        case 'joueurs_equipes':
+                            $clone = $tableDroite['id_joueur_equipe'];
+                            if(isset($_GET['type'])){
+                            ?>
+                    <input type="hidden" name="ajouter" value="true">
+                    <?php
+                            }
+                            else{
+                    ?>
+                    <input type="hidden" name="id_equipe" value="<?=$tableDroite['id_equipe']?>">
+                    <input type="hidden" name="id_position" value="<?=$tableDroite['id_position']?>">
+                    <input type="hidden" name="clone" value="<?=$tableDroite['id_joueur_equipe']?>">
+                    <?php
+                            }
+                    ?>
+                    <label>Nom</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
+                    <label>Equipe</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$tableDroite["equipe"]?>"></span>
+                    <label>Numéro</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
+                    <label>Position</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
+                        <?php
+                            break;
+                        case 'entraineur_equipe':
+                            $clone = $tableDroite['id_entr_equipe'];
+                            if(isset($_GET['type'])){
+                        ?>
+                    <input type="hidden" name="ajouter" value="true">
+                    <?php
+                            }
+                            else{
+                    ?>
+                    <input type="hidden" name="id_equipe" value="<?=$tableDroite['id_equipe']?>">
+                    <input type="hidden" name="id_role" value="<?=$tableDroite['id_role']?>">
+                    <input type="hidden" name="clone" value="<?=$tableDroite['id_entr_equipe']?>">
+                    <?php
+                            }
+                    ?>
+                    <label>Nom</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
+                    <label>Equipe</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$tableDroite["equipe"]?>"></span>
+                    <label>Rôle</label>
+                    <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="role" placeholder="Rôle" value="<?=$tableDroite["role"]?>"></span> 
+                    <?php
+                            break;
                         default:
                             break;
                     }
                 ?>
                 <input class="button buttonDeplacement" style="margin-bottom: 0px; margin-left: 20px;" type="submit" value="Appliquer les modifications">
+                <?php
+                    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes' and
+                        $_GET['table'] != 'entraineur_equipe'){
+                ?>
                 <a class="button buttonDeplacement" style="margin-bottom: 0px;" href="SupprimerDemande.php?single=true&id_type=<?=$_GET['id_type']?>&clone=<?=$clone?>&clonePersonne=<?=$clonePersonne?>&table=<?=$_GET['table']?>">Supprimer cette demande</a>
+                <?php
+                    }
+                    else{
+                        if(isset($_GET['type'])){
+                ?>
+                <a class="button buttonDeplacement" style="margin-bottom: 0px;" href="SupprimerDemande.php?ajouter=true&single=true&id_type=<?=$_GET['id_type']?>&clone=<?=$clone?>&table=<?=$_GET['table']?>">Supprimer cette demande</a>
+                <?php
+                        }
+                        else{    
+                ?>
+                <a class="button buttonDeplacement" style="margin-bottom: 0px;" href="SupprimerDemande.php?single=true&id_type=<?=$_GET['id_type']?>&clone=<?=$clone?>&table=<?=$_GET['table']?>">Supprimer cette demande</a>
+                <?php
+                        }
+                }
+                ?>
                 </form>
             </div>
         </div>

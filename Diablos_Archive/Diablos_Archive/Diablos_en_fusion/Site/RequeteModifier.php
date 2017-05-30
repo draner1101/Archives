@@ -381,13 +381,17 @@ if (isset($_GET["entraineur"]))
 {
     $ctr = 0;
     $flag = false;
+
     $flagEquipe = false;
     $flagRole = false;
+
     while($flag == false)
     {   
         $flag2 = false;
         $ctr = $ctr+1;
+
         if (isset($_GET["nomEquipe".$ctr]) and $_GET["nomEquipe".$ctr] != "TEMP" )
+
         {
                 $stmt = $conn->prepare("Select * from entraineur_equipe where statut = 'Actif' and id_entraineur = " .$_GET["entraineur"] );
                 $stmt->execute();
@@ -411,6 +415,7 @@ if (isset($_GET["entraineur"]))
                     }
                     else
                     $nomEquipe = NULL;
+
 //-----------------------------------------------------------------------------------------
                     if (isset($_GET["role".$ctr]) and $flagRole == false)
                     {
@@ -427,8 +432,8 @@ if (isset($_GET["entraineur"]))
                     }
                     else
                     $role = NULL;
-//-----------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------
                     if(empty($nomEquipe) and empty($role))//si l'entré existe déja'
                     {
                         $flag2 = true;
@@ -439,14 +444,17 @@ if (isset($_GET["entraineur"]))
                     {
                         $parent = NULL;
                     }
+
                 }
 
                 if($flag2 == false)
                 {
                     if(!empty($nomEquipe) or !empty($role))//si il y a eu des modifications
                         {
+
                             $req = $conn->prepare("INSERT INTO entraineur_equipe (id_entraineur, id_equipe, role, id_parent, statut)
                             VALUES (:id_entraineur, :id_equipe, :role, :id_parent, :statut)");
+
                             $req->execute(array(
                             "id_entraineur" => $_GET["entraineur"],
                             "id_equipe" => $nomEquipe,
@@ -457,18 +465,15 @@ if (isset($_GET["entraineur"]))
                         }
                     $flag2 = true;
                 }
-                
         }
 
         else
         $flag = true;
-
         $nomEquipe = "";
         $role = "";
         $parent = "";
         $flagEquipe = false;
         $flagRole = false;
-
     }
 }
 
@@ -492,7 +497,6 @@ if (isset($_GET["joueur"]))
                 $resultat = $stmt->fetchAll();
                 foreach($resultat as $row)
                 {
-
                     if (isset($_GET["nomEquipe".$ctr]) and $flagEquipe == false)
                     {
                         if($_GET["nomEquipe".$ctr] == $row['id_equipe'])
@@ -542,7 +546,6 @@ if (isset($_GET["joueur"]))
                     else
                     $position = NULL;
 
-
                     if(empty($nomEquipe) and empty($numero) and empty($position)) // si l'entré existe déja'
                     {
                         $flag2 = true;                    
@@ -576,7 +579,6 @@ if (isset($_GET["joueur"]))
 
         else
         $flag = true;
-
         $nomEquipe = "";
         $role = "";
         $numero = "";

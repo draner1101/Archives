@@ -8,7 +8,8 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     
-    if($_GET['table'] != 'equipes'){
+    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes' 
+        and $_GET['table'] != 'entraineur_equipe'){
         $changement = False;
         $query ="";
 
@@ -143,7 +144,7 @@
                 break;
         }
     }
-    else{
+    else if($_GET['table'] == 'equipes'){
         if(isset($_GET['cNom'])){
             $query = $query ." nom = '" .$_GET['nom'] ."', ";
         }
@@ -168,11 +169,43 @@
             $query = $query ." note = '" .$_GET['note'] ."', ";
         }
     }
-
-    $sql = "UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id'];  
+    else if($_GET['table'] == 'joueurs_equipes'){
+        $query ="";
+        if(isset($_GET['ajouter'])){
+            $query = $query . "statut = 'Actif', ";
+        }
+        else{
+            $query = $query . " id_equipe =  " .$_GET['id_equipe'] .", ";
+            $query = $query . " id_position =  " .$_GET['id_position'] .", ";
+            $query = $query . " numero =  " .$_GET['numero'] .", ";
+        }
+    }
+    else if($_GET['table'] == 'entraineur_equipe'){
+        $query ="";
+        if(isset($_GET['ajouter'])){
+            $query = $query . "statut = 'Actif', ";
+        }
+        else{
+            $query = $query . " id_equipe =  " .$_GET['id_equipe'] .", ";
+            $query = $query . " role =  " .$_GET['id_role'] .", ";
+        }
+    }
+    $sql = "UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id']; 
+    echo "<h2>UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id'] ."</h2>"; 
     $query = $conn->prepare($sql);
     $query->execute();
 
 
-    header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone']."&clonePersonne=".$_GET['clonePersonne'] ."&table=" .$_GET['table']);
+    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes'
+        and $_GET['table'] != 'entraineur_equipe'){
+        header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone']."&clonePersonne=".$_GET['clonePersonne'] ."&table=" .$_GET['table']);
+    }
+    else{
+        if(isset($_GET['ajouter'])){
+            header("Location: GestionDemandes.php");
+        }
+        else{
+            header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone'] ."&table=" .$_GET['table']);
+        }
+    }
 ?>
