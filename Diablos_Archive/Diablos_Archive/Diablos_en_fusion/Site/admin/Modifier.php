@@ -186,7 +186,22 @@ session_start();
                     }
                     ?>
                     <input  class="formulaire"type="text" name="saison" placeholder="Saison" value="<?=$row["saison"]?>">
-                    <input  class="formulaire" type="file" name="photo_equipe" placeholder="Photo équipe" value="<?=$row["photo_equipe"]?>">
+                    <input  class="formulaire" type="hidden" name="photo_equipe" placeholder="Photo équipe" value="<?=$row["photo_equipe"]?>">
+                    <?php
+                        $query = $conn->prepare("SELECT * from multimedia_equipe where id_equipe = " .$row['id_equipe']);
+                    $query->execute();
+                    $resultphoto = $query->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div style='display:inline-block;width:100%'>";
+                    foreach ($resultphoto as $rowphoto) {
+                        echo "<div style='float:left;'>";
+
+                        echo "<img src='".$rowphoto['photo']."' alt='' height='150' width='150'>";
+                        ?>
+                         <?php
+                        echo "</div>";
+                    }
+                    echo "</div>";
+                    ?>
                     <select class="formulaire" name="id_sport">
     
                     <?php
@@ -226,7 +241,7 @@ session_start();
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École précédente" value="<?=$row["ecole_prec"]?>">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale" value="<?=$row["ville_natal"]?>">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude" value="<?=$row["domaine_etude"]?>">   
-                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                               
+                    <input  class="formulaire" type="hidden" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>">                               
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
                     <a href="form_upload.php?nopersonne=<?=$row["id_personne"]?>" onclick="window.open(this.href, 'Photo',
                     'left=20,top=20,width=250,height=250,toolbar=1,resizable=0'); return false;" >Ajouter d'autres images</a>     
@@ -260,7 +275,7 @@ session_start();
                     <input type="hidden" name="id_entraineur" value="<?=$_GET['id_entraineur']?>">
                     <input  class="formulaire" type="text" name="no_embauche" placeholder="No d'embauche" value="<?=$row["no_embauche"]?>">
                     <input  class="formulaire" type="text" name="type" placeholder="Type" value="<?=$row["type"]?>">
-                    <input  class="formulaire" type="file" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>"> 
+                    <input  class="formulaire" type="hidden" name="photo_profil" placeholder="Photo de profil" value="<?=$row["photo_profil"]?>"> 
                     <textarea  class="formulaire" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$row["note"]?></textarea>
                     <a href="form_upload.php?nopersonne=<?=$row["id_personne"]?>" onclick="window.open(this.href, 'Photo',
                     'left=20,top=20,width=250,height=250,toolbar=1,resizable=0'); return false;" >Ajouter d'autres images</a>
