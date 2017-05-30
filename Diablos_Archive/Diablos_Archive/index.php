@@ -401,7 +401,6 @@ Normalisation();
         var e = document.getElementsByName('nomEquipe' + id)[0];
         var equipe = e.options[e.selectedIndex].value;//id de l'equipe'
         var role = document.getElementsByName("role" + id)[0];
-        role.options.length = 0;
         $.ajax({
                        type: "GET",
                        url: "Diablos_en_fusion/Site/ajaxEquipe.php",
@@ -428,7 +427,6 @@ Normalisation();
                    role.style.visibility = "hidden";
                    document.getElementsByName('sexe'+ id)[0].innerHTML = "";
                 }
-                alert(equipe);
     }
 
 	function ajouterEquipeJoueur() {
