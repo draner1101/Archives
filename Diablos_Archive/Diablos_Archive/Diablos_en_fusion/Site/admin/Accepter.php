@@ -8,7 +8,8 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     
-    if($_GET['table'] != 'equipes'){
+    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes' 
+        and $_GET['table'] != 'entraineur_equipe'){
         $changement = False;
         $query ="";
 
@@ -169,16 +170,24 @@
         }
     }
     else if($_GET['table'] == 'joueurs_equipes'){
-        if($_GET['ajouter' == true]){
+        $query ="";
+        if(isset($_GET['ajouter'])){
             $query = $query . "statut = 'actif'";
+        }
+        else{
+            
         }
     }
     else if($_GET['table'] == 'entraineur_equipe'){
-        if($_GET['ajouter' == true]){
+        $query ="";
+        if(isset($_GET['ajouter'])){
             $query = $query . "statut = 'actif'";
         }
+        else{
+            $query = $query . " id_equipe =  " .$_GET['id_equipe'] .", ";
+            $query = $query . " role =  " .$_GET['id_role'] .", ";
+        }
     }
-
     $sql = "UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id'];  
     $query = $conn->prepare($sql);
     $query->execute();

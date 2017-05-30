@@ -20,12 +20,7 @@
             $query->execute();
             echo "<h2>test</h2>";
         }
-        if(!isset($_GET['ajouter'])){
-            $sql = "DELETE  FROM " .$_GET['table'] ." where id_parent = " .$_GET['clone'];
-        }
-        else{
-            $sql = "DELETE  FROM " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['clone'];
-        }
+        $sql = "DELETE  FROM " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['clone'];
         $query = $conn->prepare($sql);
         $query->execute();
 
@@ -33,12 +28,7 @@
     else{
         if($_GET['table'] == 'equipes'or $_GET['table'] == 'joueurs_equipes' or
                 $_GET['table'] or 'entraineur_equipe'){
-            if(!isset($_GET['ajouter'])){
-                $sql = "DELETE  FROM " .$_GET['table'] ." where id_parent = " .$_GET['id'];
-            }
-            else{
-                $sql = "DELETE  FROM " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['id'];
-            }
+            $sql = "DELETE  FROM " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['id'];
             $query = $conn->prepare($sql);
             $query->execute();
 
