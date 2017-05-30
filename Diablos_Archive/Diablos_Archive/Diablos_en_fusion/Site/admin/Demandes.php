@@ -38,15 +38,18 @@ session_start();
     <div class="contenu">
         <div class="titre">Demandes</div>
         <!--********************Partie de gauche*******************-->
+
         <?php
          if(!isset($_GET['type'])){
          ?>
+
         <div style="width: 49%; padding-bottom: 50px; float: left;">
             <div class='demande'>
                 <center>
                     <h2 style="margin-bottom: 67px;">Fiche actuelle</h2>
                 </center>
                 <?php
+
                 if($_GET['table'] == 'joueurs_equipes'){
                             $query = $conn->prepare("SELECT je.id_joueur_equipe, p.nom, p.prenom, e.nom as equipe,
                             je.numero, po.position
@@ -89,13 +92,13 @@ session_start();
                     if($personne["sexe"] != "F"){
                         ?>
                         <input readonly type="radio" name="sexeB" value="M" checked> Masculin
-                        <input readonly type="radio" name="sexeB" value="F"> Feminin<br><br>
+                        <input readonly type="radio" name="sexeB" value="F"> Féminin<br><br>
                         <?php
                     }
                     else{
                         ?>
                         <input readonly type="radio" name="sexeB" value="M"> Masculin
-                        <input readonly type="radio" name="sexeB" value="F" checked> Feminin<br><br>
+                        <input readonly type="radio" name="sexeB" value="F" checked> Féminin<br><br>
                         <?php
                     }
                     ?>
@@ -204,6 +207,7 @@ session_start();
                     <label>Biographie</label>
                     <textarea  readonly class="formulaire gauche" type="text" name="note" placeholder="Remarques" rows="10" cols="50"><?=$info["note"]?></textarea> 
                             <?php
+
                             break;
                         case 'joueurs_equipes':
                             ?>
@@ -244,6 +248,7 @@ session_start();
             }else{
                 $numeroModif = 0;
             }
+
             if(!isset($_GET['type'])){
                 $query = $conn->prepare("SELECT count(id_parent) FROM " .$_GET['table'] ." WHERE id_parent = " .$_GET['id']);
                 $query->execute();
@@ -264,6 +269,7 @@ session_start();
             }
             else{
                 $next = $totalModif - 1;
+
             }            
         ?>
         <div style="width: 49%; padding-bottom: 50px; float: left;"> 
@@ -360,7 +366,7 @@ session_start();
                         <span>
                         <input type="checkbox" name="cSexe" style="padding: 10px; display: inline;">
                         <input type="radio" name="sexe" value="M" checked> Masculin
-                        <input type="radio" name="sexe" value="F"> Feminin<br><br>
+                        <input type="radio" name="sexe" value="F"> Féminin<br><br>
                         </span>
                         <?php
                     }
@@ -368,8 +374,8 @@ session_start();
                         ?>
                         <span><input type="checkbox" name="cSexe" style="padding: 10px; display: inline;">
                         <input type="radio" name="sexe" value="M"> Masculin
-                        <input type="radio" name="sexe" value="F" checked> Feminin<br><br>
-                        </span?>
+                        <input type="radio" name="sexe" value="F" checked> Féminin<br><br>
+                        </span>
                         <?php
                     }
                     ?>

@@ -10,8 +10,7 @@ session_start();
 
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
-            
+        if(isset($_SESSION['acces'])){
                 include('navigationGestion.htm');
         }
         else{
@@ -30,7 +29,7 @@ session_start();
                     <input class="recherche" type="text" name="recherche" placeholder="Rechercher...">
                     <input class="button buttonRecherche" type="submit" value="Rechercher">
                 </form>
-                <table style="margin-bottom: 100px !important;">
+                <table>
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>

@@ -16,7 +16,9 @@ session_start();
 </head>
 <body style="background-color: #EEE; margin-top: -20px;">
     <?php
-        if(isset($_SESSION['acces']) && ($_SESSION['acces'] != 0)){
+
+        if(isset($_SESSION['acces'])){
+
             
                 include('navigationGestion.htm');
         }
@@ -48,6 +50,11 @@ session_start();
             if($_GET['Table'] == 'Equipes'){
                 echo "<div class='titre'>Équipe - Ajouter</div>";
             }
+          
+            else if($_GET['Table'] == 'Entraineurs'){
+                echo "<div class='titre'>Entraîneur - Ajouter</div>";
+            }
+          
             else{
                 echo "<div class='titre'>". substr($_GET['Table'], 0, -1)." - Ajouter</div>";
             }
@@ -115,7 +122,9 @@ session_start();
                 case "Joueurs":
                     ?>
                     <input  class="formulaire" type="text" name="taille" placeholder="Taille(cm)" id='taille'><input type='radio' name='typeTaille' id='tCm' value='cm' checked='checked' onclick='changerTaille()'>Cm <input type='radio' name='typeTaille' id='tPieds' value='pieds'onclick='changerTaille()'>Pieds </td>
-                    <input  class="formulaire" type="text" name="poids" placeholder="Poids(lb)" id='poids'> <input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>
+
+                    <input  class="formulaire" type="text" name="poids" placeholder="Poids(lbs)" id='poids'> <input type='radio' name='typePoids' id='pLbs' value='lbs' checked='checked' onclick='changerPoids()'>Lbs <input type='radio' name='typePoids' id='pKg' value='kg' onclick='changerPoids()'>Kg </td>
+
                     <input  class="formulaire" type="text" name="ecole_prec" placeholder="École secondaire">
                     <input  class="formulaire" type="text" name="ville_natal" placeholder="Ville natale">
                     <input  class="formulaire" type="text" name="domaine_etude" placeholder="Domaine d'étude">   
@@ -291,6 +300,9 @@ session_start();
 								  var parent = 	document.getElementById('poids');   
 								  var poidsLbs = document.getElementById('poids').value;
 								  var poidsKg = poidsLbs / 2.2046;
+
+                                  parent.setAttribute('placeholder', 'Poids(kg)');
+
 								  parent.value = Math.round(poidsKg);
                                   
 								}
@@ -302,6 +314,9 @@ session_start();
 									   var parent = document.getElementById('poids');   
 								       var poidsKg = document.getElementById('poids').value;
 								       var poidsLbs = poidsKg * 2.2046;
+
+                                       parent.setAttribute('placeholder', 'Poids(lbs)');
+
 								       parent.value = Math.round(poidsLbs);
 									}
 							}}

@@ -381,11 +381,17 @@ if (isset($_GET["entraineur"]))
 {
     $ctr = 0;
     $flag = false;
+
+    $flagEquipe = false;
+    $flagRole = false;
+
     while($flag == false)
     {   
         $flag2 = false;
         $ctr = $ctr+1;
-        if (isset($_GET["nomEquipe".$ctr]))
+
+        if (isset($_GET["nomEquipe".$ctr]) and $_GET["nomEquipe".$ctr] != "TEMP" )
+
         {
                 $stmt = $conn->prepare("Select * from entraineur_equipe where statut = 'Actif' and id_entraineur = " .$_GET["entraineur"] );
                 $stmt->execute();
@@ -393,78 +399,67 @@ if (isset($_GET["entraineur"]))
                 foreach($resultat as $row)
                 {
 
-                    if (isset($_GET["nomEquipe".$ctr]))
+                    if (isset($_GET["nomEquipe".$ctr]) and $flagEquipe == false)
                     {
                         if($_GET["nomEquipe".$ctr] == $row['id_equipe'])
-                        $nomEquipe = NULL;
+                        {
+                            $nomEquipe = NULL;                            
+                            $parent = $row['id_entr_equipe'];
+                            $flagEquipe = true;
+                        }
                         else
                         {
                             $nomEquipe = $_GET["nomEquipe".$ctr];
-                            //$flag2 = true; 
                         }
                             
                     }
                     else
                     $nomEquipe = NULL;
-    //---------------------------------------------------------------------------------------
-    //                 if (isset($_GET["sexe".$ctr]))
-    //                 {
-    //                     if($_GET["sexe".$ctr] == $row['sexe'] or $_GET["sexe".$ctr] == '')
-    //                     $sexe = NULL;
-    //                     else
-    //                     {
-    //                         $sexe = $_GET["sexe".$ctr];
-    //                         //$flag2 = true; 
-    //                     }
-                            
-    //                 }
-    //                 else
-    //                 $sexe = NULL;
-    // //---------------------------------------------------------------------------------------
-                    if (isset($_GET["role".$ctr]))
+
+//-----------------------------------------------------------------------------------------
+                    if (isset($_GET["role".$ctr]) and $flagRole == false)
                     {
                         if($_GET["role".$ctr] == $row['role'])
-                        $role = NULL;
+                        {
+                            $role = NULL;
+                            $flagRole = true;         
+                        }
                         else
                         {
                             $role = $_GET["role".$ctr];
-                            //$flag2 = true; 
                         }
                             
                     }
                     else
                     $role = NULL;
-    //---------------------------------------------------------------------------------------
-                    // if (isset($_GET["saison".$ctr]))
-                    // {
-                    //     if($_GET["saison".$ctr] == $row['saison'])
-                    //     $saison = NULL;
-                    //     else
-                    //     {
-                    //         $saison = $_GET["saison".$ctr];
-                    //         $flag2 = true; 
-                    //     }
-                            
-                    // }
-                    // else
-                    // $saison = NULL;
-    //---------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------
                     if(empty($nomEquipe) and empty($role))//si l'entré existe déja'
                     {
                         $flag2 = true;
                     }
+
+
+                    if(empty($parent))
+                    {
+                        $parent = NULL;
+                    }
+
                 }
 
                 if($flag2 == false)
                 {
                     if(!empty($nomEquipe) or !empty($role))//si il y a eu des modifications
                         {
-                            $req = $conn->prepare("INSERT INTO entraineur_equipe (id_entraineur, id_equipe, role, statut)
-                            VALUES (:id_entraineur, :id_equipe, :role, :statut)");
+
+                            $req = $conn->prepare("INSERT INTO entraineur_equipe (id_entraineur, id_equipe, role, id_parent, statut)
+                            VALUES (:id_entraineur, :id_equipe, :role, :id_parent, :statut)");
+
                             $req->execute(array(
                             "id_entraineur" => $_GET["entraineur"],
                             "id_equipe" => $nomEquipe,
                             "role" => $role,
+                            "id_parent" => $parent,
                             "statut" => 'Temporaire'
                             ));
                         }
@@ -474,6 +469,11 @@ if (isset($_GET["entraineur"]))
 
         else
         $flag = true;
+        $nomEquipe = "";
+        $role = "";
+        $parent = "";
+        $flagEquipe = false;
+        $flagRole = false;
     }
 }
 
@@ -483,77 +483,77 @@ if (isset($_GET["joueur"]))
 {
     $ctr = 0;
     $flag = false;
+    $flagEquipe = false;
+    $flagPosition = false;
+    $flagNumero = false;
     while($flag == false)
     {   
         $flag2 = false;
         $ctr = $ctr+1;
-        if (isset($_GET["nomEquipe".$ctr]))
+        if (isset($_GET["nomEquipe".$ctr]) and $_GET["nomEquipe".$ctr] != "TEMP")
         {
                 $stmt = $conn->prepare("Select * from joueurs_equipes where statut = 'Actif' and id_joueur = " .$_GET["joueur"] );
                 $stmt->execute();
                 $resultat = $stmt->fetchAll();
                 foreach($resultat as $row)
                 {
-
-                    if (isset($_GET["nomEquipe".$ctr]))
+                    if (isset($_GET["nomEquipe".$ctr]) and $flagEquipe == false)
                     {
                         if($_GET["nomEquipe".$ctr] == $row['id_equipe'])
-                        $nomEquipe = NULL;
+                        {
+                            $nomEquipe = NULL; 
+                            $parent = $row['id_joueur_equipe']; 
+                            $flagEquipe = true;               
+                        }
                         else
                         {
                             $nomEquipe = $_GET["nomEquipe".$ctr];
-                            //$flag2 = true; 
                         }
                             
                     }
                     else
                     $nomEquipe = NULL;
     //---------------------------------------------------------------------------------------
-                    if (isset($_GET["numero".$ctr]))
+                    if (isset($_GET["numero".$ctr]) and $flagNumero == false)
                     {
                         if($_GET["numero".$ctr] == $row['numero'] or $_GET["numero".$ctr] == '')
-                        $numero = NULL;
+                        {
+                            $numero = NULL;
+                            $flagNumero = true;                            
+                        }
                         else
                         {
                             $numero = $_GET["numero".$ctr];
-                            //$flag2 = true; 
                         }
                             
                     }
                     else
                     $numero = NULL;
     //---------------------------------------------------------------------------------------
-                    if (isset($_GET["position".$ctr]))
+                    if (isset($_GET["position".$ctr]) and $flagPosition == false)
                     {
                         if($_GET["position".$ctr] == $row['id_position'])
-                        $position = NULL;
+                        {
+                            $position = NULL;                            
+                            $flagPosition = true;    
+                        }
                         else
                         {
                             $position = $_GET["position".$ctr];
-                            //$flag2 = true; 
                         }
                             
                     }
                     else
                     $position = NULL;
-    //---------------------------------------------------------------------------------------
-                    // if (isset($_GET["saison".$ctr]))
-                    // {
-                    //     if($_GET["saison".$ctr] == $row['saison'])
-                    //     $saison = NULL;
-                    //     else
-                    //     {
-                    //         $saison = $_GET["saison".$ctr];
-                    //         $flag2 = true; 
-                    //     }
-                            
-                    // }
-                    // else
-                    // $saison = NULL;
-    //---------------------------------------------------------------------------------------
+
                     if(empty($nomEquipe) and empty($numero) and empty($position)) // si l'entré existe déja'
                     {
                         $flag2 = true;                    
+                    }
+
+                    if(empty($parent))
+                    {
+                        $parent = NULL;
                     }
                 }
 
@@ -562,18 +562,16 @@ if (isset($_GET["joueur"]))
                 {
                     if(!empty($nomEquipe) or !empty($numero) or !empty($position))//si il y a eu des modifications
                         {
-                                $req = $conn->prepare("INSERT INTO joueurs_equipes (id_joueur, id_equipe, id_position, numero, statut)
-                                VALUES (:id_joueur, :id_equipe, :id_position, :numero, :statut)");
+                                $req = $conn->prepare("INSERT INTO joueurs_equipes (id_joueur, id_equipe, id_position, numero, id_parent, statut)
+                                VALUES (:id_joueur, :id_equipe, :id_position, :numero, :id_parent, :statut)");
                                 $req->execute(array(
                                 "id_joueur" => $_GET["joueur"],
                                 "id_equipe" => $nomEquipe,
                                 "id_position" => $position,
                                 "numero" => $numero,
+                                "id_parent" => $parent,
                                 "statut" => 'Temporaire'
                                 ));
-
-                                $nomEquipe = NULL;
-                                $position = NULL;
                         }
                     $flag2 = true;                  
                 }
@@ -581,6 +579,13 @@ if (isset($_GET["joueur"]))
 
         else
         $flag = true;
+        $nomEquipe = "";
+        $role = "";
+        $numero = "";
+        $parent = "";
+        $flagEquipe = false;
+        $flagPosition = false;
+        $flagNumero = false;
     }
 }
 
