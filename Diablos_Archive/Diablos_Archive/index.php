@@ -312,7 +312,7 @@ Normalisation();
          $('.slickDiaporamaProfil').slick('slickGoTo',0);
 
          // Ce code à été trouver sur https://github.com/kenwheeler/slick/issues/1320, Vincent Dufresne
-         $('.slickDiaporamaProfil').find(".slick-slide").height("500px");
+         $('.slickDiaporamaProfil').find(".slick-slide").height("300px");
          $('.slickDiaporamaProfil').slickSetOption(null, null, true);
     }
 
@@ -599,10 +599,12 @@ Normalisation();
                                    //Création des textbox dans la page
      						       pieds.setAttribute('id', 'pieds');
 								   pieds.setAttribute('name', 'pieds');
+                                   pieds.setAttribute('placeholder', 'Pieds');
 								   pieds.value = taillePi;
 								   pouces.setAttribute('type', 'text');
      						       pouces.setAttribute('id', 'pouces');
 								   pouces.setAttribute('name', 'pouces');
+                                   pouces.setAttribute('placeholder', 'Pouces');
 								   pouces.value = taillePo;
 								   br.setAttribute('id', 'sautdeligne');
      						       ligne.insertBefore(pouces, enfant);
@@ -633,6 +635,7 @@ Normalisation();
                                        //Création des textbox dans la page
 									   pieds.setAttribute('id', 'taille');
 								       pieds.setAttribute('name', 'taille');
+                                       pieds.setAttribute('placeholder', 'cm');
      						           pouces.parentNode.removeChild(pouces);
 									   sautdeligne.parentNode.removeChild(sautdeligne);
 									   taille.value = tailleCm;
@@ -650,6 +653,7 @@ Normalisation();
 								  
                                   //Conversion
                                   var poidsKg = poidsLbs / 2.2046;
+                                  parent.setAttribute('placeholder', 'kg');
 								  parent.value = Math.round(poidsKg);
                                   
 								}
@@ -661,6 +665,7 @@ Normalisation();
 									   var parent = document.getElementById('poids');   
 								       var poidsKg = document.getElementById('poids').value;
 								       var poidsLbs = poidsKg * 2.2046;
+                                       parent.setAttribute('placeholder', 'lbs');
 								       parent.value = Math.round(poidsLbs);
 									}
 								}}
