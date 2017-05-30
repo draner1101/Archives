@@ -21,10 +21,10 @@
             echo "<h2>test</h2>";
         }
         if(!isset($_GET['ajouter'])){
-            $sql = "Delete from " .$_GET['table'] ." where id_parent = " .$_GET['clone'];
+            $sql = "DELETE  FROM " .$_GET['table'] ." where id_parent = " .$_GET['clone'];
         }
         else{
-            $sql = "Delete from " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['clone'];
+            $sql = "DELETE  FROM " .$_GET['table'] ." where ".$_GET['id_type'] ." = " .$_GET['clone'];
         }
         $query = $conn->prepare($sql);
         $query->execute();

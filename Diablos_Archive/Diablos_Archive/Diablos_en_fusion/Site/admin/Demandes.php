@@ -266,25 +266,25 @@ session_start();
                     }
                     else if($_GET['table'] == 'entraineur_equipe'){
                         if(!isset($_GET['type'])){
-                            $query = $conn->prepare("SELECT je.id_entraineur_equipe, je.numero,
-                            po.position, p.nom, p.prenom, e.nom as equipe
-                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, positions po
+                            $query = $conn->prepare("SELECT je.id_entraineur_equipe,
+                            po.nom as role, p.nom, p.prenom, e.nom as equipe
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, role po
                              WHERE id_parent = " .$_GET['id'] ." 
                              AND j.id_personne = p.id_personne
                              AND e.id_equipe = je.id_equipe
                              AND j.id_entraineur = je.id_entraineur
-                             AND po.id_position = je.id_position
+                             AND po.id_role = id_role
                              LIMIT " .$numeroModif ." ,1");
                         }
                         else{
-                            $query = $conn->prepare("SELECT je.id_entraineur_equipe, p.nom, p.prenom, e.nom as equipe,
-                            je.numero, po.position
-                             FROM entraineur_equipe je, personnes p, equipes e, joueurs j, positions po
-                             WHERE id_entraineur_equipe = " .$_GET['id'] ." 
+                            $query = $conn->prepare("SELECT je.id_entr_equipe, p.nom, p.prenom, e.nom as equipe,
+                             po.nom as role
+                             FROM entraineur_equipe je, personnes p, equipes e, entraineurs j, role po
+                             WHERE id_entr_equipe = " .$_GET['id'] ." 
                              AND j.id_personne = p.id_personne
                              AND e.id_equipe = je.id_equipe
                              AND j.id_entraineur = je.id_entraineur
-                             AND po.id_position = je.id_position");
+                             AND po.id_role = id_role");
                         }
                     }
                     else{
@@ -452,27 +452,27 @@ session_start();
                         case 'joueurs_equipes':
                             $clone = $tableDroite['id_joueur_equipe'];
                         ?>
+                    <input type="hidden" name="ajouter" value="true"></input>
                     <label>Nom</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
                     <label>Equipe</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$tableDroite["equipe"]?>"></span>
                     <label>Numéro</label>
-                    <span><input type="checkbox" name="cNumero" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
+                    <span><input style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
                     <label>Position</label>
-                    <span><input type="checkbox" name="cPosition" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
+                    <span><input style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
                         <?php
                             break;
-                        case 'joueurs_equipes':
-                            $clone = $tableDroite['id_entraineur_equipe'];
+                        case 'entraineur_equipe':
+                            $clone = $tableDroite['id_entr_equipe'];
                         ?>
+                    <input type="hidden" name="ajouter" value="true">
                     <label>Nom</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
                     <label>Equipe</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="equipe" placeholder="Equipe" value="<?=$tableDroite["equipe"]?>"></span>
-                    <label>Numéro</label>
-                    <span><input type="checkbox" name="cNumero" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="numero" placeholder="Numéro" value="<?=$tableDroite["numero"]?>"></span> 
-                    <label>Position</label>
-                    <span><input type="checkbox" name="cPosition" style="padding: 10px;"><input style="width: 92%;" class="formulaire droite" type="text" name="position" placeholder="Position" value="<?=$tableDroite["position"]?>"></span> 
+                    <label>Rôle</label>
+                    <span><input style="width: 92%;" class="formulaire droite" type="text" name="role" placeholder="Rôle" value="<?=$tableDroite["role"]?>"></span> 
                         <?php
                             break;
                         default:

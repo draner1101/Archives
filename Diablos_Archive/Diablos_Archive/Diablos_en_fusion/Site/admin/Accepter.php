@@ -143,7 +143,7 @@
                 break;
         }
     }
-    else{
+    else if($_GET['table'] == 'equipes'){
         if(isset($_GET['cNom'])){
             $query = $query ." nom = '" .$_GET['nom'] ."', ";
         }
@@ -168,11 +168,32 @@
             $query = $query ." note = '" .$_GET['note'] ."', ";
         }
     }
+    else if($_GET['table'] == 'joueurs_equipes'){
+        if($_GET['ajouter' == true]){
+            $query = $query . "statut = 'actif'";
+        }
+    }
+    else if($_GET['table'] == 'entraineur_equipe'){
+        if($_GET['ajouter' == true]){
+            $query = $query . "statut = 'actif'";
+        }
+    }
 
     $sql = "UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id'];  
     $query = $conn->prepare($sql);
     $query->execute();
 
 
-    header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone']."&clonePersonne=".$_GET['clonePersonne'] ."&table=" .$_GET['table']);
+    if($_GET['table'] != 'equipes' and $_GET['table'] != 'joueurs_equipes'
+        and $_GET['table'] != 'entraineur_equipe'){
+        header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone']."&clonePersonne=".$_GET['clonePersonne'] ."&table=" .$_GET['table']);
+    }
+    else{
+        if(isset($_GET['ajouter'])){
+            header("Location: SupprimerDemande.php?ajouter=true&single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['id'] ."&table=" .$_GET['table']);
+        }
+        else{
+            header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone'] ."&table=" .$_GET['table']);
+        }
+    }
 ?>

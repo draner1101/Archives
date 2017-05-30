@@ -468,7 +468,7 @@ session_start();
                         <td><?=$je['prenom']?></td>
                         <td><?=$je['equipe']?></td>
                         <td><center>
-                        <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=equipes&id_type=id_equipe&id=<?=$je["id_entr_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
+                        <a class='button buttonModifier' href='Demandes.php?type=ajouter&table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>'><img class='img' src='../Images/Modifier.png'></img></a>
                         <a class='button buttonDelete' href='SupprimerDemande.php?ajouter=true&table=entraineur_equipe&id_type=id_entr_equipe&id=<?=$je["id_entr_equipe"]?>' onclick = "var x=MessageConfirmation('Voulez-vous supprimer ces demandes?');return x;"><img class='img' src='../Images/delete.png'></img></a>
                         </center></td>
                     </tr>
