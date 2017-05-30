@@ -172,7 +172,7 @@
     else if($_GET['table'] == 'joueurs_equipes'){
         $query ="";
         if(isset($_GET['ajouter'])){
-            $query = $query . "statut = 'actif'";
+            $query = $query . "statut = 'Actif', ";
         }
         else{
             $query = $query . " id_equipe =  " .$_GET['id_equipe'] .", ";
@@ -183,14 +183,15 @@
     else if($_GET['table'] == 'entraineur_equipe'){
         $query ="";
         if(isset($_GET['ajouter'])){
-            $query = $query . "statut = 'actif'";
+            $query = $query . "statut = 'Actif', ";
         }
         else{
             $query = $query . " id_equipe =  " .$_GET['id_equipe'] .", ";
             $query = $query . " role =  " .$_GET['id_role'] .", ";
         }
     }
-    $sql = "UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id'];  
+    $sql = "UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id']; 
+    echo "<h2>UPDATE  " .$_GET['table'] ." SET " .substr($query, 0, -2) ." WHERE " .$_GET['id_type'] ." = " .$_GET['id'] ."</h2>"; 
     $query = $conn->prepare($sql);
     $query->execute();
 

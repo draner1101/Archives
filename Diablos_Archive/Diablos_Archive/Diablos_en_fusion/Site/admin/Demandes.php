@@ -501,10 +501,14 @@ session_start();
                     <input type="hidden" name="ajouter" value="true">
                     <?php
                             }
+                            else{
                     ?>
                     <input type="hidden" name="id_equipe" value="<?=$tableDroite['id_equipe']?>">
                     <input type="hidden" name="id_position" value="<?=$tableDroite['id_position']?>">
                     <input type="hidden" name="clone" value="<?=$tableDroite['id_joueur_equipe']?>">
+                    <?php
+                            }
+                    ?>
                     <label>Nom</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
                     <label>Equipe</label>
@@ -522,10 +526,14 @@ session_start();
                     <input type="hidden" name="ajouter" value="true">
                     <?php
                             }
+                            else{
                     ?>
                     <input type="hidden" name="id_equipe" value="<?=$tableDroite['id_equipe']?>">
                     <input type="hidden" name="id_role" value="<?=$tableDroite['id_role']?>">
                     <input type="hidden" name="clone" value="<?=$tableDroite['id_entr_equipe']?>">
+                    <?php
+                            }
+                    ?>
                     <label>Nom</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
                     <label>Equipe</label>
