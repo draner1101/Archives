@@ -175,7 +175,9 @@
             $query = $query . "statut = 'actif'";
         }
         else{
-            
+            $query = $query . " id_equipe =  " .$_GET['id_equipe'] .", ";
+            $query = $query . " id_position =  " .$_GET['id_position'] .", ";
+            $query = $query . " numero =  " .$_GET['numero'] .", ";
         }
     }
     else if($_GET['table'] == 'entraineur_equipe'){
@@ -199,7 +201,7 @@
     }
     else{
         if(isset($_GET['ajouter'])){
-            header("Location: SupprimerDemande.php?ajouter=true&single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['id'] ."&table=" .$_GET['table']);
+            header("Location: GestionDemandes.php");
         }
         else{
             header("Location: SupprimerDemande.php?single=true&id_type=".$_GET['id_type'] ."&clone=".$_GET['clone'] ."&table=" .$_GET['table']);

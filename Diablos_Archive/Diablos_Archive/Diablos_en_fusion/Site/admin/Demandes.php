@@ -289,7 +289,7 @@ session_start();
                     if($_GET['table'] == 'joueurs_equipes'){
                         if(!isset($_GET['type'])){
                             $query = $conn->prepare("SELECT je.id_joueur_equipe, je.numero,
-                            po.position, p.nom, p.prenom, e.nom as equipe
+                            po.position, p.nom, p.prenom, e.nom as equipe, je.id_position, je.id_equipe
                              FROM joueurs_equipes je, personnes p, equipes e, joueurs j, positions po
                              WHERE je.id_parent = " .$_GET['id'] ." 
                              AND j.id_personne = p.id_personne
@@ -496,8 +496,15 @@ session_start();
                             <?php
                         case 'joueurs_equipes':
                             $clone = $tableDroite['id_joueur_equipe'];
-                        ?>
-                    <input type="hidden" name="ajouter" value="true"></input>
+                            if(isset($_GET['type'])){
+                            ?>
+                    <input type="hidden" name="ajouter" value="true">
+                    <?php
+                            }
+                    ?>
+                    <input type="hidden" name="id_equipe" value="<?=$tableDroite['id_equipe']?>">
+                    <input type="hidden" name="id_position" value="<?=$tableDroite['id_position']?>">
+                    <input type="hidden" name="clone" value="<?=$tableDroite['id_joueur_equipe']?>">
                     <label>Nom</label>
                     <span><input readonly style="width: 92%;" class="formulaire droite" type="text" name="nom" placeholder="Nom" value="<?=$tableDroite["nom"] .', '.$tableDroite["prenom"]?>"></span>
                     <label>Equipe</label>
